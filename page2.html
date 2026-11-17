@@ -337,33 +337,37 @@
     .pop-wish-text {
       position: fixed;
       transform: translate(-50%, -50%) scale(0.6);
-      z-index: 25;
+      z-index: 60;
       pointer-events: none;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.4rem;
+      font-family: 'Fredoka', 'Outfit', sans-serif;
+      font-size: clamp(1.25rem, 3.2vw, 1.85rem);
       font-weight: 700;
+      letter-spacing: 0.8px;
       white-space: nowrap;
-      color: #ffea79;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 18px rgba(255, 215, 0, 0.9);
-      animation: popWishFloat 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      color: #ffffff;
+      background: linear-gradient(180deg, #ffffff 0%, #fff399 35%, #ffd700 75%, #ffb319 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(255, 215, 0, 0.95));
+      animation: popWishFloat 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
 
     @keyframes popWishFloat {
       0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.5);
+        transform: translate(-50%, -50%) scale(0.4) rotate(-3deg);
       }
-      25% {
+      22% {
         opacity: 1;
-        transform: translate(-50%, -70%) scale(1.12);
+        transform: translate(-50%, -75%) scale(1.18) rotate(0deg);
       }
-      80% {
+      75% {
         opacity: 1;
-        transform: translate(-50%, -115%) scale(1);
+        transform: translate(-50%, -125%) scale(1.04) rotate(1deg);
       }
       100% {
         opacity: 0;
-        transform: translate(-50%, -140%) scale(0.95);
+        transform: translate(-50%, -160%) scale(0.9) rotate(-1deg);
       }
     }
 
@@ -956,6 +960,24 @@
       `;
     }
 
+    // Given text pool with "Happy Bday Akki ✨" prominently featured
+    const givenWishTexts = [
+      'Happy Bday Akki ✨',
+      'Happy Birthday Akshaya 💖',
+      'Never Stop Shining ✨',
+      'Happy Bday Akki ✨',
+      'Keep Smiling Akshaya 🌸',
+      'Happy 25th Akki 🎂',
+      'Happy Bday Akki ✨'
+    ];
+    let wishTextIndex = 0;
+
+    function getNextWishText() {
+      const text = givenWishTexts[wishTextIndex % givenWishTexts.length];
+      wishTextIndex++;
+      return text;
+    }
+
     function spawnFloatingBalloon() {
       if (!balloonsContainer) return;
 
@@ -964,13 +986,13 @@
 
       const isLeftSide = Math.random() > 0.5;
       const leftPct = isLeftSide
-        ? (2 + Math.random() * 22)
-        : (74 + Math.random() * 20);
+        ? (3 + Math.random() * 21)    // 3% to 24%
+        : (74 + Math.random() * 21);  // 74% to 95%
 
       balloon.style.left = `${leftPct}%`;
 
-      const scale = 0.65 + Math.random() * 0.45;
-      const duration = 7.0 + Math.random() * 5.0;
+      const scale = 0.68 + Math.random() * 0.42;
+      const duration = 7.5 + Math.random() * 4.5;
 
       balloon.style.width = `${scale * 82}px`;
       balloon.style.height = `${scale * 132}px`;
@@ -979,41 +1001,62 @@
       const palette = balloonPalettes[Math.floor(Math.random() * balloonPalettes.length)];
       balloon.innerHTML = createBalloonSVG(palette);
 
-      // Click / Tap to pop balloon, blast sparkles, and show "Happy Bday Akki ✨"
-      balloon.addEventListener('pointerdown', (e) => {
-        e.stopPropagation();
+      // Core Pop & Blast function
+      function blastThisBalloon(customText) {
         if (balloon.dataset.popped) return;
         balloon.dataset.popped = 'true';
+        clearTimeout(autoBlastTimer);
 
         const rect = balloon.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height * 0.4;
+        const hasValidRect = rect.width > 0 && rect.top > -40 && rect.bottom > 0;
+        const centerX = hasValidRect
+          ? (rect.left + rect.width / 2)
+          : (window.innerWidth * (leftPct / 100));
+        const centerY = hasValidRect
+          ? (rect.top + rect.height * 0.4)
+          : (window.innerHeight * (0.35 + Math.random() * 0.3));
 
+        // Fire acoustic firecracker pop & shockwave particles
         triggerBlastAt(centerX, centerY);
 
+        // Display floating given text at blast position
         const wishEl = document.createElement('div');
         wishEl.className = 'pop-wish-text';
-        wishEl.textContent = 'Happy Bday Akki ✨';
+        wishEl.textContent = customText || getNextWishText();
         wishEl.style.left = `${centerX}px`;
         wishEl.style.top = `${centerY}px`;
         document.body.appendChild(wishEl);
 
-        setTimeout(() => wishEl.remove(), 1450);
+        setTimeout(() => wishEl.remove(), 1850);
         balloon.remove();
+      }
+
+      // AUTOMATIC BLAST: Balloon rises midway and blasts automatically, showing given text!
+      const autoBlastDelay = 2200 + Math.random() * 2600; // 2.2s to 4.8s into the ascent
+      const autoBlastTimer = setTimeout(() => {
+        blastThisBalloon();
+      }, autoBlastDelay);
+
+      // MANUAL POP: Also allows user to tap/click to blast instantly
+      balloon.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        blastThisBalloon('Happy Bday Akki ✨');
       });
 
       balloonsContainer.appendChild(balloon);
 
+      // Fallback cleanup
       setTimeout(() => {
-        balloon.remove();
+        clearTimeout(autoBlastTimer);
+        if (!balloon.dataset.popped) balloon.remove();
       }, duration * 1000 + 400);
     }
 
     function startBalloonSpawner() {
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 4; i++) {
         setTimeout(spawnFloatingBalloon, i * 450);
       }
-      setInterval(spawnFloatingBalloon, 850);
+      setInterval(spawnFloatingBalloon, 1100);
     }
 
     startBalloonSpawner();
