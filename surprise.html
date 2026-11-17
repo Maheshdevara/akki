@@ -259,27 +259,35 @@
       100% { transform: rotate(5deg); }
     }
 
-    /* Tap / Pop instruction tag on balloon */
+    /* Tap / Pop instruction tag on balloon - Perfectly Aligned & Centered */
     .pop-hint-tag {
       position: absolute;
-      bottom: 32px;
-      background: rgba(10, 10, 14, 0.85);
-      border: 1px solid var(--gold-neon);
-      color: #ffffff;
-      font-size: 0.7rem;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      background: rgba(10, 10, 16, 0.9);
+      border: 1.5px solid var(--gold-neon);
+      color: #fff4a3;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.8px;
-      padding: 2px 10px;
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+      padding: 3px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.8);
       pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
 
     .balloon-interactive:hover .pop-hint-tag {
-      transform: scale(1.08);
-      background: rgba(255, 26, 64, 0.9);
+      transform: translateX(-50%) scale(1.1);
+      background: linear-gradient(135deg, rgba(255, 26, 64, 0.95), rgba(180, 0, 35, 0.95));
       border-color: #ffffff;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 26, 64, 0.85);
     }
 
     /* Popping Animation on Balloon */
@@ -475,6 +483,82 @@
       transform: translateY(-2px);
     }
 
+    .btn-next-page {
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+      color: #080808;
+      border: 1.5px solid #fff3b0;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    }
+    .btn-next-page:hover {
+      background: #ffffff;
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+      transform: translateY(-2px);
+    }
+
+    /* ========================================================
+       PERSISTENT FOOTER ACTION BUTTONS (MATCHING PAGE 2)
+       ======================================================== */
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.6rem;
+      z-index: 20;
+    }
+
+    .btn-proceed-surprise {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: #080808;
+      text-decoration: none;
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+      border: 1.5px solid #fff3b0;
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.48), 0 6px 18px rgba(0, 0, 0, 0.85);
+      transition: all 0.3s ease;
+    }
+
+    .btn-proceed-surprise:hover {
+      transform: translateY(-2px) scale(1.04);
+      background: #ffffff;
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.85);
+    }
+
+    .btn-back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #ffe89e;
+      text-decoration: none;
+      background: rgba(15, 15, 18, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.22);
+      transition: all 0.3s ease;
+    }
+
+    .btn-back-link:hover {
+      color: #ffffff;
+      border-color: #ffd700;
+      background: rgba(35, 30, 15, 0.9);
+      transform: translateY(-2px) scale(1.03);
+    }
+
     /* ========================================================
        RESPONSIVE DESIGN (All 4 Balloons on 1 Screen)
        ======================================================== */
@@ -538,6 +622,9 @@
     <img src="images/akshaya.jpg" alt="" class="backdrop-image">
     <div class="backdrop-overlay"></div>
   </div>
+
+  <!-- Bioluminescent Lightning Bugs (Fireflies) Flying All Around -->
+  <canvas id="lightning-bugs-canvas"></canvas>
 
   <!-- Left Side Fairy Lights -->
   <aside class="side-fairy-lights left" aria-hidden="true">
@@ -703,6 +790,16 @@
 
     </section>
 
+    <!-- Persistent Footer Action Buttons (Matching Previous Pages) -->
+    <footer class="footer-actions">
+      <a href="page4.html" class="btn-proceed-surprise" id="btn-next">
+        <span>Continue to Memories 📸</span>
+      </a>
+      <a href="page2.html" class="btn-back-link">
+        <span>← Back to Birthday Wishes</span>
+      </a>
+    </footer>
+
     <!-- Grand Finale Card (Appears after popping all 4 balloons) -->
     <section class="grand-finale-card" id="grand-finale-card">
       <h2 class="finale-title">🎉 All Surprises Unlocked! 🎉</h2>
@@ -710,6 +807,9 @@
         Every wish in the sky belongs to you today, Akshaya! Wishing you the happiest and most magical 25th Birthday celebration! 🥳✨
       </p>
       <div class="button-group">
+        <a href="page4.html" class="btn-action btn-next-page">
+          <span>Continue to Memories 📸</span>
+        </a>
         <button type="button" class="btn-action btn-reset" id="btn-replay">
           <span>🎈 Pop Again</span>
         </button>
@@ -1022,5 +1122,7 @@
       });
     }
   </script>
+  <!-- Bioluminescent Lightning Bugs Simulation Script -->
+  <script src="js/lightning-bugs.js"></script>
 </body>
 </html>

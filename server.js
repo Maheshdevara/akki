@@ -59,6 +59,14 @@ app.get('/page3.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'surprise.html'));
 });
 
+// Route for Page 4 (Akshaya's Golden Moments Photo Gallery)
+app.get('/page4', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page4.html'));
+});
+app.get('/page4.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page4.html'));
+});
+
 // Route for specific page numbers e.g. /page/1
 app.get('/page/:num', (req, res) => {
   const pageNum = parseInt(req.params.num, 10);

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akshaya's Golden Moments ✨📸 - Page 4</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap">
+  <style>
+    :root {
+      --bg-black: #080808;
+      --gold-neon: #ffd700;
+      --gold-warm: #f5af2d;
+      --gold-bright: #ffea79;
+      --text-white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ========================================================
+       CINEMATIC BLACK TO BRIGHTNESS REVEAL
+       ======================================================== */
+    #cinematic-black-curtain {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      z-index: 999;
+      pointer-events: none;
+      animation: revealBrightness 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes revealBrightness {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    /* ========================================================
+       MATCHING AMBIENT BACKGROUND (Exact Same Poster Image)
+       ======================================================== */
+    .backdrop-container {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .backdrop-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(45px) brightness(0.26);
+      transform: scale(1.15);
+    }
+
+    .backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(10, 10, 10, 0.25) 0%, rgba(5, 5, 5, 0.92) 85%);
+    }
+
+    /* Left & Right Side Fairy Lights */
+    .side-fairy-lights {
+      position: fixed;
+      top: -15px;
+      bottom: 0;
+      width: 22vw;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-evenly;
+      filter: blur(1px);
+      opacity: 0.92;
+    }
+
+    .side-fairy-lights.left {
+      left: 0;
+      mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .side-fairy-lights.right {
+      right: 0;
+      mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .fairy-string {
+      height: 75vh;
+      width: 60px;
+      transform-origin: top center;
+      animation: swayBreeze 6s ease-in-out infinite alternate;
+    }
+
+    .fairy-string.delay-1 {
+      height: 62vh;
+      animation-delay: -2s;
+    }
+
+    .fairy-string.delay-2 {
+      height: 70vh;
+      animation-delay: -4s;
+    }
+
+    @keyframes swayBreeze {
+      0% { transform: rotate(-2deg); }
+      100% { transform: rotate(2deg); }
+    }
+
+    /* Sound Mute Toggle */
+    .audio-toggle-btn {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(12, 12, 16, 0.75);
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      color: var(--gold-bright);
+      padding: 7px 15px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .audio-toggle-btn:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: var(--gold-neon);
+      transform: scale(1.04);
+    }
+
+    /* ========================================================
+       PAGE 4 MAIN CONTAINER (Fits on One Screen)
+       ======================================================== */
+    .page-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1100px;
+      height: 100vh;
+      max-height: 100vh;
+      margin: 0 auto;
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      margin-top: 0.4rem;
+    }
+
+    .bubble-title-glass {
+      display: inline-block;
+      padding: 0.55rem 1.8rem;
+      border-radius: 38px;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 240, 160, 0.16) 0%,
+        rgba(255, 215, 0, 0.04) 50%,
+        rgba(255, 190, 50, 0.14) 100%
+      );
+      border: 1.5px solid rgba(255, 225, 110, 0.55);
+      box-shadow: 
+        inset 0 2px 14px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(255, 215, 0, 0.3);
+      backdrop-filter: blur(12px);
+      margin-bottom: 0.4rem;
+    }
+
+    .main-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 0%, #ffea79 28%, #ffd700 65%, #c88a07 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 3px 12px rgba(255, 215, 0, 0.45));
+    }
+
+    .subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.92rem, 1.8vw, 1.08rem);
+      color: #fff4d0;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    }
+
+    /* Shuffle Control Pill */
+    .shuffle-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(25, 22, 14, 0.85);
+      border: 1.5px solid var(--gold-neon);
+      color: #ffea79;
+      padding: 5px 16px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .shuffle-pill-btn:hover {
+      background: var(--gold-neon);
+      color: #080808;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+      transform: scale(1.05);
+    }
+
+    /* ========================================================
+       PHOTO GALLERY STAGE (RANDOM PICTURES & POLAROIDS)
+       ======================================================== */
+    .gallery-stage {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      perspective: 1200px;
+      max-height: 58vh;
+      margin: 0.4rem 0;
+    }
+
+    .polaroid-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(22, 22, 28, 0.92), rgba(12, 12, 16, 0.95));
+      border: 2px solid rgba(255, 215, 0, 0.55);
+      border-radius: 16px;
+      padding: 10px 10px 14px 10px;
+      box-shadow: 
+        0 0 25px rgba(255, 215, 0, 0.25),
+        0 18px 40px rgba(0, 0, 0, 0.85);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: clamp(170px, 20vw, 220px);
+      transform-origin: center center;
+    }
+
+    .polaroid-card:hover {
+      transform: translateY(-12px) scale(1.08) rotate(0deg) !important;
+      border-color: #ffffff;
+      box-shadow: 
+        0 0 40px rgba(255, 215, 0, 0.75),
+        0 25px 50px rgba(0, 0, 0, 0.95);
+      z-index: 50;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #000000;
+    }
+
+    .photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .polaroid-card:hover .photo-img {
+      transform: scale(1.06);
+    }
+
+    .photo-caption {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #ffea79;
+      letter-spacing: 0.4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Tap hint pill */
+    .tap-hint-pill {
+      margin-top: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(255, 215, 0, 0.16);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* ========================================================
+       PERSISTENT FOOTER ACTION BUTTONS (MATCHING PREVIOUS PAGES)
+       ======================================================== */
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      z-index: 20;
+    }
+
+    .btn-proceed-surprise {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: #080808;
+      text-decoration: none;
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+      border: 1.5px solid #fff3b0;
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.48), 0 6px 18px rgba(0, 0, 0, 0.85);
+      transition: all 0.3s ease;
+    }
+
+    .btn-proceed-surprise:hover {
+      transform: translateY(-2px) scale(1.04);
+      background: #ffffff;
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.85);
+    }
+
+    .btn-back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #ffe89e;
+      text-decoration: none;
+      background: rgba(15, 15, 18, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.22);
+      transition: all 0.3s ease;
+    }
+
+    .btn-back-link:hover {
+      color: #ffffff;
+      border-color: #ffd700;
+      background: rgba(35, 30, 15, 0.9);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* ========================================================
+       MODAL LIGHTBOX POPUP ON PICTURE CLICK
+       ======================================================== */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(16px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 480px;
+      width: 90%;
+      background: linear-gradient(135deg, rgba(20, 20, 28, 0.96), rgba(30, 20, 10, 0.95));
+      border: 2px solid var(--gold-neon);
+      border-radius: 20px;
+      padding: 1.2rem;
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+      text-align: center;
+      animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .lightbox-img {
+      width: 100%;
+      max-height: 52vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    .lightbox-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.4rem;
+      color: #ffd700;
+      margin: 0.8rem 0 0.3rem;
+    }
+
+    .lightbox-desc {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #f8fafc;
+      margin-bottom: 0.9rem;
+    }
+
+    .close-modal-btn {
+      background: var(--gold-neon);
+      color: #080808;
+      border: none;
+      font-weight: 700;
+      padding: 7px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .side-fairy-lights { display: none; }
+      .gallery-stage {
+        flex-wrap: wrap;
+        max-height: 55vh;
+        overflow-y: auto;
+        gap: 0.8rem;
+      }
+      .polaroid-card {
+        width: 140px;
+        padding: 6px;
+      }
+      .photo-caption {
+        font-size: 0.72rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cinematic Black Curtain -->
+  <div id="cinematic-black-curtain" aria-hidden="true"></div>
+
+  <!-- Audio Toggle -->
+  <button class="audio-toggle-btn" id="audio-toggle" aria-label="Toggle Sound Effects">
+    <span id="audio-icon">🔊</span>
+    <span id="audio-label">Festive Sound</span>
+  </button>
+
+  <!-- Full-Screen Matching Ambient Background -->
+  <div class="backdrop-container" aria-hidden="true">
+    <img src="images/akshaya.jpg" alt="" class="backdrop-image">
+    <div class="backdrop-overlay"></div>
+  </div>
+
+  <!-- Bioluminescent Lightning Bugs (Fireflies) Flying All Around -->
+  <canvas id="lightning-bugs-canvas"></canvas>
+
+  <!-- Left Side Fairy Lights -->
+  <aside class="side-fairy-lights left" aria-hidden="true">
+    <svg class="fairy-string" viewBox="0 0 50 800" preserveAspectRatio="none">
+      <path d="M 25 0 Q 35 200 20 400 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="25" cy="80" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="32" cy="180" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="20" cy="400" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="25" cy="760" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+    </svg>
+  </aside>
+
+  <!-- Right Side Fairy Lights -->
+  <aside class="side-fairy-lights right" aria-hidden="true">
+    <svg class="fairy-string delay-2" viewBox="0 0 50 800" preserveAspectRatio="none">
+      <path d="M 25 0 Q 35 200 20 400 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="25" cy="90" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="32" cy="200" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="20" cy="430" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="25" cy="780" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+    </svg>
+  </aside>
+
+  <!-- Page 4 Main Content -->
+  <main class="page-container">
+
+    <!-- Header Section -->
+    <header class="header-section">
+      <div class="bubble-title-glass">
+        <h1 class="main-title">AKSHAYA'S GOLDEN MOMENTS</h1>
+      </div>
+      <p class="subtitle">"A timeless journey of elegance, happiness, and 25 graceful years."</p>
+      <button type="button" class="shuffle-pill-btn" id="btn-shuffle" aria-label="Shuffle Memories">
+        <span>🎲 Shuffle Memories</span>
+      </button>
+    </header>
+
+    <!-- Interactive Random Pictures Gallery Stage -->
+    <section class="gallery-stage" id="gallery-stage">
+
+      <!-- Photo 1 -->
+      <article class="polaroid-card" data-idx="1" style="transform: rotate(-3deg);">
+        <div class="photo-frame">
+          <img src="images/photo1.jpg" alt="Akshaya Golden Smile" class="photo-img">
+        </div>
+        <div class="photo-caption">✨ Radiant Smile</div>
+        <div class="tap-hint-pill">🔍 Tap to View</div>
+      </article>
+
+      <!-- Photo 2 -->
+      <article class="polaroid-card" data-idx="2" style="transform: rotate(2deg);">
+        <div class="photo-frame">
+          <img src="images/photo2.jpg" alt="Akshaya Pure Elegance" class="photo-img">
+        </div>
+        <div class="photo-caption">🌸 Pure Elegance</div>
+        <div class="tap-hint-pill">🔍 Tap to View</div>
+      </article>
+
+      <!-- Photo 3 -->
+      <article class="polaroid-card" data-idx="3" style="transform: rotate(-2deg);">
+        <div class="photo-frame">
+          <img src="images/photo3.jpg" alt="Akshaya Graceful Moments" class="photo-img">
+        </div>
+        <div class="photo-caption">💫 Timeless Grace</div>
+        <div class="tap-hint-pill">🔍 Tap to View</div>
+      </article>
+
+      <!-- Photo 4 -->
+      <article class="polaroid-card" data-idx="4" style="transform: rotate(3deg);">
+        <div class="photo-frame">
+          <img src="images/photo4.jpg" alt="Akshaya Celebration" class="photo-img">
+        </div>
+        <div class="photo-caption">👑 Birthday Queen</div>
+        <div class="tap-hint-pill">🔍 Tap to View</div>
+      </article>
+
+    </section>
+
+    <!-- Bottom Footer Navigation Buttons (Matching Previous Pages) -->
+    <footer class="footer-actions">
+      <a href="index.html" class="btn-proceed-surprise" id="btn-next">
+        <span>Celebration Home 🏠</span>
+      </a>
+      <a href="surprise.html" class="btn-back-link">
+        <span>← Back to Balloon Pop 🎈</span>
+      </a>
+    </footer>
+
+  </main>
+
+  <!-- Lightbox Modal for Expanded Photo View -->
+  <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true">
+    <div class="lightbox-content">
+      <img src="" alt="" id="modal-img" class="lightbox-img">
+      <h3 id="modal-title" class="lightbox-title"></h3>
+      <p id="modal-desc" class="lightbox-desc"></p>
+      <button type="button" class="close-modal-btn" id="btn-close-modal">✨ Close Memory</button>
+    </div>
+  </div>
+
+  <!-- Audio Synthesis Script -->
+  <script>
+    let audioCtx = null;
+    let isSoundMuted = false;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioClass();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playChimeSound(freq = 587) {
+      if (isSoundMuted) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.35);
+
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.42);
+      } catch (e) {}
+    }
+
+    // Audio Toggle
+    const audioBtn = document.getElementById('audio-toggle');
+    const audioIcon = document.getElementById('audio-icon');
+    const audioLabel = document.getElementById('audio-label');
+
+    audioBtn.addEventListener('click', () => {
+      isSoundMuted = !isSoundMuted;
+      if (isSoundMuted) {
+        audioIcon.textContent = '🔇';
+        audioLabel.textContent = 'Muted';
+      } else {
+        audioIcon.textContent = '🔊';
+        audioLabel.textContent = 'Festive Sound';
+        playChimeSound(659);
+      }
+    });
+
+    // Shuffle Pictures Interaction
+    const shuffleBtn = document.getElementById('btn-shuffle');
+    const galleryStage = document.getElementById('gallery-stage');
+    const angles = [-4, 3, -2, 4, -3, 2];
+
+    const photoDescriptions = {
+      '1': { title: 'Radiant Smile ✨', desc: 'A smile that lights up every single heart and brings endless joy!' },
+      '2': { title: 'Pure Elegance 🌸', desc: 'Quarter of a century radiating poise, confidence, and natural grace.' },
+      '3': { title: 'Timeless Grace 💫', desc: 'Every milestone lived with warmth, laughter, and beautiful memories.' },
+      '4': { title: 'Birthday Queen 👑', desc: 'Wishing you the brightest, most magical 25th birthday year ahead!' }
+    };
+
+    if (shuffleBtn && galleryStage) {
+      shuffleBtn.addEventListener('click', () => {
+        playChimeSound(880);
+
+        const cards = Array.from(galleryStage.children);
+        // Shuffle array
+        cards.sort(() => Math.random() - 0.5);
+
+        // Animate re-deal
+        cards.forEach((card, idx) => {
+          card.style.transform = `scale(0.85) rotate(${angles[idx % angles.length] * 2}deg)`;
+          setTimeout(() => {
+            galleryStage.appendChild(card);
+            card.style.transform = `scale(1) rotate(${angles[idx % angles.length]}deg)`;
+          }, 140);
+        });
+      });
+    }
+
+    // Modal Lightbox Interaction
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const closeModalBtn = document.getElementById('btn-close-modal');
+
+    document.querySelectorAll('.polaroid-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const idx = card.dataset.idx;
+        const img = card.querySelector('.photo-img');
+        const info = photoDescriptions[idx] || { title: 'Golden Moment', desc: 'Happy 25th Birthday Akshaya!' };
+
+        modalImg.src = img.src;
+        modalTitle.textContent = info.title;
+        modalDesc.textContent = info.desc;
+        modal.classList.add('show');
+        playChimeSound(784);
+      });
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('show');
+    });
+
+    document.addEventListener('click', () => {
+      if (!audioCtx) getAudioContext();
+    }, { once: true });
+  </script>
+
+  <!-- Bioluminescent Lightning Bugs Simulation Script -->
+  <script src="js/lightning-bugs.js"></script>
+</body>
+</html>
