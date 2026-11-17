@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #080808;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =========================================================================
+   FULL-SCREEN BLURRED MATCHING BACKDROP
+   ========================================================================= */
+.backdrop-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.backdrop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(45px) brightness(0.28);
+  transform: scale(1.15);
+}
+
+.backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(10, 10, 10, 0.25) 0%, rgba(5, 5, 5, 0.92) 85%);
+}
+
+/* =========================================================================
+   LEFT & RIGHT SIDE FAIRY LIGHTS (STRICTLY OUTSIDE MIDDLE PICTURE)
+   ========================================================================= */
+.side-fairy-lights {
+  position: fixed;
+  top: -15px;
+  bottom: 0;
+  width: 24vw;
+  z-index: 2; /* Behind the central portrait (z-index: 5) */
+  pointer-events: none;
+  display: flex;
+  justify-content: space-evenly;
+  filter: blur(1.2px);
+  opacity: 0.92;
+}
+
+.side-fairy-lights.left {
+  left: 0;
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+.side-fairy-lights.right {
+  right: 0;
+  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+.fairy-string {
+  height: 75vh;
+  width: 65px;
+  transform-origin: top center;
+  animation: swayBreeze 6s ease-in-out infinite alternate;
+}
+
+.fairy-string.delay-1 {
+  height: 62vh;
+  animation-delay: -2s;
+}
+
+.fairy-string.delay-2 {
+  height: 70vh;
+  animation-delay: -4s;
+}
+
+@keyframes swayBreeze {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* =========================================================================
+   LEFT & RIGHT UPWARD DRIFTING GOLDEN SPARKLES
+   ========================================================================= */
+.side-sparkles-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 24vw;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.side-sparkles-container.left { left: 0; }
+.side-sparkles-container.right { right: 0; }
+
+.drifting-sparkle {
+  position: absolute;
+  bottom: -20px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffd700;
+  box-shadow: 0 0 10px #ffd700, 0 0 20px #ffae19;
+  animation: floatSparkleUp linear infinite;
+  opacity: 0;
+}
+
+@keyframes floatSparkleUp {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-95vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* =========================================================================
+   CENTER PORTRAIT STAGE & CINEMA FRAME
+   ========================================================================= */
+.landing-wrapper {
+  position: relative;
+  z-index: 5; /* Always sits cleanly above side lights */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s ease;
+}
+
+.landing-wrapper.page-leaving {
+  opacity: 0;
+  filter: blur(14px);
+  transform: scale(0.98);
+}
+
+.laptop-cinema-frame {
+  position: relative;
+  height: 94vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.frame-bg-extension {
+  display: none;
+}
+
+.frame-main-poster {
+  height: 85vh;
+  width: auto;
+  max-width: 90vw;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 195, 70, 0.15);
+  z-index: 5;
+}
+
+.frame-ambient-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 12px;
+  box-shadow: inset 0 0 35px rgba(255, 200, 80, 0.12);
+  z-index: 6;
+}
+
+/* =========================================================================
+   COMPACT POP-UP SURPRISE BUTTON (BELOW PICTURE, NO TEXT OVERLAP)
+   ========================================================================= */
+.button-on-picture-container {
+  margin-top: 14px;
+  z-index: 15;
+}
+
+.btn-on-picture {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffe89e;
+  text-decoration: none;
+  background: rgba(15, 15, 18, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 215, 0, 0.7);
+  border-radius: 50px;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.15);
+  opacity: 0;
+  transform: translateY(15px) scale(0.92);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.btn-on-picture.show-btn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.btn-on-picture:hover {
+  transform: translateY(-2px) scale(1.04);
+  background: rgba(30, 26, 15, 0.9);
+  border-color: #ffd700;
+  box-shadow: 0 0 26px rgba(255, 215, 0, 0.6), inset 0 0 14px rgba(255, 215, 0, 0.25);
+  color: #ffffff;
+}
+
+/* =========================================================================
+   CANVAS & BLAST OVERLAY
+   ========================================================================= */
+#butterfly-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#blast-flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 235, 150, 0.85) 0%, rgba(255, 215, 0, 0) 70%);
+  opacity: 0;
+  z-index: 20;
+  pointer-events: none;
+  transition: opacity 0.4s ease-out;
+}
+
+#blast-flash-overlay.active {
+  opacity: 1;
+}
+
+/* =========================================================================
+   MOBILE RESPONSIVENESS
+   ========================================================================= */
+@media (max-width: 768px) {
+  .side-fairy-lights,
+  .side-sparkles-container {
+    display: none;
+  }
+
+  .frame-main-poster {
+    height: 78vh;
+  }
+
+  .btn-on-picture {
+    padding: 9px 20px;
+    font-size: 0.88rem;
+  }
+}
