@@ -50,6 +50,38 @@
     }
 
     /* ========================================================
+       TOP HEADER: "POP THE BALLOONS"
+       ======================================================== */
+    .top-pop-header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 90;
+      padding: 8px 24px;
+      border-radius: 50px;
+      background: rgba(15, 15, 18, 0.72);
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffea79;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.28);
+      pointer-events: none;
+      white-space: nowrap;
+      animation: pulseHeader 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseHeader {
+      0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.25); }
+      100% { box-shadow: 0 0 28px rgba(255, 215, 0, 0.65); }
+    }
+
+    /* ========================================================
        MATCHING FIRST-PAGE BACKGROUND (BLURRED POSTER + FAIRY LIGHTS)
        ======================================================== */
     .backdrop-container {
@@ -156,14 +188,14 @@
     }
 
     /* ========================================================
-       CONTINUOUS BOTTOM-TO-TOP GOLD & BLACK BALLOONS
+       CONTINUOUS BOTTOM-TO-TOP CLICKABLE GOLD & BLACK BALLOONS
        ======================================================== */
     #balloons-container {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 15; /* Floats above layout */
+      z-index: 15;
       pointer-events: none;
       overflow: hidden;
     }
@@ -173,17 +205,17 @@
       bottom: -170px;
       will-change: transform, opacity;
       opacity: 0;
-      pointer-events: auto; /* Allows clicking individual balloons */
-      cursor: pointer;      /* Shows pointer hand on hover */
+      pointer-events: auto;
+      cursor: pointer;
       animation-name: riseBottomToTop;
       animation-timing-function: linear;
       animation-fill-mode: forwards;
       filter: drop-shadow(0 8px 18px rgba(255, 215, 0, 0.25));
-      transition: transform 0.15s ease;
+      transition: filter 0.15s ease;
     }
 
     .flying-balloon:hover {
-      filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.75));
+      filter: drop-shadow(0 0 24px rgba(255, 215, 0, 0.8));
     }
 
     @keyframes riseBottomToTop {
@@ -192,11 +224,11 @@
         opacity: 0;
       }
       8% {
-        opacity: 0.8;
+        opacity: 0.82;
       }
       35% {
         transform: translateY(-45vh) translateX(16px) rotate(4deg);
-        opacity: 0.8;
+        opacity: 0.82;
       }
       70% {
         transform: translateY(-90vh) translateX(-14px) rotate(-4deg);
@@ -211,8 +243,42 @@
       }
     }
 
+    /* Floating Pop Text: "Happy Bday Akki ✨" */
+    .pop-wish-text {
+      position: fixed;
+      transform: translate(-50%, -50%) scale(0.6);
+      z-index: 25;
+      pointer-events: none;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      white-space: nowrap;
+      color: #ffea79;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 18px rgba(255, 215, 0, 0.9);
+      animation: popWishFloat 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes popWishFloat {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      25% {
+        opacity: 1;
+        transform: translate(-50%, -70%) scale(1.12);
+      }
+      80% {
+        opacity: 1;
+        transform: translate(-50%, -115%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -140%) scale(0.95);
+      }
+    }
+
     /* ========================================================
-       CANVAS FOR FIRECRACKER BLASTS
+       CANVAS FOR FIRECRACKER & BALLOON BLASTS
        ======================================================== */
     #firecracker-canvas {
       position: fixed;
@@ -390,13 +456,13 @@
     /* Sound Mute Toggle */
     .audio-toggle-btn {
       position: fixed;
-      top: 18px;
+      top: 20px;
       right: 20px;
       z-index: 100;
       background: rgba(12, 12, 16, 0.75);
       border: 1px solid rgba(255, 215, 0, 0.45);
       color: var(--gold-bright);
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-radius: 30px;
       font-size: 0.82rem;
       font-weight: 600;
@@ -419,6 +485,11 @@
       .side-fairy-lights,
       .side-sparkles-container {
         display: none;
+      }
+      .top-pop-header {
+        top: 64px;
+        font-size: 0.9rem;
+        padding: 6px 18px;
       }
       .bubble-title-glass {
         padding: 0.65rem 1.2rem;
@@ -443,6 +514,9 @@
 
   <!-- Cinematic Brightness Curtain -->
   <div id="cinematic-black-curtain" aria-hidden="true"></div>
+
+  <!-- Top Header: Pop the Balloons -->
+  <header class="top-pop-header">🎈 Pop the Balloons 🎈</header>
 
   <!-- Audio Toggle -->
   <button class="audio-toggle-btn" id="audio-toggle" aria-label="Toggle Sound Effects">
@@ -536,9 +610,9 @@
   </div>
 
   <!-- Continuous Bottom-to-Top Gold & Black Semi-Transparent Floating Balloons -->
-  <div id="balloons-container" aria-hidden="true"></div>
+  <div id="balloons-container"></div>
 
-  <!-- Firecracker Blasts Canvas (Flying Above) -->
+  <!-- Firecracker & Balloon Blasts Canvas -->
   <canvas id="firecracker-canvas"></canvas>
 
   <!-- Open Center Stage (No Outer Square Box) -->
@@ -573,7 +647,7 @@
 
   <script>
     // =========================================================================
-    // 1. ACOUSTIC FIRECRACKER SOUND SYNTHESIS
+    // 1. ACOUSTIC FIRECRACKER & BALLOON POP SOUND SYNTHESIS
     // =========================================================================
     let audioCtx = null;
     let isSoundMuted = false;
@@ -656,12 +730,67 @@
     window.addEventListener('click', () => getAudioContext(), { once: true });
 
     // =========================================================================
-    // 2. CONTINUOUS BOTTOM-TO-TOP GOLD & BLACK SEMI-TRANSPARENT BALLOONS
+    // 2. TARGETED BLAST HELPER (FOR POPPED BALLOONS & FIRECRACKERS)
+    // =========================================================================
+    const canvas = document.getElementById('firecracker-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let shockwaves = [];
+    let animId = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function triggerBlastAt(bx, by) {
+      playFirecrackerBurstSound();
+
+      shockwaves.push({
+        x: bx,
+        y: by,
+        radius: 4,
+        maxRadius: 90 + Math.random() * 40,
+        speed: 5.8,
+        opacity: 0.95,
+        color: Math.random() > 0.35 ? '#ffd700' : '#ffffff'
+      });
+
+      const count = 48;
+      const blastColors = ['#ffd700', '#ffea79', '#ff1a40', '#ffffff', '#ffae19', '#00f3ff', '#ff6b81'];
+
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 2.6 + Math.random() * 8.8;
+        particles.push({
+          x: bx,
+          y: by,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.6,
+          friction: 0.94 + Math.random() * 0.03,
+          gravity: 0.12 + Math.random() * 0.05,
+          size: 2.3 + Math.random() * 3.5,
+          color: blastColors[Math.floor(Math.random() * blastColors.length)],
+          opacity: 1.0,
+          life: 0,
+          maxLife: 45 + Math.random() * 35,
+          isGlitter: Math.random() > 0.45
+        });
+      }
+
+      if (!animId) {
+        animateParticles();
+      }
+    }
+
+    // =========================================================================
+    // 3. CONTINUOUS BOTTOM-TO-TOP CLICKABLE GOLD & BLACK BALLOONS
     // =========================================================================
     const balloonsContainer = document.getElementById('balloons-container');
 
     const balloonPalettes = [
-      // Translucent Metallic Gold
       {
         light: 'rgba(255, 250, 190, 0.92)',
         fill: 'rgba(255, 215, 0, 0.72)',
@@ -669,7 +798,6 @@
         rim: 'rgba(255, 235, 130, 0.85)',
         stroke: 'rgba(255, 225, 100, 0.65)'
       },
-      // Translucent Warm Champagne Gold
       {
         light: 'rgba(255, 245, 210, 0.9)',
         fill: 'rgba(245, 175, 45, 0.7)',
@@ -677,7 +805,6 @@
         rim: 'rgba(255, 220, 110, 0.85)',
         stroke: 'rgba(255, 200, 80, 0.6)'
       },
-      // Translucent Glossy Obsidian Black with Gold Rim Highlight
       {
         light: 'rgba(255, 225, 130, 0.55)',
         fill: 'rgba(22, 22, 26, 0.74)',
@@ -685,7 +812,6 @@
         rim: 'rgba(255, 215, 0, 0.75)',
         stroke: 'rgba(255, 215, 0, 0.65)'
       },
-      // Translucent Charcoal Black with Warm Gold Sheen
       {
         light: 'rgba(255, 235, 165, 0.5)',
         fill: 'rgba(32, 30, 34, 0.72)',
@@ -724,16 +850,15 @@
       const balloon = document.createElement('div');
       balloon.className = 'flying-balloon';
 
-      // Spawn across left and right zones so they rise continuously without blocking center text
       const isLeftSide = Math.random() > 0.5;
       const leftPct = isLeftSide
-        ? (2 + Math.random() * 22)    // 2% to 24%
-        : (74 + Math.random() * 20);  // 74% to 94%
+        ? (2 + Math.random() * 22)
+        : (74 + Math.random() * 20);
 
       balloon.style.left = `${leftPct}%`;
 
       const scale = 0.65 + Math.random() * 0.45;
-      const duration = 7.0 + Math.random() * 5.0; // Smooth steady ascent
+      const duration = 7.0 + Math.random() * 5.0;
 
       balloon.style.width = `${scale * 82}px`;
       balloon.style.height = `${scale * 132}px`;
@@ -742,46 +867,27 @@
       const palette = balloonPalettes[Math.floor(Math.random() * balloonPalettes.length)];
       balloon.innerHTML = createBalloonSVG(palette);
 
-      // Interactive Click to Pop Balloon on Page 2
-      balloon.addEventListener('click', () => {
-        playFirecrackerBurstSound();
-        const rect = balloon.getBoundingClientRect();
-        const bx = rect.left + rect.width / 2;
-        const by = rect.top + rect.height / 2;
-        shockwaves.push({
-          x: bx,
-          y: by,
-          radius: 3,
-          maxRadius: 45,
-          speed: 4,
-          opacity: 0.95,
-          color: palette.base || '#ffd700'
-        });
-        const blastColors = [palette.base || '#ffd700', '#ffffff', '#ffea79'];
-        for (let i = 0; i < 24; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = 2.0 + Math.random() * 5.0;
-          particles.push({
-            x: bx,
-            y: by,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 0.5,
-            friction: 0.94,
-            gravity: 0.12,
-            size: 2.0 + Math.random() * 2.5,
-            color: blastColors[Math.floor(Math.random() * blastColors.length)],
-            opacity: 1.0,
-            life: 0,
-            maxLife: 35 + Math.random() * 25,
-            isGlitter: true
-          });
-        }
-        if (!animId) animateParticles();
+      // Click / Tap to pop balloon, blast sparkles, and show "Happy Bday Akki ✨"
+      balloon.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        if (balloon.dataset.popped) return;
+        balloon.dataset.popped = 'true';
 
-        balloon.style.transition = 'transform 0.1s ease, opacity 0.1s ease';
-        balloon.style.transform = 'scale(1.35)';
-        balloon.style.opacity = '0';
-        setTimeout(() => balloon.remove(), 120);
+        const rect = balloon.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height * 0.4;
+
+        triggerBlastAt(centerX, centerY);
+
+        const wishEl = document.createElement('div');
+        wishEl.className = 'pop-wish-text';
+        wishEl.textContent = 'Happy Bday Akki ✨';
+        wishEl.style.left = `${centerX}px`;
+        wishEl.style.top = `${centerY}px`;
+        document.body.appendChild(wishEl);
+
+        setTimeout(() => wishEl.remove(), 1450);
+        balloon.remove();
       });
 
       balloonsContainer.appendChild(balloon);
@@ -792,32 +898,17 @@
     }
 
     function startBalloonSpawner() {
-      // Immediate initial stream so balloons are already rising on load
       for (let i = 0; i < 6; i++) {
         setTimeout(spawnFloatingBalloon, i * 450);
       }
-      // Continuous spawning every 850ms
       setInterval(spawnFloatingBalloon, 850);
     }
 
     startBalloonSpawner();
 
     // =========================================================================
-    // 3. FIRECRACKER BLASTS ENGINE (FLYING ABOVE)
+    // 4. RANDOM FIRECRACKER BLASTS ENGINE
     // =========================================================================
-    const canvas = document.getElementById('firecracker-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let shockwaves = [];
-    let animId = null;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
     function spawnRandomFirecracker() {
       const w = canvas.width;
       const h = canvas.height;
@@ -838,43 +929,7 @@
         by = marginY + Math.random() * (h * 0.72);
       }
 
-      playFirecrackerBurstSound();
-
-      shockwaves.push({
-        x: bx,
-        y: by,
-        radius: 4,
-        maxRadius: 85 + Math.random() * 50,
-        speed: 5.5 + Math.random() * 3,
-        opacity: 0.95,
-        color: Math.random() > 0.35 ? '#ffd700' : '#ffffff'
-      });
-
-      const count = 48 + Math.floor(Math.random() * 32);
-      const blastColors = ['#ffd700', '#ffea79', '#ff1a40', '#ffffff', '#ffae19', '#00f3ff', '#ff6b81'];
-
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 2.8 + Math.random() * 9.0;
-        particles.push({
-          x: bx,
-          y: by,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.8,
-          friction: 0.94 + Math.random() * 0.03,
-          gravity: 0.12 + Math.random() * 0.06,
-          size: 2.2 + Math.random() * 3.5,
-          color: blastColors[Math.floor(Math.random() * blastColors.length)],
-          opacity: 1.0,
-          life: 0,
-          maxLife: 45 + Math.random() * 40,
-          isGlitter: Math.random() > 0.45
-        });
-      }
-
-      if (!animId) {
-        animateParticles();
-      }
+      triggerBlastAt(bx, by);
     }
 
     function animateParticles() {
