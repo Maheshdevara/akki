@@ -389,59 +389,7 @@
       display: block;
     }
 
-    /* ========================================================
-       ALL BALLOONS POPPED - CELEBRATION OVERLAY MODAL
-       ======================================================== */
-    .grand-finale-card {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.9);
-      z-index: 150;
-      width: 90%;
-      max-width: 520px;
-      background: linear-gradient(135deg, rgba(16, 16, 26, 0.96), rgba(28, 14, 20, 0.95));
-      border: 2px solid var(--gold-neon);
-      border-radius: 20px;
-      padding: 1.6rem 1.8rem;
-      text-align: center;
-      box-shadow: 
-        0 0 50px rgba(255, 215, 0, 0.45),
-        0 0 80px rgba(255, 26, 64, 0.35),
-        0 25px 60px rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(24px);
-      display: none;
-      opacity: 0;
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
 
-    .grand-finale-card.show {
-      display: block;
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    @keyframes finalePulse {
-      0% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.35), 0 0 60px rgba(255, 26, 64, 0.25); }
-      100% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.55), 0 0 95px rgba(255, 26, 64, 0.45); }
-    }
-
-    .finale-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      color: #ffffff;
-      background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ff4d6d 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.8rem;
-    }
-
-    .finale-desc {
-      font-size: 1.1rem;
-      color: #e2e8f0;
-      margin-bottom: 1.6rem;
-      line-height: 1.6;
-    }
 
     /* Action Buttons */
     .button-group {
@@ -805,29 +753,13 @@
       <a href="page4.html" class="btn-proceed-surprise" id="btn-next">
         <span>Continue to Memories 📸</span>
       </a>
+      <button type="button" class="btn-back-link" id="btn-replay" style="cursor: pointer;">
+        <span>🎈 Pop Again</span>
+      </button>
       <a href="page2.html" class="btn-back-link">
         <span>← Back to Birthday Wishes</span>
       </a>
     </footer>
-
-    <!-- Grand Finale Card (Appears after popping all 4 balloons) -->
-    <section class="grand-finale-card" id="grand-finale-card">
-      <h2 class="finale-title">🎉 All Surprises Unlocked! 🎉</h2>
-      <p class="finale-desc">
-        Every wish in the sky belongs to you today, Akshaya! Wishing you the happiest and most magical 25th Birthday celebration! 🥳✨
-      </p>
-      <div class="button-group">
-        <a href="page4.html" class="btn-action btn-next-page">
-          <span>Continue to Memories 📸</span>
-        </a>
-        <button type="button" class="btn-action btn-reset" id="btn-replay">
-          <span>🎈 Pop Again</span>
-        </button>
-        <a href="page2.html" class="btn-action btn-home">
-          <span>← Back to Birthday Wishes</span>
-        </a>
-      </div>
-    </section>
 
   </main>
 
@@ -1055,17 +987,16 @@
     let poppedCount = 0;
     const totalBalloons = 4;
     const progressText = document.getElementById('progress-text');
-    const grandFinaleCard = document.getElementById('grand-finale-card');
     const btnReplay = document.getElementById('btn-replay');
 
     function updateProgress() {
       progressText.textContent = `${poppedCount} of ${totalBalloons} Balloons Popped`;
       if (poppedCount === totalBalloons) {
+        progressText.innerHTML = '🎉 <strong>All 4 Surprises Unlocked!</strong> ✨';
         setTimeout(() => {
-          grandFinaleCard.classList.add('show');
           playGrandFinaleSound();
           spawnCelebrationConfettiShower();
-        }, 550);
+        }, 300);
       }
     }
 
@@ -1115,7 +1046,6 @@
       btnReplay.addEventListener('click', () => {
         poppedCount = 0;
         updateProgress();
-        grandFinaleCard.classList.remove('show');
 
         document.querySelectorAll('.balloon-slot').forEach((slot, idx) => {
           const interactive = slot.querySelector('.balloon-interactive');
