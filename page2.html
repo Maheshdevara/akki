@@ -49,127 +49,7 @@
       100% { opacity: 0; }
     }
 
-    /* ========================================================
-       TOP HEADER / BUTTON: "POP THE BALLOONS"
-       (HEARTBEAT PULSE + BLINK HIGHLIGHT + FLOATING MOVEMENT)
-       ======================================================== */
-    .top-pop-header {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 90;
-      padding: 10px 28px;
-      border-radius: 50px;
-      background: linear-gradient(
-        135deg,
-        rgba(32, 26, 12, 0.88) 0%,
-        rgba(15, 15, 18, 0.94) 50%,
-        rgba(48, 38, 12, 0.88) 100%
-      );
-      border: 2px solid #ffd700;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: #ffea79;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1.12rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      pointer-events: auto;
-      user-select: none;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      outline: none;
-      animation: popButtonBeatBlinkMove 2.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
-      transition: all 0.25s ease;
-    }
 
-    /* Beat + Blink Highlight + Movement Animation */
-    @keyframes popButtonBeatBlinkMove {
-      0% {
-        transform: translateX(-50%) translateY(0px) scale(1) rotate(-1deg);
-        border-color: rgba(255, 215, 0, 0.65);
-        box-shadow: 
-          0 0 16px rgba(255, 215, 0, 0.4),
-          0 0 35px rgba(255, 174, 25, 0.2),
-          inset 0 0 10px rgba(255, 215, 0, 0.25);
-        color: #ffea79;
-        text-shadow: none;
-      }
-      14% {
-        transform: translateX(-50%) translateY(-3px) scale(1.09) rotate(0deg);
-        border-color: #ffffff;
-        box-shadow: 
-          0 0 32px rgba(255, 255, 255, 0.95),
-          0 0 65px rgba(255, 215, 0, 1),
-          0 0 95px rgba(255, 174, 25, 0.75),
-          inset 0 0 18px rgba(255, 255, 255, 0.75);
-        color: #ffffff;
-        text-shadow: 0 0 15px #ffd700, 0 0 25px #ffffff;
-      }
-      28% {
-        transform: translateX(-50%) translateY(-1px) scale(1.02) rotate(1deg);
-        border-color: #ffd700;
-        box-shadow: 
-          0 0 20px rgba(255, 215, 0, 0.5),
-          0 0 40px rgba(255, 174, 25, 0.3),
-          inset 0 0 12px rgba(255, 215, 0, 0.3);
-        color: #ffea79;
-        text-shadow: none;
-      }
-      42% {
-        transform: translateX(-50%) translateY(-6px) scale(1.16) rotate(0deg);
-        border-color: #ffffff;
-        box-shadow: 
-          0 0 45px rgba(255, 255, 255, 1),
-          0 0 85px rgba(255, 215, 0, 1),
-          0 0 115px rgba(255, 174, 25, 0.85),
-          inset 0 0 24px rgba(255, 255, 255, 0.85);
-        color: #ffffff;
-        text-shadow: 0 0 18px #ffd700, 0 0 32px #ffffff;
-      }
-      70% {
-        transform: translateX(-50%) translateY(-2px) scale(1) rotate(-0.5deg);
-        border-color: #ffd700;
-        box-shadow: 
-          0 0 22px rgba(255, 215, 0, 0.45),
-          0 0 45px rgba(255, 174, 25, 0.25),
-          inset 0 0 12px rgba(255, 215, 0, 0.25);
-        color: #ffea79;
-        text-shadow: none;
-      }
-      85% {
-        transform: translateX(-50%) translateY(3px) scale(1.04) rotate(0.5deg);
-        border-color: #ffea79;
-        box-shadow: 
-          0 0 28px rgba(255, 215, 0, 0.6),
-          0 0 55px rgba(255, 174, 25, 0.35);
-      }
-      100% {
-        transform: translateX(-50%) translateY(0px) scale(1) rotate(-1deg);
-        border-color: rgba(255, 215, 0, 0.65);
-        box-shadow: 
-          0 0 16px rgba(255, 215, 0, 0.4),
-          0 0 35px rgba(255, 174, 25, 0.2),
-          inset 0 0 10px rgba(255, 215, 0, 0.25);
-        color: #ffea79;
-        text-shadow: none;
-      }
-    }
-
-    .top-pop-header:hover {
-      border-color: #ffffff;
-      box-shadow: 
-        0 0 45px rgba(255, 215, 0, 1),
-        0 0 85px rgba(255, 234, 121, 0.9),
-        inset 0 0 22px rgba(255, 255, 255, 0.8);
-      color: #ffffff;
-      text-shadow: 0 0 15px #ffd700;
-    }
 
     /* ========================================================
        MATCHING FIRST-PAGE BACKGROUND (BLURRED POSTER + FAIRY LIGHTS)
@@ -580,11 +460,6 @@
       .side-sparkles-container {
         display: none;
       }
-      .top-pop-header {
-        top: 64px;
-        font-size: 0.9rem;
-        padding: 6px 18px;
-      }
       .bubble-title-glass {
         padding: 0.65rem 1.2rem;
         border-radius: 28px;
@@ -609,8 +484,6 @@
   <!-- Cinematic Brightness Curtain -->
   <div id="cinematic-black-curtain" aria-hidden="true"></div>
 
-  <!-- Top Interactive Button: Pop the Balloons (Heartbeat + Blink Highlight + Movement) -->
-  <button type="button" class="top-pop-header" id="btn-top-pop" aria-label="Pop the Balloons">🎈 Pop the Balloons 🎈</button>
 
   <!-- Audio Toggle -->
   <button class="audio-toggle-btn" id="audio-toggle" aria-label="Toggle Sound Effects">
@@ -1125,50 +998,6 @@
       }
     }
 
-    // =========================================================================
-    // 5. TOP "POP THE BALLOONS" BUTTON CLICK LISTENER
-    // =========================================================================
-    const topPopBtn = document.getElementById('btn-top-pop');
-    if (topPopBtn) {
-      topPopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        getAudioContext();
-
-        // 1. Blast right at the top button
-        const btnRect = topPopBtn.getBoundingClientRect();
-        triggerBlastAt(btnRect.left + btnRect.width / 2, btnRect.bottom + 10);
-
-        // 2. Pop all active floating balloons on screen in a cascade
-        const activeBalloons = document.querySelectorAll('.flying-balloon:not([data-popped])');
-        if (activeBalloons.length > 0) {
-          activeBalloons.forEach((b, idx) => {
-            setTimeout(() => {
-              if (b.dataset.popped) return;
-              b.dataset.popped = 'true';
-              const rect = b.getBoundingClientRect();
-              const cx = rect.left + rect.width / 2;
-              const cy = rect.top + rect.height * 0.4;
-              triggerBlastAt(cx, cy);
-
-              const wishEl = document.createElement('div');
-              wishEl.className = 'pop-wish-text';
-              wishEl.textContent = 'Happy Bday Akki ✨';
-              wishEl.style.left = `${cx}px`;
-              wishEl.style.top = `${cy}px`;
-              document.body.appendChild(wishEl);
-
-              setTimeout(() => wishEl.remove(), 1450);
-              b.remove();
-            }, idx * 90);
-          });
-        } else {
-          // If none on screen yet, spawn balloons and burst them
-          for (let i = 0; i < 3; i++) {
-            setTimeout(spawnFloatingBalloon, i * 200);
-          }
-        }
-      });
-    }
 
     function scheduleNextBlast() {
       spawnRandomFirecracker();
