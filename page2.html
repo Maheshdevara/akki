@@ -156,15 +156,15 @@
     }
 
     /* ========================================================
-       CONTINUOUS BOTTOM-TO-TOP GOLD & BLACK BALLOONS (INTERACTIVE POP)
+       CONTINUOUS BOTTOM-TO-TOP GOLD & BLACK BALLOONS
        ======================================================== */
     #balloons-container {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 25; /* Sits comfortably for direct tapping */
-      pointer-events: none; /* Let non-balloon clicks pass through */
+      z-index: 15; /* Floats above layout */
+      pointer-events: none;
       overflow: hidden;
     }
 
@@ -173,62 +173,17 @@
       bottom: -170px;
       will-change: transform, opacity;
       opacity: 0;
+      pointer-events: auto; /* Allows clicking individual balloons */
+      cursor: pointer;      /* Shows pointer hand on hover */
       animation-name: riseBottomToTop;
       animation-timing-function: linear;
       animation-fill-mode: forwards;
-      filter: drop-shadow(0 8px 18px rgba(255, 215, 0, 0.28));
-      pointer-events: auto; /* Playable: Clickable & Tappable! */
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
+      filter: drop-shadow(0 8px 18px rgba(255, 215, 0, 0.25));
+      transition: transform 0.15s ease;
     }
 
-    .flying-balloon svg {
-      transition: transform 0.16s ease, filter 0.16s ease;
-      transform-origin: center center;
-    }
-
-    .flying-balloon:hover svg {
-      transform: scale(1.14);
-      filter: drop-shadow(0 0 24px #ffd700) brightness(1.25);
-    }
-
-    /* Pop me floating hint on hover */
-    .flying-balloon:hover::after {
-      content: "🎈 Pop Me!";
-      position: absolute;
-      top: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(12, 12, 18, 0.92);
-      color: #ffd700;
-      border: 1px solid rgba(255, 215, 0, 0.7);
-      border-radius: 12px;
-      padding: 2px 8px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      font-family: 'Outfit', sans-serif;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-      pointer-events: none;
-      box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);
-      animation: popHintFloat 0.5s ease infinite alternate;
-    }
-
-    @keyframes popHintFloat {
-      from { transform: translateX(-50%) translateY(0); }
-      to { transform: translateX(-50%) translateY(-3px); }
-    }
-
-    /* Quick pop explosion fade */
-    .flying-balloon.balloon-popping {
-      animation: none !important;
-      pointer-events: none !important;
-      transform: scale(1.45) !important;
-      opacity: 0 !important;
-      filter: brightness(3) contrast(1.5) drop-shadow(0 0 35px #ffd700) !important;
-      transition: transform 0.12s ease-out, opacity 0.12s ease-out, filter 0.12s ease-out !important;
+    .flying-balloon:hover {
+      filter: drop-shadow(0 0 22px rgba(255, 215, 0, 0.75));
     }
 
     @keyframes riseBottomToTop {
@@ -237,18 +192,18 @@
         opacity: 0;
       }
       8% {
-        opacity: 0.82;
+        opacity: 0.8;
       }
       35% {
         transform: translateY(-45vh) translateX(16px) rotate(4deg);
-        opacity: 0.82;
+        opacity: 0.8;
       }
       70% {
         transform: translateY(-90vh) translateX(-14px) rotate(-4deg);
-        opacity: 0.8;
+        opacity: 0.78;
       }
       92% {
-        opacity: 0.75;
+        opacity: 0.72;
       }
       100% {
         transform: translateY(-130vh) translateX(8px) rotate(3deg);
@@ -257,16 +212,14 @@
     }
 
     /* ========================================================
-       CANVAS FOR FIRECRACKER & BALLOON POP BLASTS
+       CANVAS FOR FIRECRACKER BLASTS
        ======================================================== */
     #firecracker-canvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 26;
-      pointer-events: none;
-    }
+      z-index: 16;
       pointer-events: none;
     }
 
@@ -380,9 +333,7 @@
       gap: 14px;
       justify-content: center;
       align-items: center;
-      position: relative;
-      z-index: 35;
-      pointer-events: auto;
+      z-index: 20;
     }
 
     .btn-proceed-surprise {
@@ -402,7 +353,6 @@
       border: 1.5px solid #fff3b0;
       box-shadow: 0 0 22px rgba(255, 215, 0, 0.48), 0 6px 18px rgba(0, 0, 0, 0.85);
       transition: all 0.3s ease;
-      cursor: pointer;
     }
 
     .btn-proceed-surprise:hover {
@@ -428,7 +378,6 @@
       border: 1.5px solid rgba(255, 215, 0, 0.55);
       box-shadow: 0 0 14px rgba(255, 215, 0, 0.22);
       transition: all 0.3s ease;
-      cursor: pointer;
     }
 
     .btn-back-link:hover {
@@ -438,95 +387,25 @@
       transform: translateY(-2px) scale(1.03);
     }
 
-    /* ========================================================
-       TOP CELEBRATION BAR: SCORE COUNTER, PLAY HINT & AUDIO TOGGLE
-       ======================================================== */
-    .top-celebration-bar {
+    /* Sound Mute Toggle */
+    .audio-toggle-btn {
       position: fixed;
-      top: 16px;
-      left: 0;
-      right: 0;
-      padding: 0 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      top: 18px;
+      right: 20px;
       z-index: 100;
-      pointer-events: none;
-    }
-
-    .balloon-score-pill {
-      pointer-events: auto;
-      background: rgba(14, 14, 20, 0.86);
-      border: 1.5px solid rgba(255, 215, 0, 0.6);
+      background: rgba(12, 12, 16, 0.75);
+      border: 1px solid rgba(255, 215, 0, 0.45);
       color: var(--gold-bright);
-      padding: 7px 18px;
-      border-radius: 30px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.28);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
-      user-select: none;
-    }
-
-    .balloon-score-pill strong {
-      color: #ffffff;
-      font-size: 1.12rem;
-      font-weight: 800;
-      text-shadow: 0 0 10px #ffd700;
-      margin-left: 2px;
-    }
-
-    .balloon-score-pill.bump {
-      transform: scale(1.22);
-      border-color: #ffffff;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.85);
-    }
-
-    .balloon-play-hint {
-      pointer-events: auto;
-      background: rgba(16, 16, 24, 0.78);
-      border: 1px solid rgba(255, 215, 0, 0.38);
-      color: #ffd700;
-      padding: 6px 18px;
+      padding: 6px 14px;
       border-radius: 30px;
       font-size: 0.82rem;
       font-weight: 600;
-      letter-spacing: 0.4px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 16px rgba(255, 215, 0, 0.2);
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      animation: hintGlow 3s ease-in-out infinite alternate;
-      user-select: none;
-    }
-
-    @keyframes hintGlow {
-      0% { border-color: rgba(255, 215, 0, 0.3); box-shadow: 0 0 12px rgba(255, 215, 0, 0.15); }
-      100% { border-color: rgba(255, 215, 0, 0.75); box-shadow: 0 0 24px rgba(255, 215, 0, 0.45); }
-    }
-
-    .audio-toggle-btn {
-      pointer-events: auto;
-      background: rgba(14, 14, 20, 0.86);
-      border: 1.5px solid rgba(255, 215, 0, 0.55);
-      color: var(--gold-bright);
-      padding: 7px 16px;
-      border-radius: 30px;
-      font-size: 0.84rem;
-      font-weight: 600;
       cursor: pointer;
       backdrop-filter: blur(12px);
-      box-shadow: 0 0 16px rgba(255, 215, 0, 0.2);
       transition: all 0.25s ease;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      user-select: none;
     }
 
     .audio-toggle-btn:hover {
@@ -535,86 +414,8 @@
       transform: scale(1.04);
     }
 
-    /* ========================================================
-       FLOATING "HAPPY BIRTHDAY!" BLAST TEXT BADGE
-       ======================================================== */
-    .pop-hbd-badge {
-      position: fixed;
-      z-index: 120;
-      pointer-events: none;
-      transform: translate(-50%, -50%) scale(0.3);
-      opacity: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 20px;
-      background: linear-gradient(135deg, rgba(20, 18, 28, 0.95), rgba(38, 26, 12, 0.95));
-      border: 2px solid #ffd700;
-      border-radius: 35px;
-      box-shadow: 
-        0 0 30px rgba(255, 215, 0, 0.75),
-        0 0 55px rgba(255, 26, 64, 0.42),
-        0 10px 25px rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(14px);
-      font-family: 'Fredoka', 'Outfit', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #ffd700;
-      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.9);
-      white-space: nowrap;
-      animation: popHbdFloat 1.85s cubic-bezier(0.18, 0.89, 0.32, 1.25) forwards;
-      user-select: none;
-    }
-
-    .pop-hbd-badge .badge-icon {
-      font-size: 1.35rem;
-      filter: drop-shadow(0 0 8px #ffd700);
-    }
-
-    .pop-hbd-badge .badge-text {
-      background: linear-gradient(135deg, #ffffff 0%, #ffd700 45%, #ffea79 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 0.8px;
-    }
-
-    @keyframes popHbdFloat {
-      0% {
-        transform: translate(-50%, -50%) scale(0.3) rotate(-8deg);
-        opacity: 0;
-      }
-      16% {
-        transform: translate(-50%, -50%) scale(1.18) rotate(3deg);
-        opacity: 1;
-      }
-      30% {
-        transform: translate(-50%, -50%) scale(1.0) rotate(0deg);
-        opacity: 1;
-      }
-      75% {
-        transform: translate(-50%, -85px) scale(1.02);
-        opacity: 0.95;
-      }
-      100% {
-        transform: translate(-50%, -130px) scale(0.85);
-        opacity: 0;
-      }
-    }
-
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      .top-celebration-bar {
-        padding: 0 12px;
-        top: 12px;
-      }
-      .balloon-play-hint {
-        display: none; /* Hide on mobile to keep clean */
-      }
-      .balloon-score-pill,
-      .audio-toggle-btn {
-        padding: 5px 12px;
-        font-size: 0.78rem;
-      }
       .side-fairy-lights,
       .side-sparkles-container {
         display: none;
@@ -643,27 +444,11 @@
   <!-- Cinematic Brightness Curtain -->
   <div id="cinematic-black-curtain" aria-hidden="true"></div>
 
-  <!-- Top Celebration Bar: Score Counter, Play Hint & Audio Toggle -->
-  <header class="top-celebration-bar">
-    <!-- Balloon Score Pill -->
-    <div class="balloon-score-pill" id="balloon-score-pill" title="Pop balloons to celebrate!">
-      <span class="score-icon">🎈</span>
-      <span class="score-text">Popped: <strong id="score-val">0</strong></span>
-    </div>
-
-    <!-- Playful Center Hint -->
-    <div class="balloon-play-hint" id="balloon-play-hint">
-      <span class="hint-sparkle">✨</span>
-      <span>Tap any floating balloon to blast & hear wishes!</span>
-      <span class="hint-sparkle">✨</span>
-    </div>
-
-    <!-- Audio & Voice Toggle -->
-    <button class="audio-toggle-btn" id="audio-toggle" aria-label="Toggle Sound and Voice">
-      <span id="audio-icon">🔊</span>
-      <span id="audio-label">Festive Sound</span>
-    </button>
-  </header>
+  <!-- Audio Toggle -->
+  <button class="audio-toggle-btn" id="audio-toggle" aria-label="Toggle Sound Effects">
+    <span id="audio-icon">🔊</span>
+    <span id="audio-label">Festive Sound</span>
+  </button>
 
   <!-- Matching First-Page Blurred Backdrop -->
   <div class="backdrop-container" aria-hidden="true">
@@ -788,7 +573,7 @@
 
   <script>
     // =========================================================================
-    // 1. ACOUSTIC AUDIO ENGINE: BALLOON POP & FESTIVE FIRECRACKERS
+    // 1. ACOUSTIC FIRECRACKER SOUND SYNTHESIS
     // =========================================================================
     let audioCtx = null;
     let isSoundMuted = false;
@@ -804,70 +589,6 @@
       return audioCtx;
     }
 
-    // Realistic punchy balloon pop sound
-    function playAcousticPopSound() {
-      if (isSoundMuted) return;
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-
-        // 1. High pressure membrane snap (fast pitch drop)
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(620, now);
-        osc.frequency.exponentialRampToValueAtTime(45, now + 0.08);
-
-        gain.gain.setValueAtTime(0.42, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.1);
-
-        // 2. Air burst rush noise
-        const bufferSize = Math.floor(ctx.sampleRate * 0.14);
-        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.28));
-        }
-
-        const noise = ctx.createBufferSource();
-        noise.buffer = noiseBuffer;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(1400, now);
-        filter.Q.setValueAtTime(2.5, now);
-
-        const noiseGain = ctx.createGain();
-        noiseGain.gain.setValueAtTime(0.38, now);
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-
-        noise.connect(filter);
-        filter.connect(noiseGain);
-        noiseGain.connect(ctx.destination);
-        noise.start(now);
-
-        // 3. Melodic celebratory harmonic chime note
-        const chime = ctx.createOscillator();
-        const chimeGain = ctx.createGain();
-        const notes = [587.33, 659.25, 783.99, 880.0, 1046.5]; // D5, E5, G5, A5, C6
-        chime.type = 'sine';
-        chime.frequency.setValueAtTime(notes[Math.floor(Math.random() * notes.length)], now);
-        chimeGain.gain.setValueAtTime(0.2, now);
-        chimeGain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-
-        chime.connect(chimeGain);
-        chimeGain.connect(ctx.destination);
-        chime.start(now);
-        chime.stop(now + 0.5);
-      } catch (err) {}
-    }
-
-    // Festive acoustic firecracker burst sound
     function playFirecrackerBurstSound() {
       if (isSoundMuted) return;
       try {
@@ -877,22 +598,22 @@
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(155 + Math.random() * 45, now);
-        osc.frequency.exponentialRampToValueAtTime(32, now + 0.28);
+        osc.frequency.setValueAtTime(145 + Math.random() * 45, now);
+        osc.frequency.exponentialRampToValueAtTime(32, now + 0.3);
 
-        gain.gain.setValueAtTime(0.26, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+        gain.gain.setValueAtTime(0.24, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
 
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start(now);
-        osc.stop(now + 0.32);
+        osc.stop(now + 0.35);
 
-        const bufferSize = Math.floor(ctx.sampleRate * 0.4);
+        const bufferSize = ctx.sampleRate * 0.45;
         const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
         const data = noiseBuffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() > 0.86 ? (Math.random() * 2 - 1) : 0) * 0.48;
+          data[i] = (Math.random() > 0.88 ? (Math.random() * 2 - 1) : 0) * 0.5;
         }
 
         const noise = ctx.createBufferSource();
@@ -900,11 +621,11 @@
 
         const filter = ctx.createBiquadFilter();
         filter.type = 'highpass';
-        filter.frequency.setValueAtTime(1900, now);
+        filter.frequency.setValueAtTime(1950, now);
 
         const noiseGain = ctx.createGain();
-        noiseGain.gain.setValueAtTime(0.22, now);
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+        noiseGain.gain.setValueAtTime(0.2, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
 
         noise.connect(filter);
         filter.connect(noiseGain);
@@ -913,59 +634,6 @@
       } catch (e) {}
     }
 
-    // =========================================================================
-    // 2. SPEECH SYNTHESIS ENGINE: VOCALLY SAYS "HAPPY BIRTHDAY!"
-    // =========================================================================
-    let availableVoices = [];
-    function initSpeechVoices() {
-      if ('speechSynthesis' in window) {
-        availableVoices = window.speechSynthesis.getVoices() || [];
-      }
-    }
-    if ('speechSynthesis' in window) {
-      initSpeechVoices();
-      window.speechSynthesis.onvoiceschanged = initSpeechVoices;
-    }
-
-    function speakHappyBirthday() {
-      if (isSoundMuted) return;
-      if (!('speechSynthesis' in window)) return;
-      try {
-        window.speechSynthesis.cancel(); // Cancel backlog for instant reaction
-
-        const birthdayWishes = [
-          "Happy Birthday Akshaya!",
-          "Happy Birthday!",
-          "Happy 25th Birthday Akshaya!",
-          "Yay, Happy Birthday!",
-          "Happy Birthday! Keep shining bright!",
-          "Woohoo, Happy Birthday Akshaya!"
-        ];
-
-        const text = birthdayWishes[Math.floor(Math.random() * birthdayWishes.length)];
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 1.05;
-        utter.pitch = 1.25; // Warm, enthusiastic pitch
-        utter.volume = 1.0;
-
-        if (availableVoices.length === 0) {
-          availableVoices = window.speechSynthesis.getVoices() || [];
-        }
-
-        if (availableVoices.length > 0) {
-          const matchVoice = availableVoices.find(v => 
-            v.lang.startsWith('en') && 
-            (v.name.includes('Natural') || v.name.includes('Zira') || v.name.includes('Jenny') || v.name.includes('Samantha') || v.name.includes('Google') || v.name.includes('Female'))
-          ) || availableVoices.find(v => v.lang.startsWith('en'));
-
-          if (matchVoice) utter.voice = matchVoice;
-        }
-
-        window.speechSynthesis.speak(utter);
-      } catch (e) {}
-    }
-
-    // Audio & Voice Toggle
     const audioBtn = document.getElementById('audio-toggle');
     const audioIcon = document.getElementById('audio-icon');
     const audioLabel = document.getElementById('audio-label');
@@ -975,74 +643,20 @@
         getAudioContext();
         isSoundMuted = !isSoundMuted;
         if (isSoundMuted) {
-          if ('speechSynthesis' in window) window.speechSynthesis.cancel();
           audioIcon.textContent = '🔇';
           audioLabel.textContent = 'Muted';
         } else {
           audioIcon.textContent = '🔊';
-          audioLabel.textContent = 'Sound & Voice ON';
+          audioLabel.textContent = 'Festive Sound';
           playFirecrackerBurstSound();
-          speakHappyBirthday();
         }
       });
     }
 
     window.addEventListener('click', () => getAudioContext(), { once: true });
-    window.addEventListener('touchstart', () => getAudioContext(), { once: true });
 
     // =========================================================================
-    // 3. SCORE COUNTER & FLOATING "HAPPY BIRTHDAY!" VISUAL BADGES
-    // =========================================================================
-    let poppedCount = 0;
-    const scoreValEl = document.getElementById('score-val');
-    const scorePillEl = document.getElementById('balloon-score-pill');
-
-    function incrementPoppedScore() {
-      poppedCount++;
-      if (scoreValEl) {
-        scoreValEl.textContent = poppedCount;
-      }
-      if (scorePillEl) {
-        scorePillEl.classList.add('bump');
-        setTimeout(() => scorePillEl.classList.remove('bump'), 260);
-      }
-    }
-
-    const celebratoryBadges = [
-      { icon: '🎉', text: 'HAPPY BIRTHDAY AKSHAYA!' },
-      { icon: '🎂', text: 'HAPPY BIRTHDAY!' },
-      { icon: '✨', text: 'NEVER STOP SHINING!' },
-      { icon: '🎈', text: 'HAPPY 25TH BIRTHDAY!' },
-      { icon: '💖', text: 'RADIANT & BEAUTIFUL!' },
-      { icon: '🌟', text: 'WISHES GRANTED! 💫' }
-    ];
-
-    function showFloatingBirthdayText(x, y) {
-      const choice = celebratoryBadges[Math.floor(Math.random() * celebratoryBadges.length)];
-      const badge = document.createElement('div');
-      badge.className = 'pop-hbd-badge';
-
-      // Keep within screen boundaries
-      const clampedX = Math.max(140, Math.min(window.innerWidth - 140, x));
-      const clampedY = Math.max(90, Math.min(window.innerHeight - 80, y));
-
-      badge.style.left = `${clampedX}px`;
-      badge.style.top = `${clampedY}px`;
-
-      badge.innerHTML = `
-        <span class="badge-icon">${choice.icon}</span>
-        <span class="badge-text">${choice.text}</span>
-      `;
-
-      document.body.appendChild(badge);
-
-      setTimeout(() => {
-        badge.remove();
-      }, 1900);
-    }
-
-    // =========================================================================
-    // 4. CONTINUOUS BOTTOM-TO-TOP GOLD & BLACK SEMI-TRANSPARENT BALLOONS
+    // 2. CONTINUOUS BOTTOM-TO-TOP GOLD & BLACK SEMI-TRANSPARENT BALLOONS
     // =========================================================================
     const balloonsContainer = document.getElementById('balloons-container');
 
@@ -1104,60 +718,22 @@
       `;
     }
 
-    // Interactive Pop Trigger Handler
-    function popBalloon(balloon, event) {
-      if (balloon.dataset.popped === 'true') return;
-      balloon.dataset.popped = 'true';
-
-      const rect = balloon.getBoundingClientRect();
-      const clickX = (event && event.clientX) ? event.clientX : (rect.left + rect.width / 2);
-      const clickY = (event && event.clientY) ? event.clientY : (rect.top + rect.height / 2);
-
-      // Freeze balloon at exact position for crisp pop burst
-      balloon.style.animation = 'none';
-      balloon.style.transform = `translate(${rect.left}px, ${rect.top}px)`;
-      balloon.style.left = '0';
-      balloon.style.top = '0';
-      balloon.style.bottom = 'auto';
-      balloon.classList.add('balloon-popping');
-
-      setTimeout(() => {
-        balloon.remove();
-      }, 130);
-
-      // 1. BLAST: Sparkling firecracker explosion on canvas at (clickX, clickY)
-      createPopBlast(clickX, clickY);
-
-      // 2. SOUND: Punchy acoustic balloon pop + firecracker blast
-      playAcousticPopSound();
-      playFirecrackerBurstSound();
-
-      // 3. SAY HAPPY BIRTHDAY: Voice speech synthesis
-      speakHappyBirthday();
-
-      // 4. SAY HAPPY BIRTHDAY: Floating 3D celebration banner
-      showFloatingBirthdayText(clickX, clickY);
-
-      // 5. SCORE: Increment popped counter with bump
-      incrementPoppedScore();
-    }
-
     function spawnFloatingBalloon() {
       if (!balloonsContainer) return;
 
       const balloon = document.createElement('div');
       balloon.className = 'flying-balloon';
 
-      // Spawn across left and right zones with comfortable playable spread
+      // Spawn across left and right zones so they rise continuously without blocking center text
       const isLeftSide = Math.random() > 0.5;
       const leftPct = isLeftSide
-        ? (2 + Math.random() * 26)    // 2% to 28%
-        : (70 + Math.random() * 26);  // 70% to 96%
+        ? (2 + Math.random() * 22)    // 2% to 24%
+        : (74 + Math.random() * 20);  // 74% to 94%
 
       balloon.style.left = `${leftPct}%`;
 
-      const scale = 0.68 + Math.random() * 0.46;
-      const duration = 6.8 + Math.random() * 4.6; // Smooth steady ascent
+      const scale = 0.65 + Math.random() * 0.45;
+      const duration = 7.0 + Math.random() * 5.0; // Smooth steady ascent
 
       balloon.style.width = `${scale * 82}px`;
       balloon.style.height = `${scale * 132}px`;
@@ -1166,23 +742,52 @@
       const palette = balloonPalettes[Math.floor(Math.random() * balloonPalettes.length)];
       balloon.innerHTML = createBalloonSVG(palette);
 
-      // Interactive Click & Touch Listeners
-      const handlePopEvent = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        getAudioContext();
-        popBalloon(balloon, e);
-      };
+      // Interactive Click to Pop Balloon on Page 2
+      balloon.addEventListener('click', () => {
+        playFirecrackerBurstSound();
+        const rect = balloon.getBoundingClientRect();
+        const bx = rect.left + rect.width / 2;
+        const by = rect.top + rect.height / 2;
+        shockwaves.push({
+          x: bx,
+          y: by,
+          radius: 3,
+          maxRadius: 45,
+          speed: 4,
+          opacity: 0.95,
+          color: palette.base || '#ffd700'
+        });
+        const blastColors = [palette.base || '#ffd700', '#ffffff', '#ffea79'];
+        for (let i = 0; i < 24; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 2.0 + Math.random() * 5.0;
+          particles.push({
+            x: bx,
+            y: by,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 0.5,
+            friction: 0.94,
+            gravity: 0.12,
+            size: 2.0 + Math.random() * 2.5,
+            color: blastColors[Math.floor(Math.random() * blastColors.length)],
+            opacity: 1.0,
+            life: 0,
+            maxLife: 35 + Math.random() * 25,
+            isGlitter: true
+          });
+        }
+        if (!animId) animateParticles();
 
-      balloon.addEventListener('pointerdown', handlePopEvent);
-      balloon.addEventListener('click', handlePopEvent);
+        balloon.style.transition = 'transform 0.1s ease, opacity 0.1s ease';
+        balloon.style.transform = 'scale(1.35)';
+        balloon.style.opacity = '0';
+        setTimeout(() => balloon.remove(), 120);
+      });
 
       balloonsContainer.appendChild(balloon);
 
       setTimeout(() => {
-        if (!balloon.dataset.popped) {
-          balloon.remove();
-        }
+        balloon.remove();
       }, duration * 1000 + 400);
     }
 
@@ -1191,14 +796,14 @@
       for (let i = 0; i < 6; i++) {
         setTimeout(spawnFloatingBalloon, i * 450);
       }
-      // Continuous spawning every 800ms
-      setInterval(spawnFloatingBalloon, 800);
+      // Continuous spawning every 850ms
+      setInterval(spawnFloatingBalloon, 850);
     }
 
     startBalloonSpawner();
 
     // =========================================================================
-    // 5. FIRECRACKER & BALLOON POP BLASTS ENGINE (CANVAS)
+    // 3. FIRECRACKER BLASTS ENGINE (FLYING ABOVE)
     // =========================================================================
     const canvas = document.getElementById('firecracker-canvas');
     const ctx = canvas.getContext('2d');
@@ -1212,57 +817,6 @@
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-
-    // Dedicated balloon pop blast function at exact (x, y) coordinates
-    function createPopBlast(x, y) {
-      // Expanding golden and diamond shockwaves
-      shockwaves.push({
-        x: x,
-        y: y,
-        radius: 6,
-        maxRadius: 115,
-        speed: 7.2,
-        opacity: 1.0,
-        color: '#ffd700'
-      });
-
-      shockwaves.push({
-        x: x,
-        y: y,
-        radius: 2,
-        maxRadius: 75,
-        speed: 5.2,
-        opacity: 0.95,
-        color: '#ffffff'
-      });
-
-      // 60+ radiant sparkle and confetti particles
-      const count = 55 + Math.floor(Math.random() * 25);
-      const blastColors = ['#ffd700', '#ffea79', '#ff1a40', '#ffffff', '#ffae19', '#ff4d6d', '#00f3ff', '#ffa502'];
-
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 3.2 + Math.random() * 10.8;
-        particles.push({
-          x: x,
-          y: y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 1.6, // slight upward impulse
-          friction: 0.93 + Math.random() * 0.03,
-          gravity: 0.14 + Math.random() * 0.06,
-          size: 2.8 + Math.random() * 4.2,
-          color: blastColors[Math.floor(Math.random() * blastColors.length)],
-          opacity: 1.0,
-          life: 0,
-          maxLife: 42 + Math.random() * 38,
-          isGlitter: true
-        });
-      }
-
-      if (!animId) {
-        animateParticles();
-      }
-    }
 
     function spawnRandomFirecracker() {
       const w = canvas.width;
@@ -1385,7 +939,7 @@
 
     function scheduleNextBlast() {
       spawnRandomFirecracker();
-      const nextDelay = 750 + Math.random() * 1200;
+      const nextDelay = 650 + Math.random() * 1150;
       setTimeout(scheduleNextBlast, nextDelay);
     }
 
