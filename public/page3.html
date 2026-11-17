@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pop All Balloons 🎈 - Akshaya's 25th Birthday</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎈</text></svg>">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
+  <style>
+    :root {
+      --bg-deep: #070709;
+      --gold-neon: #ffd700;
+      --gold-warm: #f5af2d;
+      --gold-bright: #ffea79;
+      --red-bright: #ff1a40;
+      --red-deep: #cc0029;
+      --red-glow: rgba(255, 26, 64, 0.6);
+      --card-bg: rgba(14, 14, 20, 0.82);
+      --text-white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-deep);
+      color: var(--text-white);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ========================================================
+       MATCHING AMBIENT BACKGROUND (Exact Same Poster Image)
+       ======================================================== */
+    .backdrop-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .backdrop-image {
+      position: absolute;
+      top: -8%;
+      left: -8%;
+      width: 116vw;
+      height: 116vh;
+      object-fit: cover;
+      filter: blur(34px) brightness(0.55) saturate(1.25);
+      transform: scale(1.05);
+    }
+
+    .backdrop-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(7, 7, 9, 0.6) 0%, rgba(7, 7, 9, 0.92) 100%);
+    }
+
+    /* Left & Right Side Fairy Lights */
+    .side-fairy-lights {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 90px;
+      z-index: 4;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+    }
+    .side-fairy-lights.left { left: 1vw; }
+    .side-fairy-lights.right { right: 1vw; transform: scaleX(-1); }
+
+    .fairy-string {
+      width: 40px;
+      height: 100%;
+      animation: stringSway 5s ease-in-out infinite alternate;
+    }
+    @keyframes stringSway {
+      0% { transform: rotate(-1.5deg); }
+      100% { transform: rotate(1.5deg); }
+    }
+
+    /* Confetti / Particle Canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /* Bioluminescent Lightning Bugs Canvas */
+    #lightning-bugs-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* ========================================================
+       MAIN CONTAINER (Fits Perfectly on One Single Screen)
+       ======================================================== */
+    .page-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 920px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 1.0rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      margin-bottom: 0.8rem;
+      animation: fadeInDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.0rem, 4vw, 2.7rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, #ffd700 45%, #ff4d6d 80%, #ff1a40 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+      margin-bottom: 0.25rem;
+      text-shadow: 0 0 30px rgba(255, 26, 64, 0.35);
+    }
+
+    .subtitle {
+      font-size: clamp(0.88rem, 1.8vw, 1.02rem);
+      color: #cbd5e1;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      max-width: 520px;
+      margin: 0 auto 0.5rem;
+      line-height: 1.35;
+    }
+
+    /* Counter indicator */
+    .progress-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 14px;
+      border-radius: 30px;
+      background: rgba(12, 12, 16, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      backdrop-filter: blur(12px);
+    }
+    .progress-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--red-bright);
+      box-shadow: 0 0 8px var(--red-bright);
+      animation: pulseDot 1.8s infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.6; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* ========================================================
+       BALLOONS 2x2 GRID (Compact - All 4 Under One Single Page)
+       ======================================================== */
+    .balloons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(240px, 340px));
+      gap: 0.75rem 2.0rem;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Single Balloon Slot */
+    .balloon-slot {
+      position: relative;
+      height: 140px;
+      min-height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    /* Balloon Wrapper with Floating Physics */
+    .balloon-interactive {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      animation: balloonFloat 4.6s ease-in-out infinite alternate;
+    }
+
+    .balloon-interactive:hover {
+      transform: scale(1.08) translateY(-4px);
+      filter: drop-shadow(0 0 20px rgba(255, 26, 64, 0.85));
+    }
+
+    /* Staggered float animations for natural movement */
+    .slot-1 .balloon-interactive { animation-duration: 4.8s; animation-delay: 0s; }
+    .slot-2 .balloon-interactive { animation-duration: 4.2s; animation-delay: -1.2s; }
+    .slot-3 .balloon-interactive { animation-duration: 5.1s; animation-delay: -2.3s; }
+    .slot-4 .balloon-interactive { animation-duration: 4.5s; animation-delay: -3.4s; }
+
+    @keyframes balloonFloat {
+      0% {
+        transform: translateY(0) rotate(-1.5deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(1.8deg);
+      }
+      100% {
+        transform: translateY(-5px) rotate(-1deg);
+      }
+    }
+
+    /* Decreased Balloon SVG Size (Fits Beautifully on 1 Screen) */
+    .balloon-svg {
+      width: 95px;
+      height: 135px;
+      filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.65));
+      overflow: visible;
+      transition: transform 0.1s ease-out;
+    }
+
+    /* Floating String Sway inside SVG */
+    .balloon-string-path {
+      animation: stringSwayWave 3.5s ease-in-out infinite alternate;
+      transform-origin: 80px 200px;
+    }
+    @keyframes stringSwayWave {
+      0% { transform: rotate(-4deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    /* Tap / Pop instruction tag on balloon - Perfectly Aligned & Centered */
+    .pop-hint-tag {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      background: rgba(10, 10, 16, 0.9);
+      border: 1.5px solid var(--gold-neon);
+      color: #fff4a3;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .balloon-interactive:hover .pop-hint-tag {
+      transform: translateX(-50%) scale(1.1);
+      background: linear-gradient(135deg, rgba(255, 26, 64, 0.95), rgba(180, 0, 35, 0.95));
+      border-color: #ffffff;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 26, 64, 0.85);
+    }
+
+    /* Popping Animation on Balloon */
+    .balloon-interactive.popping {
+      animation: balloonBurst 0.18s cubic-bezier(0.1, 0.9, 0.2, 1) forwards !important;
+      pointer-events: none;
+    }
+
+    @keyframes balloonBurst {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.35);
+        opacity: 0.9;
+        filter: brightness(2.2);
+      }
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    /* ========================================================
+       REVEALED MESSAGE CARD (Compact & Sized to Slot)
+       ======================================================== */
+    .revealed-message-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: var(--card-bg);
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      border-radius: 16px;
+      padding: 0.75rem 1.0rem;
+      box-shadow: 
+        0 0 25px rgba(245, 175, 45, 0.22),
+        0 10px 25px rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: center;
+      display: none;
+      opacity: 0;
+      transform: scale(0.88) translateY(10px);
+      transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .revealed-message-card.show {
+      display: flex;
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+
+    .card-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      background: rgba(255, 215, 0, 0.12);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      padding: 2px 9px;
+      border-radius: 14px;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-message-text {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #f8fafc;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    .card-message-text strong {
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .card-sparkle-icon {
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* ========================================================
+       ALL BALLOONS POPPED - CELEBRATION OVERLAY MODAL
+       ======================================================== */
+    .grand-finale-card {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      z-index: 150;
+      width: 90%;
+      max-width: 520px;
+      background: linear-gradient(135deg, rgba(16, 16, 26, 0.96), rgba(28, 14, 20, 0.95));
+      border: 2px solid var(--gold-neon);
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
+      text-align: center;
+      box-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.45),
+        0 0 80px rgba(255, 26, 64, 0.35),
+        0 25px 60px rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(24px);
+      display: none;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .grand-finale-card.show {
+      display: block;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    @keyframes finalePulse {
+      0% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.35), 0 0 60px rgba(255, 26, 64, 0.25); }
+      100% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.55), 0 0 95px rgba(255, 26, 64, 0.45); }
+    }
+
+    .finale-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: #ffffff;
+      background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ff4d6d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.8rem;
+    }
+
+    .finale-desc {
+      font-size: 1.1rem;
+      color: #e2e8f0;
+      margin-bottom: 1.6rem;
+      line-height: 1.6;
+    }
+
+    /* Action Buttons */
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 26px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .btn-reset {
+      background: rgba(255, 26, 64, 0.2);
+      border: 1.5px solid var(--red-bright);
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 26, 64, 0.35);
+    }
+    .btn-reset:hover {
+      background: var(--red-bright);
+      color: #ffffff;
+      box-shadow: 0 0 30px rgba(255, 26, 64, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .btn-home {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 215, 0, 0.5);
+      color: var(--gold-bright);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+    }
+    .btn-home:hover {
+      background: var(--gold-neon);
+      color: #000000;
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.8);
+      transform: translateY(-2px);
+    }
+
+    .btn-next-page {
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+      color: #080808;
+      border: 1.5px solid #fff3b0;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    }
+    .btn-next-page:hover {
+      background: #ffffff;
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+      transform: translateY(-2px);
+    }
+
+    /* ========================================================
+       PERSISTENT FOOTER ACTION BUTTONS (MATCHING PAGE 2)
+       ======================================================== */
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.6rem;
+      z-index: 20;
+    }
+
+    .btn-proceed-surprise {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: #080808;
+      text-decoration: none;
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+      border: 1.5px solid #fff3b0;
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.48), 0 6px 18px rgba(0, 0, 0, 0.85);
+      transition: all 0.3s ease;
+    }
+
+    .btn-proceed-surprise:hover {
+      transform: translateY(-2px) scale(1.04);
+      background: #ffffff;
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.85);
+    }
+
+    .btn-back-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #ffe89e;
+      text-decoration: none;
+      background: rgba(15, 15, 18, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.22);
+      transition: all 0.3s ease;
+    }
+
+    .btn-back-link:hover {
+      color: #ffffff;
+      border-color: #ffd700;
+      background: rgba(35, 30, 15, 0.9);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* ========================================================
+       RESPONSIVE DESIGN (All 4 Balloons on 1 Screen)
+       ======================================================== */
+    @media (max-width: 768px) {
+      .side-fairy-lights { display: none; }
+      .page-container {
+        padding: 0.8rem 0.6rem;
+      }
+      .main-title {
+        font-size: 1.7rem;
+      }
+      .subtitle {
+        font-size: 0.82rem;
+        margin-bottom: 0.4rem;
+      }
+      .balloons-grid {
+        grid-template-columns: repeat(2, minmax(130px, 175px));
+        gap: 0.5rem 0.8rem;
+      }
+      .balloon-slot {
+        height: 120px;
+        min-height: 120px;
+      }
+      .balloon-svg {
+        width: 78px;
+        height: 112px;
+      }
+      .revealed-message-card {
+        padding: 0.5rem 0.6rem;
+      }
+      .card-header-badge {
+        font-size: 0.65rem;
+        padding: 2px 7px;
+        margin-bottom: 0.2rem;
+      }
+      .card-message-text {
+        font-size: 0.74rem;
+        line-height: 1.35;
+      }
+      .card-sparkle-icon {
+        font-size: 0.85rem;
+        margin-top: 0.2rem;
+      }
+    }
+
+    @media (max-height: 540px) {
+      html, body {
+        overflow-y: auto;
+      }
+      .page-container {
+        height: auto;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-Screen Matching Ambient Background -->
+  <div class="backdrop-container" aria-hidden="true">
+    <img src="images/akshaya.jpg" alt="" class="backdrop-image">
+    <div class="backdrop-overlay"></div>
+  </div>
+
+  <!-- Bioluminescent Lightning Bugs (Fireflies) Flying All Around -->
+  <canvas id="lightning-bugs-canvas"></canvas>
+
+  <!-- Left Side Fairy Lights -->
+  <aside class="side-fairy-lights left" aria-hidden="true">
+    <svg class="fairy-string" viewBox="0 0 40 800" preserveAspectRatio="none">
+      <path d="M 20 0 Q 30 200 15 400 T 20 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="20" cy="80" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="26" cy="200" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="18" cy="340" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="24" cy="480" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="20" cy="620" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="22" cy="740" r="4.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+    </svg>
+  </aside>
+
+  <!-- Right Side Fairy Lights -->
+  <aside class="side-fairy-lights right" aria-hidden="true">
+    <svg class="fairy-string" viewBox="0 0 40 800" preserveAspectRatio="none">
+      <path d="M 20 0 Q 30 200 15 400 T 20 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="20" cy="100" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="26" cy="220" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="18" cy="360" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="24" cy="500" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+      <circle cx="20" cy="640" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+    </svg>
+  </aside>
+
+  <!-- Particle / Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- SVG Balloon Definitions (Reused Across Balloons) -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <!-- Rich 3D Red Radial Shading -->
+      <radialGradient id="balloonRedGrad" cx="36%" cy="32%" r="68%">
+        <stop offset="0%" stop-color="#ff758c" />
+        <stop offset="25%" stop-color="#ff1a40" />
+        <stop offset="65%" stop-color="#cc0029" />
+        <stop offset="90%" stop-color="#800018" />
+        <stop offset="100%" stop-color="#4d000e" />
+      </radialGradient>
+      <!-- Specular Gloss Highlight -->
+      <linearGradient id="glossHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(255, 255, 255, 0.88)" />
+        <stop offset="60%" stop-color="rgba(255, 255, 255, 0.18)" />
+        <stop offset="100%" stop-color="rgba(255, 255, 255, 0)" />
+      </linearGradient>
+      <filter id="balloonRedGlow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="rgba(255, 26, 64, 0.45)" />
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="page-container">
+
+    <!-- Header Section (Without Chapter 2 Milestone Badge) -->
+    <header class="header-section">
+      <h1 class="main-title">Pop All Balloons</h1>
+      <p class="subtitle">Tap each red balloon to pop it and reveal Akshaya's secret birthday wishes!</p>
+      <div class="progress-pill">
+        <span class="progress-dot"></span>
+        <span id="progress-text">0 of 4 Balloons Popped</span>
+      </div>
+    </header>
+
+    <!-- 2x2 Balloons Grid (2 on top, 2 below) -->
+    <section class="balloons-grid" aria-label="Interactive Birthday Balloons">
+
+      <!-- BALLOON 1 (Top Left) -->
+      <div class="balloon-slot slot-1" data-index="1">
+        <div class="balloon-interactive" role="button" tabindex="0" aria-label="Pop Balloon 1">
+          <svg class="balloon-svg" viewBox="0 0 160 260">
+            <path d="M 80 12 C 130 12 150 55 150 95 C 150 145 105 185 85 192 L 75 192 C 55 185 10 145 10 95 C 10 55 30 12 80 12 Z" fill="url(#balloonRedGrad)" filter="url(#balloonRedGlow)"/>
+            <ellipse cx="48" cy="55" rx="20" ry="36" transform="rotate(-28 48 55)" fill="url(#glossHighlight)"/>
+            <circle cx="112" cy="115" r="4.5" fill="rgba(255, 255, 255, 0.45)"/>
+            <polygon points="74,192 86,192 89,200 71,200" fill="#99001d"/>
+            <path class="balloon-string-path" d="M 80 200 Q 70 216 88 232 T 78 258" stroke="rgba(255, 215, 0, 0.7)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="pop-hint-tag">🎈 Tap to Pop</span>
+        </div>
+
+        <!-- Hidden Message Card 1 (Editable Demo Text) -->
+        <article class="revealed-message-card">
+          <div class="card-header-badge">🌟 Surprise #1</div>
+          <p class="card-message-text">
+            <strong>"Your Radiant Smile"</strong><br>
+            A smile that lights up every room and brings endless warmth to everyone around you. Keep shining brighter than ever! ✨
+          </p>
+          <span class="card-sparkle-icon">💖</span>
+        </article>
+      </div>
+
+      <!-- BALLOON 2 (Top Right) -->
+      <div class="balloon-slot slot-2" data-index="2">
+        <div class="balloon-interactive" role="button" tabindex="0" aria-label="Pop Balloon 2">
+          <svg class="balloon-svg" viewBox="0 0 160 260">
+            <path d="M 80 12 C 130 12 150 55 150 95 C 150 145 105 185 85 192 L 75 192 C 55 185 10 145 10 95 C 10 55 30 12 80 12 Z" fill="url(#balloonRedGrad)" filter="url(#balloonRedGlow)"/>
+            <ellipse cx="48" cy="55" rx="20" ry="36" transform="rotate(-28 48 55)" fill="url(#glossHighlight)"/>
+            <circle cx="112" cy="115" r="4.5" fill="rgba(255, 255, 255, 0.45)"/>
+            <polygon points="74,192 86,192 89,200 71,200" fill="#99001d"/>
+            <path class="balloon-string-path" d="M 80 200 Q 90 216 72 232 T 82 258" stroke="rgba(255, 215, 0, 0.7)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="pop-hint-tag">🎈 Tap to Pop</span>
+        </div>
+
+        <!-- Hidden Message Card 2 (Editable Demo Text) -->
+        <article class="revealed-message-card">
+          <div class="card-header-badge">✨ Surprise #2</div>
+          <p class="card-message-text">
+            <strong>"25 Years of Grace"</strong><br>
+            Quarter of a century filled with elegance, kindness, and unforgettable memories. Wishing you countless more! 🌸
+          </p>
+          <span class="card-sparkle-icon">🎂</span>
+        </article>
+      </div>
+
+      <!-- BALLOON 3 (Bottom Left) -->
+      <div class="balloon-slot slot-3" data-index="3">
+        <div class="balloon-interactive" role="button" tabindex="0" aria-label="Pop Balloon 3">
+          <svg class="balloon-svg" viewBox="0 0 160 260">
+            <path d="M 80 12 C 130 12 150 55 150 95 C 150 145 105 185 85 192 L 75 192 C 55 185 10 145 10 95 C 10 55 30 12 80 12 Z" fill="url(#balloonRedGrad)" filter="url(#balloonRedGlow)"/>
+            <ellipse cx="48" cy="55" rx="20" ry="36" transform="rotate(-28 48 55)" fill="url(#glossHighlight)"/>
+            <circle cx="112" cy="115" r="4.5" fill="rgba(255, 255, 255, 0.45)"/>
+            <polygon points="74,192 86,192 89,200 71,200" fill="#99001d"/>
+            <path class="balloon-string-path" d="M 80 200 Q 72 216 86 232 T 76 258" stroke="rgba(255, 215, 0, 0.7)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="pop-hint-tag">🎈 Tap to Pop</span>
+        </div>
+
+        <!-- Hidden Message Card 3 (Editable Demo Text) -->
+        <article class="revealed-message-card">
+          <div class="card-header-badge">💫 Surprise #3</div>
+          <p class="card-message-text">
+            <strong>"Endless Adventures"</strong><br>
+            May this 25th chapter open doors to all your biggest dreams, exciting travels, and pure happiness! 🚀
+          </p>
+          <span class="card-sparkle-icon">🌟</span>
+        </article>
+      </div>
+
+      <!-- BALLOON 4 (Bottom Right) -->
+      <div class="balloon-slot slot-4" data-index="4">
+        <div class="balloon-interactive" role="button" tabindex="0" aria-label="Pop Balloon 4">
+          <svg class="balloon-svg" viewBox="0 0 160 260">
+            <path d="M 80 12 C 130 12 150 55 150 95 C 150 145 105 185 85 192 L 75 192 C 55 185 10 145 10 95 C 10 55 30 12 80 12 Z" fill="url(#balloonRedGrad)" filter="url(#balloonRedGlow)"/>
+            <ellipse cx="48" cy="55" rx="20" ry="36" transform="rotate(-28 48 55)" fill="url(#glossHighlight)"/>
+            <circle cx="112" cy="115" r="4.5" fill="rgba(255, 255, 255, 0.45)"/>
+            <polygon points="74,192 86,192 89,200 71,200" fill="#99001d"/>
+            <path class="balloon-string-path" d="M 80 200 Q 88 216 70 232 T 80 258" stroke="rgba(255, 215, 0, 0.7)" stroke-width="2" fill="none"/>
+          </svg>
+          <span class="pop-hint-tag">🎈 Tap to Pop</span>
+        </div>
+
+        <!-- Hidden Message Card 4 (Editable Demo Text) -->
+        <article class="revealed-message-card">
+          <div class="card-header-badge">🎉 Grand Wish #4</div>
+          <p class="card-message-text">
+            <strong>"Happy 25th Birthday Akshaya!"</strong><br>
+            May every single moment of this special year bring you immense love, health, peace, and boundless joy! 🥳
+          </p>
+          <span class="card-sparkle-icon">👑</span>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- Persistent Footer Action Buttons (Matching Previous Pages) -->
+    <footer class="footer-actions">
+      <a href="page4.html" class="btn-proceed-surprise" id="btn-next">
+        <span>Continue to Memories 📸</span>
+      </a>
+      <a href="page2.html" class="btn-back-link">
+        <span>← Back to Birthday Wishes</span>
+      </a>
+    </footer>
+
+    <!-- Grand Finale Card (Appears after popping all 4 balloons) -->
+    <section class="grand-finale-card" id="grand-finale-card">
+      <h2 class="finale-title">🎉 All Surprises Unlocked! 🎉</h2>
+      <p class="finale-desc">
+        Every wish in the sky belongs to you today, Akshaya! Wishing you the happiest and most magical 25th Birthday celebration! 🥳✨
+      </p>
+      <div class="button-group">
+        <a href="page4.html" class="btn-action btn-next-page">
+          <span>Continue to Memories 📸</span>
+        </a>
+        <button type="button" class="btn-action btn-reset" id="btn-replay">
+          <span>🎈 Pop Again</span>
+        </button>
+        <a href="page2.html" class="btn-action btn-home">
+          <span>← Back to Birthday Wishes</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       AUDIO ENGINE & POPPING SIMULATION SCRIPT
+       ========================================================================= -->
+  <script>
+    // Audio Context for realistic Balloon Pop sound
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioClass();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    // Realistic Balloon Pop Synthesizer:
+    // Combines high-pressure membrane rupture pop + low thump + celebratory chime note
+    function playBalloonPopSound() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        // 1. Sharp Membrane Rupture (Burst noise)
+        const bufferSize = ctx.sampleRate * 0.12;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.025));
+        }
+
+        const whiteNoise = ctx.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1400, now);
+        filter.Q.setValueAtTime(3.0, now);
+
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.7, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+        whiteNoise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        whiteNoise.start(now);
+
+        // 2. Low Pressure Thump
+        const osc = ctx.createOscillator();
+        const oscGain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(260, now);
+        osc.frequency.exponentialRampToValueAtTime(45, now + 0.15);
+
+        oscGain.gain.setValueAtTime(0.65, now);
+        oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+        osc.connect(oscGain);
+        oscGain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.16);
+
+        // 3. Pleasant Harmonic Chime
+        const chime = ctx.createOscillator();
+        const chimeGain = ctx.createGain();
+        chime.type = 'sine';
+        const chimeNotes = [880, 1046.50, 1318.51, 1567.98];
+        const chosenNote = chimeNotes[Math.floor(Math.random() * chimeNotes.length)];
+        chime.frequency.setValueAtTime(chosenNote, now + 0.02);
+
+        chimeGain.gain.setValueAtTime(0.12, now + 0.02);
+        chimeGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
+
+        chime.connect(chimeGain);
+        chimeGain.connect(ctx.destination);
+        chime.start(now + 0.02);
+        chime.stop(now + 0.65);
+      } catch (err) {}
+    }
+
+    // Fanfare when all 4 are popped
+    function playGrandFinaleSound() {
+      try {
+        const ctx = getAudioContext();
+        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime);
+            osc.stop(ctx.currentTime + 1.3);
+          }, idx * 90);
+        });
+      } catch (err) {}
+    }
+
+    // =========================================================================
+    // CONFETTI & POP PARTICLE SYSTEM
+    // =========================================================================
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationFrameId = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function spawnPopBurst(originX, originY) {
+      const colors = ['#ff1a40', '#ff4d6d', '#ffd700', '#ffea79', '#ffffff', '#ff9900'];
+      
+      // Rubber balloon fragments & sparkling confetti
+      for (let i = 0; i < 48; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 4 + Math.random() * 11;
+        particles.push({
+          x: originX,
+          y: originY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 2.5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 3 + Math.random() * 6,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.3,
+          isStrip: Math.random() > 0.45,
+          gravity: 0.22,
+          friction: 0.95,
+          opacity: 1,
+          life: 0,
+          maxLife: 60 + Math.random() * 45
+        });
+      }
+
+      if (!animationFrameId) {
+        animateParticles();
+      }
+    }
+
+    function spawnCelebrationConfettiShower() {
+      const colors = ['#ff1a40', '#ffd700', '#00f3ff', '#ffea79', '#ffffff', '#f5af2d'];
+      for (let i = 0; i < 140; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: -20 - Math.random() * 120,
+          vx: (Math.random() - 0.5) * 4,
+          vy: 2 + Math.random() * 5,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 5 + Math.random() * 7,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.15,
+          isStrip: Math.random() > 0.4,
+          gravity: 0.08,
+          friction: 0.99,
+          opacity: 1,
+          life: 0,
+          maxLife: 150 + Math.random() * 80
+        });
+      }
+      if (!animationFrameId) {
+        animateParticles();
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.vx *= p.friction;
+        p.vy *= p.friction;
+        p.vy += p.gravity;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rotation += p.rotSpeed;
+        p.life++;
+
+        const progress = p.life / p.maxLife;
+        p.opacity = Math.max(0, 1 - progress);
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = p.color;
+
+        if (p.isStrip) {
+          ctx.fillRect(-p.size, -p.size / 2.5, p.size * 2, p.size);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+
+        if (p.life >= p.maxLife) {
+          particles.splice(i, 1);
+        }
+      }
+
+      if (particles.length > 0) {
+        animationFrameId = requestAnimationFrame(animateParticles);
+      } else {
+        animationFrameId = null;
+      }
+    }
+
+    // =========================================================================
+    // BALLOON INTERACTION LOGIC
+    // =========================================================================
+    let poppedCount = 0;
+    const totalBalloons = 4;
+    const progressText = document.getElementById('progress-text');
+    const grandFinaleCard = document.getElementById('grand-finale-card');
+    const btnReplay = document.getElementById('btn-replay');
+
+    function updateProgress() {
+      progressText.textContent = `${poppedCount} of ${totalBalloons} Balloons Popped`;
+      if (poppedCount === totalBalloons) {
+        setTimeout(() => {
+          grandFinaleCard.classList.add('show');
+          playGrandFinaleSound();
+          spawnCelebrationConfettiShower();
+        }, 550);
+      }
+    }
+
+    function popBalloon(slot) {
+      const interactive = slot.querySelector('.balloon-interactive');
+      const messageCard = slot.querySelector('.revealed-message-card');
+
+      if (!interactive || interactive.classList.contains('popping')) return;
+
+      // 1. Play realistic pop audio
+      playBalloonPopSound();
+
+      // 2. Compute pop coordinates for confetti burst
+      const rect = interactive.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height * 0.42;
+      spawnPopBurst(originX, originY);
+
+      // 3. Trigger balloon burst animation
+      interactive.classList.add('popping');
+
+      // 4. Reveal message card
+      setTimeout(() => {
+        interactive.style.display = 'none';
+        messageCard.classList.add('show');
+        poppedCount++;
+        updateProgress();
+      }, 160);
+    }
+
+    // Attach click and Enter/Space handlers to all balloon slots
+    document.querySelectorAll('.balloon-slot').forEach(slot => {
+      const interactive = slot.querySelector('.balloon-interactive');
+      if (interactive) {
+        interactive.addEventListener('click', () => popBalloon(slot));
+        interactive.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            popBalloon(slot);
+          }
+        });
+      }
+    });
+
+    // Reset / Replay functionality
+    if (btnReplay) {
+      btnReplay.addEventListener('click', () => {
+        poppedCount = 0;
+        updateProgress();
+        grandFinaleCard.classList.remove('show');
+
+        document.querySelectorAll('.balloon-slot').forEach((slot, idx) => {
+          const interactive = slot.querySelector('.balloon-interactive');
+          const messageCard = slot.querySelector('.revealed-message-card');
+
+          if (messageCard) messageCard.classList.remove('show');
+          if (interactive) {
+            interactive.classList.remove('popping');
+            interactive.style.display = 'flex';
+          }
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  </script>
+  <!-- Bioluminescent Lightning Bugs Simulation Script -->
+  <script src="js/lightning-bugs.js"></script>
+</body>
+</html>

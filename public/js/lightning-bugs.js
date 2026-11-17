@@ -8,14 +8,16 @@
     if (!canvas) {
       canvas = document.createElement('canvas');
       canvas.id = 'lightning-bugs-canvas';
-      canvas.style.position = 'fixed';
-      canvas.style.inset = '0';
-      canvas.style.width = '100vw';
-      canvas.style.height = '100vh';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.zIndex = '8'; // Sits above backdrop, behind cards/modals
       document.body.prepend(canvas);
     }
+    // Always force fixed background positioning so it never pushes DOM elements down
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '3';
 
     const ctx = canvas.getContext('2d');
     let width = (canvas.width = window.innerWidth);
