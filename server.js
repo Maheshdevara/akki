@@ -15,7 +15,7 @@ const PAGES = [
   { id: 2, slug: 'birthday-wishes', title: 'Birthday Wishes & Floating Balloons', file: 'page2.html', completed: true },
   { id: 3, slug: 'balloon-pop', title: 'Interactive Balloon Pop Surprises', file: 'surprise.html', completed: true },
   { id: 4, slug: 'memory-gallery', title: 'Akshaya Golden Moments Gallery', file: 'page4.html', completed: true },
-  { id: 5, slug: 'birthday-cake', title: 'Virtual 25th Birthday Cake & Wish Ritual', file: 'page5.html', completed: true },
+  { id: 5, slug: 'melody-jukebox', title: 'Birthday Melody & Jukebox', file: 'page5.html', completed: false },
   { id: 6, slug: 'wishes-wall', title: 'Heartfelt Wishes Wall', file: 'page6.html', completed: false },
   { id: 7, slug: 'akshaya-trivia', title: 'How Well Do You Know Akshaya?', file: 'page7.html', completed: false },
   { id: 8, slug: 'celestial-aura', title: 'The Star & Floral Zodiac', file: 'page8.html', completed: false },
@@ -88,17 +88,6 @@ app.get('/page4.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'page4.html'));
 });
 
-// Route for Page 5 (Virtual 25th Birthday Cake & Wish Ritual)
-app.get('/page5', (req, res) => {
-  res.sendFile(path.join(__dirname, 'page5.html'));
-});
-app.get('/page5.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'page5.html'));
-});
-app.get('/cake', (req, res) => {
-  res.sendFile(path.join(__dirname, 'page5.html'));
-});
-
 // Route for specific page numbers e.g. /page/1
 app.get('/page/:num', (req, res) => {
   const pageNum = parseInt(req.params.num, 10);
@@ -121,7 +110,6 @@ function startServer(port) {
     console.log(`🎈  Page 2 (Balloons): http://localhost:${port}/page2`);
     console.log(`💥  Page 3 (Pop Game): http://localhost:${port}/page3`);
     console.log(`📸  Page 4 (Memories): http://localhost:${port}/page4`);
-    console.log(`🎂  Page 5 (Cake Ritual): http://localhost:${port}/page5`);
     console.log(`🌸 =============================================== 🌸`);
   });
 
