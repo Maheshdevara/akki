@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#080808">
   <title>Akshaya's Golden Moments ✨📸 - Page 4</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
+  <link rel="stylesheet" href="css/fullscreen.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap">
   <style>
     :root {
@@ -478,14 +483,19 @@
       font-size: 0.88rem;
     }
 
-    /* Responsive */
+    /* Responsive (Laptop & Phone) */
     @media (max-width: 768px) {
       .side-fairy-lights { display: none; }
+      .page-container {
+        padding: max(12px, env(safe-area-inset-top)) 10px max(14px, env(safe-area-inset-bottom));
+      }
       .gallery-stage {
         flex-wrap: wrap;
-        max-height: 55vh;
+        max-height: 56vh;
+        max-height: 56dvh;
         overflow-y: auto;
         gap: 0.8rem;
+        justify-content: center;
       }
       .polaroid-card {
         width: 140px;
@@ -493,6 +503,20 @@
       }
       .photo-caption {
         font-size: 0.72rem;
+      }
+      .modal-card {
+        max-width: 92vw;
+        max-height: 85dvh;
+        padding: 12px;
+      }
+      .modal-img {
+        max-height: 48dvh;
+      }
+      .audio-toggle-btn {
+        top: max(12px, env(safe-area-inset-top));
+        right: max(12px, env(safe-area-inset-right));
+        padding: 6px 12px;
+        font-size: 0.75rem;
       }
     }
   </style>
@@ -738,5 +762,6 @@
 
   <!-- Bioluminescent Lightning Bugs Simulation Script -->
   <script src="js/lightning-bugs.js"></script>
+  <script src="js/fullscreen.js"></script>
 </body>
 </html>

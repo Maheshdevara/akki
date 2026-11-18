@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#060608">
   <title>A Secret Awaits ✨</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+  <link rel="stylesheet" href="css/fullscreen.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap">
   <style>
     :root {
@@ -626,8 +631,8 @@
         display: none;
       }
       .lock-card {
-        max-width: 310px;
-        padding: 1.2rem 1rem 1rem;
+        max-width: min(320px, 92vw);
+        padding: 1.15rem 1rem 0.95rem;
       }
       .key-btn {
         width: 46px;
@@ -640,6 +645,49 @@
       }
       .ae-sub {
         font-size: 0.85rem;
+      }
+    }
+
+    @media (max-height: 680px) {
+      .lock-card {
+        padding: 0.85rem 0.8rem 0.75rem;
+      }
+      .padlock-badge {
+        width: 36px;
+        height: 36px;
+        font-size: 1.05rem;
+        top: -18px;
+      }
+      .secret-subtitle {
+        font-size: 0.62rem;
+        margin-bottom: 0.2rem;
+      }
+      .secret-question {
+        font-size: 0.98rem;
+        margin-bottom: 0.4rem;
+      }
+      .password-display {
+        height: 38px;
+        font-size: 1.25rem;
+        margin-bottom: 0.4rem;
+      }
+      .key-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 1.02rem;
+      }
+      .keypad-grid {
+        gap: 5px;
+        margin-bottom: 0.4rem;
+      }
+      .status-msg {
+        min-height: 14px;
+        font-size: 0.72rem;
+        margin-bottom: 0.35rem;
+      }
+      .btn-unlock {
+        height: 36px;
+        font-size: 0.86rem;
       }
     }
   </style>
@@ -1298,5 +1346,6 @@
 
     unlockBtn.addEventListener('click', verifyPassword);
   </script>
+  <script src="js/fullscreen.js"></script>
 </body>
 </html>
