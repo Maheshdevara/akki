@@ -14,62 +14,62 @@
   position: fixed;
   top: 18px;
   left: 20px;
-  z-index: 9999;
+  z-index: 99999;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
   padding: 8px 16px;
   border-radius: 50px;
-  background: rgba(14, 14, 20, 0.82);
+  background: rgba(14, 14, 20, 0.85);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1.2px solid rgba(255, 215, 0, 0.48);
+  border: 1.2px solid rgba(255, 215, 0, 0.5);
   color: var(--fs-gold-bright);
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65), 0 0 14px rgba(255, 215, 0, 0.22);
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65), 0 0 14px rgba(255, 215, 0, 0.25);
+  transition: opacity 0.3s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   outline: none;
 }
 
 .global-fs-btn:hover {
-  background: rgba(255, 215, 0, 0.22);
+  background: rgba(255, 215, 0, 0.25);
   border-color: var(--fs-gold);
   color: #ffffff;
-  box-shadow: 0 0 22px rgba(255, 215, 0, 0.55);
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.65);
   transform: translateY(-2px) scale(1.04);
 }
 
 .global-fs-btn:active {
   transform: scale(0.95);
-  background: rgba(255, 215, 0, 0.35);
+  background: rgba(255, 215, 0, 0.4);
 }
 
 .global-fs-btn .fs-icon {
   font-size: 1rem;
   line-height: 1;
   display: inline-block;
-  transition: transform 0.25s ease;
 }
 
-.global-fs-btn.is-fullscreen {
-  border-color: rgba(255, 234, 121, 0.7);
-  background: rgba(28, 24, 14, 0.9);
-  color: #fff9e6;
-  box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
-}
-
-.global-fs-btn.is-fullscreen:hover {
-  border-color: #ff6b81;
-  color: #ff6b81;
-  background: rgba(35, 14, 18, 0.92);
-  box-shadow: 0 0 20px rgba(255, 107, 129, 0.5);
+/* ========================================================
+   CRITICAL: ONCE FULLSCREEN IS ACTIVATED, HIDE THE BUTTON
+   COMPLETELY SO IT NEVER ASKS OR DISTRACTS AGAIN!
+   ======================================================== */
+:fullscreen .global-fs-btn,
+:-webkit-full-screen .global-fs-btn,
+:-moz-full-screen .global-fs-btn,
+:-ms-fullscreen .global-fs-btn,
+.global-fs-btn.is-fullscreen,
+body.is-in-fullscreen .global-fs-btn {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Ensure modern safe-area support for iPhone Notch and Android bars */

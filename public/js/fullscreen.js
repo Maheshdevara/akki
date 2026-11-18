@@ -1,37 +1,41 @@
 /**
  * Akshaya's 25th Birthday Celebration
- * Global Fullscreen & Adaptive Viewport Manager
- * Supports: Laptop / Desktop Fullscreen Mode + Mobile Phone Immersive View
+ * Master Fullscreen Manager
+ * Behavior: Once pressed, it stays in fullscreen throughout the journey till the last page.
+ * Never asks again once active.
  */
 
 (function () {
   'use strict';
 
-  // Prevent multiple initializations if script loaded twice
-  if (window.__akshayaFsInitialized) return;
-  window.__akshayaFsInitialized = true;
+  // 1. If loaded inside iframe, child pages never ask or display duplicate buttons
+  if (window !== window.top) {
+    return;
+  }
 
+  // 2. Running in TOP WINDOW (Master Presentation Shell):
   const docEl = document.documentElement;
-
-  // Determine if Fullscreen API is supported
-  const isFsSupported = !!(
-    docEl.requestFullscreen ||
-    docEl.webkitRequestFullscreen ||
-    docEl.mozRequestFullScreen ||
-    docEl.msRequestFullscreen
-  );
 
   function isFullscreenActive() {
     return !!(
       document.fullscreenElement ||
       document.webkitFullscreenElement ||
       document.mozFullScreenElement ||
-      document.msFullscreenElement
+      document.msFullscreenElement ||
+      sessionStorage.getItem('akshaya_fs_active') === 'true'
     );
   }
 
   function enterFullscreen() {
-    if (isFullscreenActive()) return Promise.resolve();
+    // Record choice: once pressed, never ask again
+    sessionStorage.setItem('akshaya_fs_active', 'true');
+    document.body.classList.add('is-in-fullscreen');
+
+    const btn = document.getElementById('global-fs-btn');
+    if (btn) {
+      btn.classList.add('is-fullscreen');
+      btn.style.setProperty('display', 'none', 'important');
+    }
 
     try {
       let p;
@@ -44,60 +48,31 @@
       } else if (docEl.msRequestFullscreen) {
         p = docEl.msRequestFullscreen();
       }
-
-      if (p && p.then) {
-        return p.then(() => {
-          sessionStorage.setItem('akshaya_fs_mode', 'true');
-          updateButtonUI();
-        }).catch((err) => {
-          // Ignored if user gesture requirement fails
-        });
-      } else {
-        sessionStorage.setItem('akshaya_fs_mode', 'true');
-        updateButtonUI();
-        return Promise.resolve();
-      }
+      return p ? p.catch(() => {}) : Promise.resolve();
     } catch (err) {
       return Promise.resolve();
     }
   }
 
   function exitFullscreen() {
-    if (!isFullscreenActive()) return Promise.resolve();
+    sessionStorage.setItem('akshaya_fs_active', 'false');
+    document.body.classList.remove('is-in-fullscreen');
 
     try {
-      let p;
       if (document.exitFullscreen) {
-        p = document.exitFullscreen();
+        document.exitFullscreen().catch(() => {});
       } else if (document.webkitExitFullscreen) {
-        p = document.webkitExitFullscreen();
+        document.webkitExitFullscreen();
       } else if (document.mozCancelFullScreen) {
-        p = document.mozCancelFullScreen();
+        document.mozCancelFullScreen();
       } else if (document.msExitFullscreen) {
-        p = document.msExitFullscreen();
+        document.msExitFullscreen();
       }
+    } catch (err) {}
 
-      sessionStorage.setItem('akshaya_fs_mode', 'false');
-      if (p && p.then) {
-        return p.then(updateButtonUI).catch(() => {});
-      } else {
-        updateButtonUI();
-        return Promise.resolve();
-      }
-    } catch (err) {
-      return Promise.resolve();
-    }
+    updateUI();
   }
 
-  function toggleFullscreen() {
-    if (isFullscreenActive()) {
-      exitFullscreen();
-    } else {
-      enterFullscreen();
-    }
-  }
-
-  // Inject or bind the floating Full Screen Button
   function createFsButton() {
     if (document.getElementById('global-fs-btn')) return;
 
@@ -105,99 +80,82 @@
     btn.id = 'global-fs-btn';
     btn.className = 'global-fs-btn';
     btn.setAttribute('type', 'button');
-    btn.setAttribute('aria-label', 'Toggle Fullscreen Mode');
-    btn.title = 'Full Screen (Laptop & Phone)';
+    btn.setAttribute('aria-label', 'Full Screen Mode');
     btn.innerHTML = `
-      <span class="fs-icon" id="fs-icon">⛶</span>
-      <span class="fs-label" id="fs-label">Full Screen</span>
+      <span class="fs-icon">⛶</span>
+      <span class="fs-label">Full Screen</span>
     `;
 
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       e.preventDefault();
-      toggleFullscreen();
+      enterFullscreen();
     });
 
     document.body.appendChild(btn);
+    updateUI();
   }
 
-  function updateButtonUI() {
-    const icon = document.getElementById('fs-icon');
-    const label = document.getElementById('fs-label');
+  function updateUI() {
     const btn = document.getElementById('global-fs-btn');
-    if (!btn) return;
+    const active = isFullscreenActive();
 
-    if (isFullscreenActive()) {
-      if (icon) icon.textContent = '✕';
-      if (label) label.textContent = 'Exit Screen';
-      btn.classList.add('is-fullscreen');
-      btn.setAttribute('aria-pressed', 'true');
+    if (active) {
+      document.body.classList.add('is-in-fullscreen');
+      if (btn) {
+        btn.classList.add('is-fullscreen');
+        btn.style.setProperty('display', 'none', 'important');
+      }
     } else {
-      if (icon) icon.textContent = '⛶';
-      if (label) label.textContent = 'Full Screen';
-      btn.classList.remove('is-fullscreen');
-      btn.setAttribute('aria-pressed', 'false');
-    }
-  }
-
-  // Cross-browser event listeners for fullscreen changes
-  ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evt => {
-    document.addEventListener(evt, updateButtonUI);
-  });
-
-  // Automatically request fullscreen on first user gesture (laptop click or phone tap)
-  function handleFirstUserGesture(e) {
-    // If the click was directly on the toggle button itself, let button handler process
-    if (e.target && e.target.closest && e.target.closest('#global-fs-btn')) return;
-
-    // Check user preference (defaults to true if not explicitly disabled)
-    const pref = sessionStorage.getItem('akshaya_fs_mode');
-    if (pref !== 'false' && !isFullscreenActive()) {
-      enterFullscreen();
-    }
-
-    // Remove one-time gesture listeners
-    window.removeEventListener('click', handleFirstUserGesture, true);
-    window.removeEventListener('touchstart', handleFirstUserGesture, true);
-    window.removeEventListener('keydown', handleFirstUserGesture, true);
-  }
-
-  window.addEventListener('click', handleFirstUserGesture, true);
-  window.addEventListener('touchstart', handleFirstUserGesture, true);
-  window.addEventListener('keydown', handleFirstUserGesture, true);
-
-  // Double click / double tap empty background area to toggle fullscreen
-  let lastTap = 0;
-  document.addEventListener('touchend', function (e) {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-    if (tapLength < 320 && tapLength > 50) {
-      // Double tap detected: check if tapping on background / non-interactive element
-      const tag = (e.target.tagName || '').toLowerCase();
-      if (!['button', 'a', 'input', 'textarea'].includes(tag) && !e.target.closest('button, a, input')) {
-        toggleFullscreen();
+      document.body.classList.remove('is-in-fullscreen');
+      if (btn) {
+        btn.classList.remove('is-fullscreen');
+        btn.style.display = 'inline-flex';
       }
     }
-    lastTap = currentTime;
+  }
+
+  // Cross-browser fullscreen change events
+  ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evt => {
+    document.addEventListener(evt, () => {
+      const isNativeFs = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+      );
+      // If user pressed ESC or exited native fullscreen
+      if (!isNativeFs && sessionStorage.getItem('akshaya_fs_active') !== 'true') {
+        sessionStorage.setItem('akshaya_fs_active', 'false');
+      }
+      updateUI();
+    });
   });
 
-  // Mobile viewport height fix (100dvh compatibility helper)
-  function updateVhProperty() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-  window.addEventListener('resize', updateVhProperty);
-  window.addEventListener('orientationchange', updateVhProperty);
-  updateVhProperty();
+  // Expose global methods for frame coordination
+  window.enterCelebrationFullscreen = enterFullscreen;
+  window.isCelebrationFullscreen = isFullscreenActive;
 
-  // Mount button when ready
+  // Double click / double tap background to toggle fullscreen
+  let lastTap = 0;
+  document.addEventListener('touchend', function (e) {
+    const now = new Date().getTime();
+    if (now - lastTap < 300 && now - lastTap > 60) {
+      const tag = (e.target.tagName || '').toLowerCase();
+      if (!['button', 'a', 'input'].includes(tag)) {
+        if (isFullscreenActive()) {
+          exitFullscreen();
+        } else {
+          enterFullscreen();
+        }
+      }
+    }
+    lastTap = now;
+  });
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      createFsButton();
-      updateButtonUI();
-    });
+    document.addEventListener('DOMContentLoaded', createFsButton);
   } else {
     createFsButton();
-    updateButtonUI();
   }
 })();
