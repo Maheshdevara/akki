@@ -8,12 +8,13 @@ const DEFAULT_PORT = process.env.PORT || 3000;
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Navigation & page metadata for all 10 planned pages
+// Navigation & page metadata for all celebration pages
 const PAGES = [
-  { id: 1, slug: 'welcome', title: 'The Magical Beginning', file: 'index.html', completed: true },
-  { id: 2, slug: 'memory-lane', title: 'Memory Lane & Golden Moments', file: 'page2.html', completed: false },
-  { id: 3, slug: '25-reasons', title: '25 Reasons You Are Amazing', file: 'page3.html', completed: false },
-  { id: 4, slug: 'cake-cutting', title: 'Virtual Cake & Candle Wish', file: 'page4.html', completed: false },
+  { id: 0, slug: 'lock', title: 'A Secret Awaits (11:11 Lock)', file: 'index.html', completed: true },
+  { id: 1, slug: 'welcome', title: 'The Magical Beginning (Butterfly Portrait)', file: 'page1.html', completed: true },
+  { id: 2, slug: 'birthday-wishes', title: 'Birthday Wishes & Floating Balloons', file: 'page2.html', completed: true },
+  { id: 3, slug: 'balloon-pop', title: 'Interactive Balloon Pop Surprises', file: 'surprise.html', completed: true },
+  { id: 4, slug: 'memory-gallery', title: 'Akshaya Golden Moments Gallery', file: 'page4.html', completed: true },
   { id: 5, slug: 'melody-jukebox', title: 'Birthday Melody & Jukebox', file: 'page5.html', completed: false },
   { id: 6, slug: 'wishes-wall', title: 'Heartfelt Wishes Wall', file: 'page6.html', completed: false },
   { id: 7, slug: 'akshaya-trivia', title: 'How Well Do You Know Akshaya?', file: 'page7.html', completed: false },
@@ -32,9 +33,29 @@ app.get('/api/pages', (req, res) => {
   });
 });
 
-// Route for Page 1 (Home)
+// Route for Secret Universe Lock Entry (Root / and /lock)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/lock', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/lock.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Route for Page 1 (The Magical Butterfly Portrait)
+app.get('/page1', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page1.html'));
+});
+app.get('/page1.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page1.html'));
+});
+app.get('/welcome', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page1.html'));
+});
+app.get('/welcome.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'page1.html'));
 });
 
 // Route for Page 2 (Happy Birthday Akshaya Celebration)
@@ -84,7 +105,11 @@ function startServer(port) {
     console.log(`🌸 =============================================== 🌸`);
     console.log(`🎂  AKSHAYA's 25th Birthday Celebration Server!   🎂`);
     console.log(`🌐  Server running at: http://localhost:${port}`);
-    console.log(`✨  Page 1 is live: http://localhost:${port}/`);
+    console.log(`🔒  Secret Entry (Lock): http://localhost:${port}/ (Passcode: 11:11)`);
+    console.log(`🦋  Page 1 (Portrait): http://localhost:${port}/page1`);
+    console.log(`🎈  Page 2 (Balloons): http://localhost:${port}/page2`);
+    console.log(`💥  Page 3 (Pop Game): http://localhost:${port}/page3`);
+    console.log(`📸  Page 4 (Memories): http://localhost:${port}/page4`);
     console.log(`🌸 =============================================== 🌸`);
   });
 

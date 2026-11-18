@@ -1,296 +1,1521 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy 25th Birthday Akshaya ✨</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦋</text></svg>">
-  <link rel="stylesheet" href="css/landing.css">
+
+  <title>A Secret Awaits ✨</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap">
+
+  <style>
+
+    :root {
+
+      --bg-black: #080808;
+
+      --gold-neon: #ffd700;
+
+      --gold-warm: #f5af2d;
+
+      --gold-bright: #ffea79;
+
+      --text-white: #ffffff;
+
+    }
+
+
+
+    * {
+
+      margin: 0;
+
+      padding: 0;
+
+      box-sizing: border-box;
+
+    }
+
+
+
+    html, body {
+
+      width: 100%;
+
+      height: 100%;
+
+      background-color: var(--bg-black);
+
+      color: var(--text-white);
+
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      overflow: hidden;
+
+      user-select: none;
+
+      -webkit-tap-highlight-color: transparent;
+
+    }
+
+
+
+    /* ========================================================
+
+       TWINKLING GOLDEN STARS & SHOOTING STAR CANVAS
+
+       ======================================================== */
+
+    #starfield-canvas {
+
+      position: fixed;
+
+      inset: 0;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      z-index: 1;
+
+      pointer-events: none;
+
+    }
+
+
+
+    /* ========================================================
+
+       MATCHING SIDE FAIRY LIGHTS (LEFT & RIGHT EDGES)
+
+       ======================================================== */
+
+    .side-fairy-lights {
+
+      position: fixed;
+
+      top: -15px;
+
+      bottom: 0;
+
+      width: 22vw;
+
+      z-index: 2;
+
+      pointer-events: none;
+
+      display: flex;
+
+      justify-content: space-evenly;
+
+      filter: blur(1.2px);
+
+      opacity: 0.85;
+
+    }
+
+
+
+    .side-fairy-lights.left {
+
+      left: 0;
+
+      mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
+      -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
+    }
+
+
+
+    .side-fairy-lights.right {
+
+      right: 0;
+
+      mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
+      -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
+    }
+
+
+
+    .fairy-string {
+
+      height: 75vh;
+
+      width: 60px;
+
+      transform-origin: top center;
+
+      animation: swayBreeze 6s ease-in-out infinite alternate;
+
+    }
+
+
+
+    .fairy-string.delay-1 {
+
+      height: 62vh;
+
+      animation-delay: -2.5s;
+
+    }
+
+
+
+    @keyframes swayBreeze {
+
+      0% { transform: rotate(-2deg); }
+
+      100% { transform: rotate(2deg); }
+
+    }
+
+
+
+    /* ========================================================
+
+       CENTER GLASSMORPHISM LOCK CARD
+
+       ======================================================== */
+
+    .lock-stage {
+
+      position: relative;
+
+      z-index: 10;
+
+      width: 100%;
+
+      height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 1.2rem;
+
+    }
+
+
+
+    .lock-card {
+
+      position: relative;
+
+      width: 100%;
+
+      max-width: 400px;
+
+      padding: 2.3rem 1.8rem 1.8rem;
+
+      background: rgba(14, 14, 18, 0.68);
+
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+
+      border-radius: 28px;
+
+      backdrop-filter: blur(18px);
+
+      -webkit-backdrop-filter: blur(18px);
+
+      box-shadow:
+
+        0 0 45px rgba(255, 215, 0, 0.18),
+
+        inset 0 0 20px rgba(255, 215, 0, 0.08),
+
+        0 25px 60px rgba(0, 0, 0, 0.92);
+
+      text-align: center;
+
+      transition: transform 0.6s ease, opacity 0.8s ease;
+
+    }
+
+
+
+    .lock-card.shake {
+
+      animation: cardShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+
+      border-color: #ff4d6d;
+
+      box-shadow: 0 0 30px rgba(255, 77, 109, 0.45);
+
+    }
+
+
+
+    @keyframes cardShake {
+
+      10%, 90% { transform: translateX(-4px); }
+
+      20%, 80% { transform: translateX(6px); }
+
+      30%, 50%, 70% { transform: translateX(-8px); }
+
+      40%, 60% { transform: translateX(8px); }
+
+    }
+
+
+
+    /* Glowing Golden Padlock Badge */
+
+    .padlock-badge {
+
+      position: absolute;
+
+      top: -26px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 52px;
+
+      height: 52px;
+
+      border-radius: 50%;
+
+      background: linear-gradient(145deg, #242014, #0d0c09);
+
+      border: 1.5px solid #ffd700;
+
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.55);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 1.45rem;
+
+    }
+
+
+
+    .secret-subtitle {
+
+      font-family: 'Cinzel', serif;
+
+      font-size: 0.76rem;
+
+      font-weight: 700;
+
+      letter-spacing: 2.5px;
+
+      color: var(--gold-bright);
+
+      text-transform: uppercase;
+
+      margin-bottom: 0.55rem;
+
+      opacity: 0.9;
+
+    }
+
+
+
+    .secret-question {
+
+      font-family: 'Playfair Display', serif;
+
+      font-size: 1.38rem;
+
+      font-weight: 600;
+
+      line-height: 1.35;
+
+      color: #ffffff;
+
+      margin-bottom: 1.15rem;
+
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+
+    }
+
+
+
+    .secret-question span {
+
+      color: var(--gold-neon);
+
+    }
+
+
+
+    /* Digital Time Display Box */
+
+    .password-display {
+
+      width: 100%;
+
+      height: 50px;
+
+      margin-bottom: 1.1rem;
+
+      border-radius: 14px;
+
+      background: rgba(8, 8, 10, 0.85);
+
+      border: 1.5px solid rgba(255, 215, 0, 0.5);
+
+      box-shadow: inset 0 0 14px rgba(255, 215, 0, 0.12);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-family: 'Outfit', monospace;
+
+      font-size: 1.55rem;
+
+      font-weight: 700;
+
+      letter-spacing: 5px;
+
+      color: var(--gold-bright);
+
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+
+    }
+
+
+
+    .password-display.placeholder {
+
+      color: rgba(255, 234, 121, 0.35);
+
+      font-size: 1.3rem;
+
+    }
+
+
+
+    /* ========================================================
+
+       3x4 CLICKABLE GOLDEN KEYPAD
+
+       ======================================================== */
+
+    .keypad-grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 10px;
+
+      max-width: 240px;
+
+      margin: 0 auto 1rem;
+
+    }
+
+
+
+    .key-btn {
+
+      width: 58px;
+
+      height: 58px;
+
+      margin: 0 auto;
+
+      border-radius: 50%;
+
+      background: radial-gradient(circle at 35% 30%, rgba(255, 215, 0, 0.16), rgba(18, 18, 22, 0.88));
+
+      border: 1.3px solid rgba(255, 215, 0, 0.45);
+
+      color: #fff8dc;
+
+      font-family: 'Outfit', sans-serif;
+
+      font-size: 1.25rem;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+
+      transition: all 0.18s ease;
+
+    }
+
+
+
+    .key-btn:hover {
+
+      border-color: #ffd700;
+
+      background: radial-gradient(circle at 35% 30%, rgba(255, 215, 0, 0.32), rgba(32, 28, 16, 0.95));
+
+      box-shadow: 0 0 16px rgba(255, 215, 0, 0.45);
+
+      transform: translateY(-2px);
+
+    }
+
+
+
+    .key-btn:active {
+
+      transform: scale(0.92);
+
+      background: rgba(255, 215, 0, 0.4);
+
+    }
+
+
+
+    /* Hint Section */
+
+    .hint-toggle {
+
+      background: none;
+
+      border: none;
+
+      color: rgba(255, 234, 121, 0.8);
+
+      font-family: 'Outfit', sans-serif;
+
+      font-size: 0.84rem;
+
+      font-weight: 500;
+
+      cursor: pointer;
+
+      margin-bottom: 0.65rem;
+
+      text-decoration: underline;
+
+      text-underline-offset: 3px;
+
+      transition: color 0.2s ease;
+
+    }
+
+
+
+    .hint-toggle:hover {
+
+      color: #ffd700;
+
+    }
+
+
+
+    .hint-box {
+
+      display: none;
+
+      font-size: 0.83rem;
+
+      color: #ffea79;
+
+      background: rgba(255, 215, 0, 0.1);
+
+      border: 1px solid rgba(255, 215, 0, 0.3);
+
+      border-radius: 12px;
+
+      padding: 7px 12px;
+
+      margin-bottom: 0.9rem;
+
+      animation: fadeInHint 0.35s ease;
+
+    }
+
+
+
+    .hint-box.visible {
+
+      display: block;
+
+    }
+
+
+
+    @keyframes fadeInHint {
+
+      from { opacity: 0; transform: translateY(-4px); }
+
+      to { opacity: 1; transform: translateY(0); }
+
+    }
+
+
+
+    .status-msg {
+
+      min-height: 18px;
+
+      font-size: 0.84rem;
+
+      font-weight: 600;
+
+      color: #ff6b81;
+
+      margin-bottom: 0.6rem;
+
+    }
+
+
+
+    /* Unlock Button */
+
+    .btn-unlock {
+
+      width: 100%;
+
+      height: 46px;
+
+      border-radius: 50px;
+
+      border: 1.5px solid #fff3b0;
+
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+
+      color: #080808;
+
+      font-family: 'Outfit', sans-serif;
+
+      font-size: 0.98rem;
+
+      font-weight: 700;
+
+      letter-spacing: 0.6px;
+
+      cursor: pointer;
+
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.45);
+
+      transition: all 0.3s ease;
+
+    }
+
+
+
+    .btn-unlock:hover {
+
+      transform: translateY(-2px) scale(1.02);
+
+      background: #ffffff;
+
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.85);
+
+    }
+
+
+
+    /* ========================================================
+
+       STAR BLAST & SLOW REVEAL CURTAIN ON UNLOCK
+
+       ======================================================== */
+
+    #blast-canvas {
+
+      position: fixed;
+
+      inset: 0;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      z-index: 50;
+
+      pointer-events: none;
+
+    }
+
+
+
+    #reveal-transition-curtain {
+
+      position: fixed;
+
+      inset: 0;
+
+      background: radial-gradient(circle at center, #fff8d6 0%, #ffd700 25%, #080808 85%);
+
+      opacity: 0;
+
+      z-index: 100;
+
+      pointer-events: none;
+
+      transition: opacity 1.4s ease-in-out;
+
+    }
+
+
+
+    #reveal-transition-curtain.active {
+
+      opacity: 1;
+
+    }
+
+
+
+    @media (max-width: 768px) {
+
+      .side-fairy-lights {
+
+        display: none;
+
+      }
+
+      .lock-card {
+
+        padding: 2rem 1.3rem 1.5rem;
+
+      }
+
+      .key-btn {
+
+        width: 52px;
+
+        height: 52px;
+
+        font-size: 1.15rem;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
 <body>
 
-  <!-- Full-Screen Blurred Matching Background (Exact Same Poster Image) -->
-  <div class="backdrop-container" aria-hidden="true">
-    <img src="images/akshaya.jpg" alt="" class="backdrop-image">
-    <div class="backdrop-overlay"></div>
-  </div>
 
-  <!-- Left Side: Soft Cascading Warm Golden Fairy Light Strings & Vines -->
+
+  <!-- Animated Twinkling Golden Stars & Shooting Star Background -->
+
+  <canvas id="starfield-canvas"></canvas>
+
+
+
+  <!-- Left & Right Cascading Golden Fairy Light Strings -->
+
   <aside class="side-fairy-lights left" aria-hidden="true">
-    <!-- String 1 -->
+
     <svg class="fairy-string" viewBox="0 0 50 800" preserveAspectRatio="none">
+
       <path d="M 25 0 Q 35 200 20 400 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
-      <!-- Glowing Fairy Bulbs & Diya Lanterns -->
-      <circle cx="25" cy="80" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <circle cx="32" cy="180" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="23" cy="290" rx="8" ry="5" fill="#ffae19" filter="drop-shadow(0 0 12px #ffae19)"/>
-      <circle cx="20" cy="400" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <circle cx="28" cy="520" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="24" cy="650" rx="8" ry="5" fill="#ffae19" filter="drop-shadow(0 0 12px #ffae19)"/>
-      <circle cx="25" cy="760" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <!-- Soft Vine Leaves -->
-      <ellipse cx="28" cy="120" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(25 28 120)"/>
-      <ellipse cx="19" cy="230" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(-30 19 230)"/>
-      <ellipse cx="26" cy="350" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(20 26 350)"/>
-      <ellipse cx="18" cy="470" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(-25 18 470)"/>
-      <ellipse cx="29" cy="590" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(30 29 590)"/>
-    </svg>
 
-    <!-- String 2 -->
-    <svg class="fairy-string delay-1" viewBox="0 0 50 800" preserveAspectRatio="none">
-      <path d="M 25 0 Q 15 250 30 500 T 25 800" stroke="rgba(245, 175, 45, 0.35)" stroke-width="1.2" fill="none"/>
-      <circle cx="25" cy="130" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="20" cy="240" rx="7" ry="4.5" fill="#ffae19" filter="drop-shadow(0 0 10px #ffae19)"/>
-      <circle cx="28" cy="360" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <circle cx="22" cy="480" r="4" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="26" cy="610" rx="7.5" ry="5" fill="#ffae19" filter="drop-shadow(0 0 10px #ffae19)"/>
-      <circle cx="25" cy="730" r="4.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <!-- Soft Vine Leaves -->
-      <ellipse cx="20" cy="170" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-20 20 170)"/>
-      <ellipse cx="30" cy="300" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(35 30 300)"/>
-      <ellipse cx="18" cy="420" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-25 18 420)"/>
-      <ellipse cx="29" cy="540" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(25 29 540)"/>
-    </svg>
-  </aside>
-
-  <!-- Left Side: Upward Drifting Golden Sparkle Particles -->
-  <div class="side-sparkles-container left" aria-hidden="true">
-    <div class="drifting-sparkle" style="left: 20%; animation-delay: 0s; animation-duration: 7s;"></div>
-    <div class="drifting-sparkle" style="left: 55%; animation-delay: 2.2s; animation-duration: 9s;"></div>
-    <div class="drifting-sparkle" style="left: 75%; animation-delay: 4.5s; animation-duration: 8s;"></div>
-    <div class="drifting-sparkle" style="left: 35%; animation-delay: 6.1s; animation-duration: 7.5s;"></div>
-  </div>
-
-  <!-- Right Side: Soft Cascading Warm Golden Fairy Light Strings & Vines -->
-  <aside class="side-fairy-lights right" aria-hidden="true">
-    <!-- String 1 -->
-    <svg class="fairy-string delay-2" viewBox="0 0 50 800" preserveAspectRatio="none">
-      <path d="M 25 0 Q 35 200 20 400 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
       <circle cx="25" cy="90" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <circle cx="32" cy="200" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="23" cy="310" rx="8" ry="5" fill="#ffae19" filter="drop-shadow(0 0 12px #ffae19)"/>
-      <circle cx="20" cy="430" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <circle cx="28" cy="550" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="24" cy="670" rx="8" ry="5" fill="#ffae19" filter="drop-shadow(0 0 12px #ffae19)"/>
-      <circle cx="25" cy="780" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <!-- Soft Vine Leaves -->
-      <ellipse cx="28" cy="140" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(25 28 140)"/>
-      <ellipse cx="19" cy="260" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(-30 19 260)"/>
-      <ellipse cx="26" cy="380" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(20 26 380)"/>
-      <ellipse cx="18" cy="500" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(-25 18 500)"/>
+
+      <circle cx="32" cy="210" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <circle cx="20" cy="360" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <circle cx="28" cy="510" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <circle cx="25" cy="680" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <ellipse cx="28" cy="140" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(25 28 140)"/>
+
+      <ellipse cx="19" cy="280" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-30 19 280)"/>
+
+      <ellipse cx="26" cy="430" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(20 26 430)"/>
+
     </svg>
 
-    <!-- String 2 -->
-    <svg class="fairy-string" viewBox="0 0 50 800" preserveAspectRatio="none">
-      <path d="M 25 0 Q 15 250 30 500 T 25 800" stroke="rgba(245, 175, 45, 0.35)" stroke-width="1.2" fill="none"/>
-      <circle cx="25" cy="140" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="20" cy="250" rx="7" ry="4.5" fill="#ffae19" filter="drop-shadow(0 0 10px #ffae19)"/>
-      <circle cx="28" cy="370" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <circle cx="22" cy="490" r="4" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="26" cy="620" rx="7.5" ry="5" fill="#ffae19" filter="drop-shadow(0 0 10px #ffae19)"/>
-      <!-- Soft Vine Leaves -->
-      <ellipse cx="20" cy="190" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-20 20 190)"/>
-      <ellipse cx="30" cy="320" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(35 30 320)"/>
-      <ellipse cx="18" cy="440" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-25 18 440)"/>
-    </svg>
   </aside>
 
-  <!-- Right Side: Upward Drifting Golden Sparkle Particles -->
-  <div class="side-sparkles-container right" aria-hidden="true">
-    <div class="drifting-sparkle" style="left: 25%; animation-delay: 1.2s; animation-duration: 8.5s;"></div>
-    <div class="drifting-sparkle" style="left: 60%; animation-delay: 3.5s; animation-duration: 7.2s;"></div>
-    <div class="drifting-sparkle" style="left: 80%; animation-delay: 5.1s; animation-duration: 9.2s;"></div>
-    <div class="drifting-sparkle" style="left: 40%; animation-delay: 0.5s; animation-duration: 8s;"></div>
-  </div>
 
-  <!-- Fullscreen Transparent Canvas for Neon Gold Butterflies & Firecracker Blast -->
-  <canvas id="butterfly-canvas"></canvas>
 
-  <!-- Visual Flash on Firecracker Blast -->
-  <div id="blast-flash-overlay" aria-hidden="true"></div>
+  <aside class="side-fairy-lights right" aria-hidden="true">
 
-  <div class="landing-wrapper" id="landing-stage">
-    
-    <!-- Full-Size Laptop Ratio Rectangle Cinematic Frame -->
-    <div class="laptop-cinema-frame">
-      
-      <!-- Seamless blurred extension filling wide 16:9 frame -->
-      <img src="images/akshaya.jpg" alt="" class="frame-bg-extension" aria-hidden="true">
+    <svg class="fairy-string delay-1" viewBox="0 0 50 800" preserveAspectRatio="none">
 
-      <!-- The Main Sharp Portrait in the center of the frame -->
-      <img 
-        src="images/akshaya.jpg" 
-        alt="Happy 25th Birthday Akshaya - 22 November" 
-        class="frame-main-poster"
-        id="hero-img"
-        loading="eager"
-      >
+      <path d="M 25 0 Q 15 250 30 500 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
 
-      <!-- Soft ambient inner lighting gradient -->
-      <div class="frame-ambient-glow" aria-hidden="true"></div>
+      <circle cx="25" cy="110" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
 
-      <!-- THE COMPACT BUTTON: PLACED DOWN NEAR BASE, GOLD OUTLINE, NO OVERLAP -->
-      <div class="button-on-picture-container">
-        <a href="page2.html" id="btn-surprise" class="btn-on-picture" aria-label="Unlock Your Surprise">
-          <span class="btn-text">Unlock Your Surprise 🦋🥳</span>
-        </a>
+      <circle cx="20" cy="250" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <circle cx="28" cy="400" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <circle cx="22" cy="560" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <circle cx="25" cy="710" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
+
+      <ellipse cx="20" cy="180" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-20 20 180)"/>
+
+      <ellipse cx="30" cy="330" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(35 30 330)"/>
+
+      <ellipse cx="18" cy="480" rx="4" ry="7" fill="rgba(74, 222, 128, 0.6)" transform="rotate(-25 18 480)"/>
+
+    </svg>
+
+  </aside>
+
+
+
+  <!-- Center Lock Card -->
+
+  <main class="lock-stage">
+
+    <div class="lock-card" id="lock-card">
+
+      <div class="padlock-badge" id="padlock-icon">🔒</div>
+
+
+
+      <div class="secret-subtitle">Secret Universe Entry</div>
+
+      <h1 class="secret-question">When does the universe <span>whisper your wish?</span> 🌌</h1>
+
+
+
+      <!-- Password Display -->
+
+      <div class="password-display placeholder" id="password-display">-- : --</div>
+
+
+
+      <!-- Clickable 3x4 Keypad -->
+
+      <div class="keypad-grid" id="keypad">
+
+        <button type="button" class="key-btn" data-key="1">1</button>
+
+        <button type="button" class="key-btn" data-key="2">2</button>
+
+        <button type="button" class="key-btn" data-key="3">3</button>
+
+        <button type="button" class="key-btn" data-key="4">4</button>
+
+        <button type="button" class="key-btn" data-key="5">5</button>
+
+        <button type="button" class="key-btn" data-key="6">6</button>
+
+        <button type="button" class="key-btn" data-key="7">7</button>
+
+        <button type="button" class="key-btn" data-key="8">8</button>
+
+        <button type="button" class="key-btn" data-key="9">9</button>
+
+        <button type="button" class="key-btn" data-key=":">:</button>
+
+        <button type="button" class="key-btn" data-key="0">0</button>
+
+        <button type="button" class="key-btn" data-key="back" aria-label="Backspace">⌫</button>
+
       </div>
+
+
+
+      <!-- Hint Toggle & Box -->
+
+      <button type="button" class="hint-toggle" id="hint-toggle">💡 Need a Hint?</button>
+
+      <div class="hint-box" id="hint-box">
+
+        ✨ Make a wish when all four digits on the clock align... <strong>(11:11)</strong>
+
+      </div>
+
+
+
+      <div class="status-msg" id="status-msg"></div>
+
+
+
+      <button type="button" class="btn-unlock" id="btn-unlock">Unlock Surprise ✨</button>
 
     </div>
 
-  </div>
+  </main>
 
-  <!-- Gold Butterfly & Firecracker Simulation Script -->
-  <script src="js/butterflies.js"></script>
+
+
+  <!-- Star Blast Canvas & Slow Reveal Curtain -->
+
+  <canvas id="blast-canvas"></canvas>
+
+  <div id="reveal-transition-curtain"></div>
+
+
+
   <script>
+
     // =========================================================================
-    // NATURAL ACOUSTIC AUDIO ENGINE WITH CRISP FESTIVE FIRECRACKER SOUND
+
+    // 1. TWINKLING GOLDEN STARS & SHOOTING STAR (TOP-LEFT TO BOTTOM-RIGHT)
+
     // =========================================================================
+
+    const starCanvas = document.getElementById('starfield-canvas');
+
+    const starCtx = starCanvas.getContext('2d');
+
+    let stars = [];
+
+    let shootingStar = null;
+
+
+
+    function initStarfield() {
+
+      starCanvas.width = window.innerWidth;
+
+      starCanvas.height = window.innerHeight;
+
+      stars = [];
+
+      const numStars = Math.floor((starCanvas.width * starCanvas.height) / 5500);
+
+
+
+      const goldShades = ['#ffd700', '#ffea79', '#fff4b8', '#f5af2d', '#ffffff'];
+
+      for (let i = 0; i < numStars; i++) {
+
+        stars.push({
+
+          x: Math.random() * starCanvas.width,
+
+          y: Math.random() * starCanvas.height,
+
+          radius: 0.7 + Math.random() * 2.1,
+
+          color: goldShades[Math.floor(Math.random() * goldShades.length)],
+
+          alpha: Math.random(),
+
+          twinkleSpeed: 0.012 + Math.random() * 0.025,
+
+          twinkleDir: Math.random() > 0.5 ? 1 : -1,
+
+          isCrossStar: Math.random() > 0.85
+
+        });
+
+      }
+
+    }
+
+
+
+    function spawnShootingStar() {
+
+      // Starts near top-left corner and falls diagonally toward bottom-right
+
+      shootingStar = {
+
+        x: Math.random() * (starCanvas.width * 0.25),
+
+        y: Math.random() * (starCanvas.height * 0.2),
+
+        vx: 9 + Math.random() * 4,
+
+        vy: 5.5 + Math.random() * 2.5,
+
+        length: 130,
+
+        alpha: 1.0
+
+      };
+
+    }
+
+
+
+    function drawStarfield() {
+
+      starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+
+
+
+      // Draw Twinkling Gold Stars
+
+      for (const s of stars) {
+
+        s.alpha += s.twinkleSpeed * s.twinkleDir;
+
+        if (s.alpha >= 1) {
+
+          s.alpha = 1;
+
+          s.twinkleDir = -1;
+
+        } else if (s.alpha <= 0.15) {
+
+          s.alpha = 0.15;
+
+          s.twinkleDir = 1;
+
+        }
+
+
+
+        starCtx.save();
+
+        starCtx.globalAlpha = s.alpha;
+
+        starCtx.fillStyle = s.color;
+
+        starCtx.shadowColor = '#ffd700';
+
+        starCtx.shadowBlur = s.isCrossStar ? 12 : 6;
+
+
+
+        starCtx.beginPath();
+
+        starCtx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+
+        starCtx.fill();
+
+
+
+        // Sparkle cross flare on brighter stars
+
+        if (s.isCrossStar && s.alpha > 0.65) {
+
+          starCtx.strokeStyle = s.color;
+
+          starCtx.lineWidth = 0.8;
+
+          starCtx.beginPath();
+
+          starCtx.moveTo(s.x - s.radius * 3, s.y);
+
+          starCtx.lineTo(s.x + s.radius * 3, s.y);
+
+          starCtx.moveTo(s.x, s.y - s.radius * 3);
+
+          starCtx.lineTo(s.x, s.y + s.radius * 3);
+
+          starCtx.stroke();
+
+        }
+
+        starCtx.restore();
+
+      }
+
+
+
+      // Draw Falling Shooting Star (Left Corner -> Right)
+
+      if (shootingStar) {
+
+        shootingStar.x += shootingStar.vx;
+
+        shootingStar.y += shootingStar.vy;
+
+        shootingStar.alpha -= 0.008;
+
+
+
+        if (shootingStar.alpha > 0 && shootingStar.x < starCanvas.width + 150 && shootingStar.y < starCanvas.height + 150) {
+
+          const tailX = shootingStar.x - shootingStar.vx * 14;
+
+          const tailY = shootingStar.y - shootingStar.vy * 14;
+
+
+
+          const grad = starCtx.createLinearGradient(shootingStar.x, shootingStar.y, tailX, tailY);
+
+          grad.addColorStop(0, `rgba(255, 250, 205, ${shootingStar.alpha})`);
+
+          grad.addColorStop(0.4, `rgba(255, 215, 0, ${shootingStar.alpha * 0.7})`);
+
+          grad.addColorStop(1, 'rgba(255, 215, 0, 0)');
+
+
+
+          starCtx.save();
+
+          starCtx.strokeStyle = grad;
+
+          starCtx.lineWidth = 2.6;
+
+          starCtx.lineCap = 'round';
+
+          starCtx.shadowColor = '#ffd700';
+
+          starCtx.shadowBlur = 15;
+
+          starCtx.beginPath();
+
+          starCtx.moveTo(shootingStar.x, shootingStar.y);
+
+          starCtx.lineTo(tailX, tailY);
+
+          starCtx.stroke();
+
+
+
+          // Bright head
+
+          starCtx.fillStyle = `rgba(255, 255, 255, ${shootingStar.alpha})`;
+
+          starCtx.beginPath();
+
+          starCtx.arc(shootingStar.x, shootingStar.y, 3, 0, Math.PI * 2);
+
+          starCtx.fill();
+
+          starCtx.restore();
+
+        } else {
+
+          shootingStar = null;
+
+        }
+
+      }
+
+
+
+      requestAnimationFrame(drawStarfield);
+
+    }
+
+
+
+    window.addEventListener('resize', initStarfield);
+
+    initStarfield();
+
+    drawStarfield();
+
+
+
+    // Launch initial shooting star shortly after load and repeat periodically
+
+    setTimeout(spawnShootingStar, 900);
+
+    setInterval(spawnShootingStar, 5500);
+
+
+
+    // =========================================================================
+
+    // 2. KEYPAD, HINT & PASSWORD VERIFICATION (11:11)
+
+    // =========================================================================
+
+    const displayEl = document.getElementById('password-display');
+
+    const statusEl = document.getElementById('status-msg');
+
+    const lockCard = document.getElementById('lock-card');
+
+    const padlockIcon = document.getElementById('padlock-icon');
+
+    const hintToggle = document.getElementById('hint-toggle');
+
+    const hintBox = document.getElementById('hint-box');
+
+    const unlockBtn = document.getElementById('btn-unlock');
+
+
+
+    let enteredCode = '';
+
+
+
+    // Soft acoustic key click sound
+
     let audioCtx = null;
 
-    function getAudioContext() {
-      if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContextClass();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      return audioCtx;
-    }
+    function playKeyTone(freq = 680, duration = 0.08) {
 
-    // Helper: Natural acoustic bell note
-    function playAcousticNote(freq, startTime, duration = 1.6, volume = 0.08) {
-      if (!audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, startTime);
-
-      gain.gain.setValueAtTime(0, startTime);
-      gain.gain.linearRampToValueAtTime(volume, startTime + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start(startTime);
-      osc.stop(startTime + duration + 0.1);
-    }
-
-    // 1. Anticipation Sound when button is clicked (Rapid chime arpeggio + rising warm chord)
-    function playAnticipationChimes() {
       try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
 
-        // Rising golden chime notes
-        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
-        let delay = 0;
-        notes.forEach((f) => {
-          setTimeout(() => {
-            if (audioCtx) playAcousticNote(f, audioCtx.currentTime, 1.2, 0.09);
-          }, delay * 1000);
-          delay += 0.13;
-        });
-      } catch (err) {}
-    }
+        if (!audioCtx) {
 
-    // 2. FESTIVE FIRECRACKER BLAST SOUND (Crisp Pop + Crackling Sparks + Chime Sparkle)
-    window.onFirecrackerBlast = function() {
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
+          const AudioClass = window.AudioContext || window.webkitAudioContext;
 
-        // A. Primary Firecracker Pop / Thump (Punchy low impact)
-        const popOsc = ctx.createOscillator();
-        const popGain = ctx.createGain();
-        popOsc.type = 'sine';
-        popOsc.frequency.setValueAtTime(160, now);
-        popOsc.frequency.exponentialRampToValueAtTime(30, now + 0.35);
+          audioCtx = new AudioClass();
 
-        popGain.gain.setValueAtTime(0.4, now);
-        popGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-
-        popOsc.connect(popGain);
-        popGain.connect(ctx.destination);
-        popOsc.start(now);
-        popOsc.stop(now + 0.45);
-
-        // B. Crisp Crackling Sparks (Synthesized sparkler sizzle & pops)
-        const bufferSize = ctx.sampleRate * 0.75;
-        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          // Randomized crackle impulses
-          data[i] = (Math.random() > 0.88 ? (Math.random() * 2 - 1) : 0) * 0.8;
         }
 
-        const crackleSource = ctx.createBufferSource();
-        crackleSource.buffer = noiseBuffer;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
 
-        const crackleFilter = ctx.createBiquadFilter();
-        crackleFilter.type = 'highpass';
-        crackleFilter.frequency.setValueAtTime(1800, now);
+        const osc = audioCtx.createOscillator();
 
-        const crackleGain = ctx.createGain();
-        crackleGain.gain.setValueAtTime(0.35, now);
-        crackleGain.gain.exponentialRampToValueAtTime(0.001, now + 0.75);
+        const gain = audioCtx.createGain();
 
-        crackleSource.connect(crackleFilter);
-        crackleFilter.connect(crackleGain);
-        crackleGain.connect(ctx.destination);
-        crackleSource.start(now);
+        osc.type = 'sine';
 
-        // C. Celebratory High-Pitched Golden Shimmer Fanfare
-        const goldenChimes = [1046.50, 1318.51, 1567.98, 2093.00, 2637.02, 3135.96];
-        goldenChimes.forEach((freq, idx) => {
-          setTimeout(() => {
-            if (audioCtx) playAcousticNote(freq, audioCtx.currentTime, 1.8, 0.12);
-          }, idx * 30);
-        });
-      } catch (err) {}
-    };
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
-    // =========================================================================
-    // BUTTON EVENT LISTENER
-    // =========================================================================
-    window.addEventListener('DOMContentLoaded', () => {
-      const surpriseBtn = document.getElementById('btn-surprise');
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
 
-      // Pop up smoothly 1 second after page load
-      setTimeout(() => {
-        if (surpriseBtn) {
-          surpriseBtn.classList.add('show-btn');
-        }
-      }, 1000);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
 
-      // On button click: All butterflies fly together -> Blast like firecracker -> Next page!
-      if (surpriseBtn) {
-        surpriseBtn.addEventListener('click', (e) => {
-          e.preventDefault();
+        osc.connect(gain);
 
-          // Disable button
-          surpriseBtn.style.pointerEvents = 'none';
-          surpriseBtn.style.opacity = '0.6';
+        gain.connect(audioCtx.destination);
 
-          // Play anticipation chimes
-          playAnticipationChimes();
+        osc.start();
 
-          // Trigger converge & firecracker blast
-          if (window.butterflySim) {
-            window.butterflySim.triggerSurpriseTransition(() => {
-              window.location.href = 'page2.html';
-            });
-          } else {
-            setTimeout(() => {
-              window.location.href = 'page2.html';
-            }, 2800);
-          }
-        });
+        osc.stop(audioCtx.currentTime + duration);
+
+      } catch (e) {}
+
+    }
+
+
+
+    function updateDisplay() {
+
+      statusEl.textContent = '';
+
+      if (enteredCode.length === 0) {
+
+        displayEl.textContent = '-- : --';
+
+        displayEl.classList.add('placeholder');
+
+      } else {
+
+        displayEl.textContent = enteredCode;
+
+        displayEl.classList.remove('placeholder');
+
       }
+
+    }
+
+
+
+    function handleKeyInput(key) {
+
+      if (key === 'back') {
+
+        playKeyTone(420, 0.08);
+
+        if (enteredCode.endsWith(':')) {
+
+          enteredCode = enteredCode.slice(0, -2);
+
+        } else {
+
+          enteredCode = enteredCode.slice(0, -1);
+
+        }
+
+        updateDisplay();
+
+        return;
+
+      }
+
+
+
+      if (enteredCode.length >= 5) return;
+
+      playKeyTone(740, 0.08);
+
+
+
+      if (key === ':') {
+
+        if (!enteredCode.includes(':') && enteredCode.length > 0) {
+
+          enteredCode += ':';
+
+        }
+
+      } else {
+
+        // Automatically insert ':' after two digits (e.g., typing 11 -> 11:)
+
+        if (enteredCode.length === 2 && !enteredCode.includes(':')) {
+
+          enteredCode += ':' + key;
+
+        } else {
+
+          enteredCode += key;
+
+        }
+
+      }
+
+      updateDisplay();
+
+    }
+
+
+
+    // On-screen keypad clicks
+
+    document.querySelectorAll('.key-btn').forEach((btn) => {
+
+      btn.addEventListener('click', () => {
+
+        handleKeyInput(btn.dataset.key);
+
+      });
+
     });
+
+
+
+    // Physical keyboard support
+
+    window.addEventListener('keydown', (e) => {
+
+      if (e.key >= '0' && e.key <= '9') {
+
+        handleKeyInput(e.key);
+
+      } else if (e.key === ':') {
+
+        handleKeyInput(':');
+
+      } else if (e.key === 'Backspace') {
+
+        handleKeyInput('back');
+
+      } else if (e.key === 'Enter') {
+
+        verifyPassword();
+
+      }
+
+    });
+
+
+
+    // Hint toggle
+
+    hintToggle.addEventListener('click', () => {
+
+      hintBox.classList.toggle('visible');
+
+    });
+
+
+
+    // =========================================================================
+
+    // 3. GOLDEN STARS BLAST & SLOW REVEAL TO http://localhost:3000
+
+    // =========================================================================
+
+    const blastCanvas = document.getElementById('blast-canvas');
+
+    const blastCtx = blastCanvas.getContext('2d');
+
+    const revealCurtain = document.getElementById('reveal-transition-curtain');
+
+    let starParticles = [];
+
+
+
+    function drawStarShape(ctx, cx, cy, spikes, outerRadius, innerRadius, color, alpha) {
+
+      let rot = (Math.PI / 2) * 3;
+
+      let x = cx;
+
+      let y = cy;
+
+      const step = Math.PI / spikes;
+
+
+
+      ctx.save();
+
+      ctx.globalAlpha = alpha;
+
+      ctx.fillStyle = color;
+
+      ctx.shadowColor = '#ffd700';
+
+      ctx.shadowBlur = 15;
+
+      ctx.beginPath();
+
+      ctx.moveTo(cx, cy - outerRadius);
+
+      for (let i = 0; i < spikes; i++) {
+
+        x = cx + Math.cos(rot) * outerRadius;
+
+        y = cy + Math.sin(rot) * outerRadius;
+
+        ctx.lineTo(x, y);
+
+        rot += step;
+
+
+
+        x = cx + Math.cos(rot) * innerRadius;
+
+        y = cy + Math.sin(rot) * innerRadius;
+
+        ctx.lineTo(x, y);
+
+        rot += step;
+
+      }
+
+      ctx.lineTo(cx, cy - outerRadius);
+
+      ctx.closePath();
+
+      ctx.fill();
+
+      ctx.restore();
+
+    }
+
+
+
+    function launchGoldenStarBlast(onComplete) {
+
+      blastCanvas.width = window.innerWidth;
+
+      blastCanvas.height = window.innerHeight;
+
+      const cx = blastCanvas.width / 2;
+
+      const cy = blastCanvas.height / 2;
+
+
+
+      // Celebratory golden chime chord
+
+      [523.25, 659.25, 783.99, 1046.50, 1318.51].forEach((freq, i) => {
+
+        setTimeout(() => playKeyTone(freq, 0.9), i * 65);
+
+      });
+
+
+
+      const colors = ['#ffd700', '#ffea79', '#ffffff', '#f5af2d', '#fff3b0'];
+
+      for (let i = 0; i < 110; i++) {
+
+        const angle = Math.random() * Math.PI * 2;
+
+        const speed = 3 + Math.random() * 14;
+
+        starParticles.push({
+
+          x: cx,
+
+          y: cy,
+
+          vx: Math.cos(angle) * speed,
+
+          vy: Math.sin(angle) * speed,
+
+          size: 5 + Math.random() * 8,
+
+          color: colors[Math.floor(Math.random() * colors.length)],
+
+          alpha: 1,
+
+                    decay: 0.011 + Math.random() * 0.008
+        });
+      }
+
+      function animateBlast() {
+        blastCtx.clearRect(0, 0, blastCanvas.width, blastCanvas.height);
+        let active = 0;
+        for (const p of starParticles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.08;
+          p.vx *= 0.985;
+          p.alpha -= p.decay;
+          if (p.alpha > 0) {
+            active++;
+            drawStarShape(blastCtx, p.x, p.y, 5, p.size, p.size * 0.5, p.color, p.alpha);
+          }
+        }
+        if (active > 0) {
+          requestAnimationFrame(animateBlast);
+        } else if (onComplete) {
+          onComplete();
+        }
+      }
+      requestAnimationFrame(animateBlast);
+    }
+
+    // =========================================================================
+    // 4. VERIFY PASSWORD & UNLOCK TRANSITION
+    // =========================================================================
+    function verifyPassword() {
+      const code = enteredCode.trim();
+      const isCorrect = (code === '11:11' || code === '1111' || code.replace(':', '') === '1111');
+
+      if (isCorrect) {
+        statusEl.style.color = '#ffd700';
+        statusEl.textContent = '✨ The universe heard your wish... Welcome Akshaya! ✨';
+        padlockIcon.textContent = '🔓';
+        padlockIcon.style.borderColor = '#4ade80';
+        padlockIcon.style.boxShadow = '0 0 30px rgba(74, 222, 128, 0.7)';
+        lockCard.style.pointerEvents = 'none';
+
+        // Trigger golden star explosion
+        launchGoldenStarBlast();
+
+        // Smooth golden aura curtain reveal
+        setTimeout(() => {
+          revealCurtain.classList.add('active');
+        }, 500);
+
+        // Transition to First Page (Butterfly Portrait Page)
+        setTimeout(() => {
+          window.location.href = 'page1.html';
+        }, 1400);
+      } else {
+        playKeyTone(220, 0.22);
+        statusEl.style.color = '#ff6b81';
+        statusEl.textContent = '✨ Whisper the magical time (11:11)...';
+        lockCard.classList.remove('shake');
+        void lockCard.offsetWidth; // force reflow
+        lockCard.classList.add('shake');
+        setTimeout(() => {
+          lockCard.classList.remove('shake');
+        }, 500);
+      }
+    }
+
+    unlockBtn.addEventListener('click', verifyPassword);
   </script>
 </body>
 </html>
