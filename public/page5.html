@@ -2,20 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Page 5 — Birthday Wish Tree ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshaya's Wish Tree ✨</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" />
   <style>
     :root {
-      --bg-black: #060608;
+      --bg-black: #080808;
       --gold-neon: #ffd700;
       --gold-warm: #f5af2d;
       --gold-bright: #ffea79;
-      --gold-light: #fff8d6;
       --text-white: #ffffff;
-      --blossom-pink: #ffb7c5;
-      --blossom-deep: #ff758f;
     }
 
     * {
@@ -36,7 +33,7 @@
     }
 
     /* ========================================================
-       3D WEBGL NATURE CONTAINER
+       3D WEBGL CANVAS CONTAINER
        ======================================================== */
     #tree-3d-container {
       position: fixed;
@@ -51,13 +48,13 @@
       cursor: grabbing;
     }
 
-    /* Atmospheric Nature Vignette */
+    /* Atmospheric Radial Vignette */
     .nature-vignette {
       position: fixed;
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 42%, rgba(4, 4, 6, 0.88) 100%);
+      background: radial-gradient(circle at 50% 45%, transparent 38%, rgba(5, 5, 7, 0.86) 100%);
     }
 
     /* ========================================================
@@ -67,14 +64,13 @@
       position: fixed;
       top: -15px;
       bottom: 0;
-      width: 18vw;
-      max-width: 180px;
+      width: 20vw;
       z-index: 3;
       pointer-events: none;
       display: flex;
       justify-content: space-evenly;
       filter: blur(1px);
-      opacity: 0.88;
+      opacity: 0.9;
     }
 
     .side-fairy-lights.left {
@@ -91,7 +87,7 @@
 
     .fairy-string {
       height: 75vh;
-      width: 50px;
+      width: 55px;
       transform-origin: top center;
       animation: swayBreeze 6s ease-in-out infinite alternate;
     }
@@ -107,7 +103,7 @@
     }
 
     /* ========================================================
-       MINIMAL TOP NAVIGATION (MATCHING REFERENCE IMAGE)
+       TOP NAVIGATION & HEADER
        ======================================================== */
     .top-bar {
       position: fixed;
@@ -128,7 +124,7 @@
       gap: 6px;
       padding: 8px 18px;
       border-radius: 50px;
-      background: rgba(14, 14, 18, 0.72);
+      background: rgba(14, 14, 18, 0.78);
       border: 1.5px solid rgba(255, 215, 0, 0.45);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -146,49 +142,42 @@
       transform: translateY(-1px);
     }
 
-    .top-title-badge {
-      pointer-events: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 20px;
+    .page-title-badge {
+      padding: 8px 24px;
       border-radius: 50px;
-      background: rgba(14, 14, 18, 0.75);
-      border: 1.5px solid rgba(255, 215, 0, 0.5);
+      background: rgba(14, 14, 18, 0.78);
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: #fff9e6;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 0.92rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
       font-weight: 600;
-      letter-spacing: 0.5px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+      letter-spacing: 0.6px;
+      color: var(--gold-bright);
+      box-shadow: 0 0 24px rgba(255, 215, 0, 0.28);
     }
 
     .bloom-counter {
       pointer-events: auto;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 50px;
-      background: rgba(14, 14, 18, 0.75);
-      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      background: rgba(14, 14, 18, 0.78);
+      border: 1px solid rgba(255, 215, 0, 0.45);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: #fff3b0;
-      box-shadow: 0 0 16px rgba(255, 215, 0, 0.18);
     }
 
     /* ========================================================
-       ELEGANT BOTTOM CARD & HUD (MATCHING REFERENCE IMAGE)
+       FLOATING WISH CARD & ACTION BUTTON
        ======================================================== */
     .hud-bottom {
       position: fixed;
-      bottom: 22px;
+      bottom: 18px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 20;
-      width: min(92vw, 680px);
+      width: min(92vw, 600px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -197,160 +186,108 @@
       pointer-events: none;
     }
 
-    /* The Glassmorphism Card Frame with Gold Border & Filigree */
-    .hud-card-frame {
-      pointer-events: auto;
-      position: relative;
+    .wish-reveal-card {
       width: 100%;
-      padding: 1.15rem 1.6rem;
-      background: rgba(12, 12, 16, 0.78);
-      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      padding: 1.05rem 1.6rem;
       border-radius: 20px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: linear-gradient(145deg, rgba(22, 19, 24, 0.86), rgba(10, 10, 14, 0.92));
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow:
-        0 0 35px rgba(255, 215, 0, 0.2),
-        inset 0 0 20px rgba(255, 215, 0, 0.06),
-        0 20px 50px rgba(0, 0, 0, 0.95);
+        0 0 35px rgba(255, 215, 0, 0.25),
+        inset 0 0 18px rgba(255, 215, 0, 0.08);
       transition: all 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Decorative Corner Filigrees */
-    .hud-card-frame::before {
-      content: '✦';
-      position: absolute;
-      top: 6px;
-      left: 10px;
-      font-size: 0.75rem;
-      color: rgba(255, 215, 0, 0.75);
+    .wish-reveal-card.pop {
+      animation: wishCardPop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.15);
     }
 
-    .hud-card-frame::after {
-      content: '✦';
-      position: absolute;
-      top: 6px;
-      right: 10px;
-      font-size: 0.75rem;
-      color: rgba(255, 215, 0, 0.75);
+    @keyframes wishCardPop {
+      0% { transform: scale(0.92) translateY(8px); opacity: 0.5; }
+      60% { transform: scale(1.03) translateY(-2px); opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
     }
 
-    .hud-card-title {
+    .wish-step-label {
       font-family: 'Cinzel', serif;
-      font-size: 0.92rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      letter-spacing: 3px;
-      color: var(--gold-neon);
+      letter-spacing: 2px;
+      color: var(--gold-bright);
       text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 14px rgba(255, 215, 0, 0.6);
-      transition: all 0.35s ease;
+      margin-bottom: 0.35rem;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
     }
 
-    .wish-quote-text {
+    .wish-text {
       font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.05rem, 2.2vw, 1.4rem);
-      line-height: 1.45;
+      font-size: clamp(1.05rem, 2.2vw, 1.32rem);
+      line-height: 1.48;
       color: #ffffff;
-      text-shadow:
-        0 2px 14px rgba(0, 0, 0, 1),
-        0 0 24px rgba(255, 215, 0, 0.5);
-      min-height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.35s ease;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 0 18px rgba(255, 215, 0, 0.35);
     }
 
-    .hud-card-frame.pop {
-      animation: quoteRisePop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+    /* Final Full-Bloom Grand Message Styling */
+    .wish-reveal-card.finale {
+      padding: 1.3rem 1.8rem;
+      border: 1.8px solid #ffd700;
+      background: linear-gradient(145deg, rgba(32, 24, 12, 0.9), rgba(12, 10, 14, 0.94));
+      box-shadow:
+        0 0 50px rgba(255, 215, 0, 0.5),
+        inset 0 0 22px rgba(255, 215, 0, 0.18);
     }
 
-    @keyframes quoteRisePop {
-      0% { transform: translateY(8px) scale(0.97); opacity: 0.7; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-
-    .hud-card-frame.fully-bloomed .hud-card-title {
-      color: #ffffff;
-      text-shadow: 0 0 16px #ffd700, 0 0 30px #ffd700;
-      letter-spacing: 3.5px;
-    }
-
-    .hud-card-frame.fully-bloomed .wish-quote-text {
-      font-weight: 600;
-      font-size: clamp(1.15rem, 2.6vw, 1.55rem);
-      background: linear-gradient(180deg, #ffffff 0%, #fff4b8 45%, #ffd700 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 3px 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 22px rgba(255, 215, 0, 0.55));
-    }
-
-    /* Action Buttons (Make a Wish / Shower Golden Petals) */
-    .btn-action-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
+    /* Make a Wish / Shower Golden Petals Button */
     .btn-make-wish {
       pointer-events: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
-      padding: 12px 34px;
+      gap: 8px;
+      padding: 12px 32px;
       border-radius: 50px;
       border: 1.5px solid #fff3b0;
-      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
-      color: #080808;
-      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(135deg, #f5af2d 0%, #ffea79 50%, #e09f1f 100%);
+      color: #141008;
+      font-family: 'Playfair Display', serif;
       font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.4px;
       cursor: pointer;
-      box-shadow: 0 0 26px rgba(255, 215, 0, 0.55), 0 8px 20px rgba(0, 0, 0, 0.85);
-      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 0 28px rgba(255, 215, 0, 0.55), 0 8px 22px rgba(0, 0, 0, 0.85);
+      transition: all 0.28s ease;
     }
 
     .btn-make-wish:hover {
       transform: translateY(-2px) scale(1.05);
       background: #ffffff;
-      box-shadow: 0 0 38px rgba(255, 215, 0, 0.9);
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
     }
 
     .btn-make-wish:active {
       transform: scale(0.96);
     }
 
-    .btn-make-wish.gold-shower {
-      background: linear-gradient(135deg, #ffe066 0%, #ffd700 50%, #f5af2d 100%);
-      border-color: #ffffff;
-      box-shadow: 0 0 32px rgba(255, 215, 0, 0.75), 0 8px 22px rgba(0, 0, 0, 0.85);
-    }
-
     .drag-hint {
       font-size: 0.76rem;
-      color: rgba(255, 234, 121, 0.7);
-      letter-spacing: 0.4px;
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+      color: rgba(255, 234, 121, 0.72);
+      letter-spacing: 0.3px;
     }
 
     @media (max-width: 768px) {
       .side-fairy-lights { display: none; }
+      .page-title-badge { display: none; }
       .top-bar { top: 12px; left: 12px; right: 12px; }
-      .top-title-badge { display: none; }
-      .hud-bottom { bottom: 16px; width: 95vw; }
-      .hud-card-frame { padding: 1rem 1.15rem; }
-      .btn-make-wish { padding: 11px 26px; font-size: 0.96rem; }
-      .wish-quote-text { min-height: 48px; }
+      .hud-bottom { bottom: 14px; }
+      .btn-make-wish { padding: 10px 24px; font-size: 0.96rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Interactive 3D Nature Scene Container -->
+  <!-- Interactive 3D Nature Scene -->
   <div id="tree-3d-container"></div>
   <div class="nature-vignette"></div>
 
@@ -383,28 +320,25 @@
     </svg>
   </aside>
 
-  <!-- Minimal Top Navigation (Matching Reference Image) -->
+  <!-- Top Navigation Linked to Page 4 -->
   <header class="top-bar">
     <a href="page4.html" class="nav-pill">← Back to Page 4</a>
-    <div class="top-title-badge">🌳 Akshaya's Wish Tree ✨</div>
+    <div class="page-title-badge">🌳 Akshaya's Wish Tree ✨</div>
     <div class="bloom-counter" id="bloom-counter">🌸 0 / 11 Bloomed</div>
   </header>
 
-  <!-- Bottom Floating HUD Card (Matching Reference Image) -->
+  <!-- Bottom Interactive Wish Card & Button -->
   <div class="hud-bottom">
-    <div class="hud-card-frame" id="hud-card">
-      <div class="hud-card-title" id="hud-title">✨ AKSHAYA'S WISH TREE ✨</div>
-      <p class="wish-quote-text" id="wish-text">
-        Tap "Make a Wish" to bloom each branch...
+    <div class="wish-reveal-card" id="wish-card">
+      <div class="wish-step-label" id="wish-step-label">✨ Bare Branches Await ✨</div>
+      <p class="wish-text" id="wish-text">
+        Click “Make a Wish” to slowly bloom each branch with flowers and wishes for you...
       </p>
     </div>
 
-    <div class="btn-action-wrap">
-      <button type="button" class="btn-make-wish" id="btn-make-wish">
-        <span id="btn-label">Make a Wish 🌸</span>
-      </button>
-    </div>
-
+    <button type="button" class="btn-make-wish" id="btn-make-wish">
+      <span>Make a Wish 🌸</span>
+    </button>
     <div class="drag-hint">✨ Drag anywhere to rotate the 3D tree in full nature view</div>
   </div>
 
@@ -412,30 +346,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
     // =========================================================================
-    // 1. CURATED 11 WISHES & FINAL BIRTHDAY QUOTE
+    // 1. ALL WISHES + FULL-BLOOM FINALE MESSAGE
     // =========================================================================
     const wishes = [
       "May you never doubt your worth.",
       "May the things you silently pray for find their way to you.",
       "May this year bring you peace you don't have to fight for.",
       "May you always have reasons to smile, even on ordinary days.",
-      "Never doubt your boundless strength.",
-      "Smiles and laughter in every season of life.",
-      "Effortless joy in every single step you take.",
-      "Every closed door leading to grander magic.",
-      "May your heartfelt prayers manifest easily.",
-      "A year as radiant and lovely as your soul.",
-      "May your silent wishes blossom into reality fast."
+      "Never doubt your worth.",
+      "Smiles even on ordinary days.",
+      "Effortless joy in every step.",
+      "Every closed door leading to magic.",
+      "May your silent prayers find you.",
+      "A year as radiant as your soul.",
+      "May your silent wishes manifest fast."
     ];
 
-    const finalBirthdayQuote =
+    const finalTreeMessage =
       "“May this year be as beautiful as the happiness you bring into the lives of others.” ✨";
 
     let currentWishIndex = 0;
     let isTreeFullyBloomed = false;
 
     // =========================================================================
-    // 2. ACOUSTIC HARP & FINALE CELESTIAL CHIME SYNTHESIS
+    // 2. ACOUSTIC HARP & FINALE CHIME SYNTHESIS
     // =========================================================================
     let audioCtx = null;
     function getAudioContext() {
@@ -454,17 +388,17 @@
         const baseFreq = pentatonic[index % pentatonic.length];
         const now = ctx.currentTime;
 
-        [baseFreq, baseFreq * 1.5, baseFreq * 2.0].forEach((freq, i) => {
+        [baseFreq, baseFreq * 1.5].forEach((freq, i) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + i * 0.055);
-          gain.gain.setValueAtTime(0.09, now + i * 0.055);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.055 + 1.25);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + i * 0.06);
+          gain.gain.setValueAtTime(0.08, now + i * 0.06);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.06 + 1.1);
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start(now + i * 0.055);
-          osc.stop(now + i * 0.055 + 1.3);
+          osc.start(now + i * 0.06);
+          osc.stop(now + i * 0.06 + 1.15);
         });
       } catch (e) {}
     }
@@ -473,135 +407,97 @@
       try {
         const ctx = getAudioContext();
         const now = ctx.currentTime;
-        const chord = [523.25, 659.25, 783.99, 1046.5, 1318.5, 1567.98, 2093.0];
+        const chord = [523.25, 659.25, 783.99, 1046.5, 1318.5, 1567.98];
         chord.forEach((freq, idx) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-          gain.gain.setValueAtTime(0.1, now + idx * 0.08);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.08 + 2.0);
+          osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+          gain.gain.setValueAtTime(0.09, now + idx * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.09 + 1.8);
           osc.connect(gain);
           gain.connect(ctx.destination);
-          osc.start(now + idx * 0.08);
-          osc.stop(now + idx * 0.08 + 2.1);
+          osc.start(now + idx * 0.09);
+          osc.stop(now + idx * 0.09 + 1.85);
         });
       } catch (e) {}
     }
 
     // =========================================================================
-    // 3. THREE.JS 3D NATURE SCENE (MATCHING REFERENCE IMAGE TREE & DENSE CANOPY)
+    // 3. THREE.JS 3D NATURE SCENE (EMPTY BRANCHES -> BLOOMING CANOPY + BIRDS)
     // =========================================================================
     const container = document.getElementById('tree-3d-container');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x060608, 0.024);
+    scene.fog = new THREE.FogExp2(0x080808, 0.03);
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 3.8, 11.2);
-    camera.lookAt(0, 3.3, 0);
+    camera.position.set(0, 3.6, 12.2);
+    camera.lookAt(0, 3.0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
 
-    // Warm Golden Nature Lighting (Rich Ambient + Warm Rim Light matching reference photo)
-    const ambientLight = new THREE.AmbientLight(0x352b20, 1.8);
+    // Warm Golden & Moonlight Nature Lighting
+    const ambientLight = new THREE.AmbientLight(0x2a2418, 1.45);
     scene.add(ambientLight);
 
-    const sunKeyLight = new THREE.DirectionalLight(0xfff5d6, 2.2);
-    sunKeyLight.position.set(5, 14, 8);
-    scene.add(sunKeyLight);
+    const moonLight = new THREE.DirectionalLight(0xfff1c1, 1.85);
+    moonLight.position.set(6, 12, 8);
+    scene.add(moonLight);
 
-    const warmRimLight = new THREE.DirectionalLight(0xffae19, 1.6);
-    warmRimLight.position.set(-8, 6, -6);
-    scene.add(warmRimLight);
+    const rimLight = new THREE.DirectionalLight(0xffb703, 1.15);
+    rimLight.position.set(-7, 6, -6);
+    scene.add(rimLight);
 
-    const frontFillLight = new THREE.DirectionalLight(0xffeedd, 1.1);
-    frontFillLight.position.set(0, 4, 10);
-    scene.add(frontFillLight);
-
-    // Glowing Canopy Core Light
-    const canopyGlowLight = new THREE.PointLight(0xffd700, 1.6, 20);
-    canopyGlowLight.position.set(0, 4.4, 0);
+    const canopyGlowLight = new THREE.PointLight(0xffd700, 1.1, 16);
+    canopyGlowLight.position.set(0, 4.2, 0);
     scene.add(canopyGlowLight);
 
-    // Master Tree Group
+    // Master Tree Group (rotatable by user drag)
     const treeGroup = new THREE.Group();
-    treeGroup.scale.set(1.2, 1.2, 1.2);
     scene.add(treeGroup);
 
-    // Swaying Canopy Pivot Group
+    // Swaying Canopy Pivot Group (so branches & bloomed flowers sway together in breeze)
     const canopySwayGroup = new THREE.Group();
-    canopySwayGroup.position.set(0, 2.1, 0);
+    canopySwayGroup.position.set(0, 2.2, 0);
     treeGroup.add(canopySwayGroup);
 
-    // Lush Mossy Earth Mound at Base (Matching Reference Photo)
-    const moundGeo = new THREE.CylinderGeometry(3.6, 4.4, 0.45, 48);
-    const moundMat = new THREE.MeshStandardMaterial({
-      color: 0x1f2e18,
-      roughness: 0.85,
+    // Mossy Earth Mound at Base
+    const groundGeo = new THREE.CylinderGeometry(3.8, 4.6, 0.35, 48);
+    const groundMat = new THREE.MeshStandardMaterial({
+      color: 0x161f12,
+      roughness: 0.9,
       metalness: 0.05
     });
-    const moundMesh = new THREE.Mesh(moundGeo, moundMat);
-    moundMesh.position.y = -0.2;
-    treeGroup.add(moundMesh);
+    const groundMesh = new THREE.Mesh(groundGeo, groundMat);
+    groundMesh.position.y = -0.15;
+    treeGroup.add(groundMesh);
 
-    // Soft Green Meadow Cap on top of mound
-    const meadowCapGeo = new THREE.SphereGeometry(3.5, 32, 16);
-    meadowCapGeo.scale(1, 0.12, 1);
-    const meadowCapMat = new THREE.MeshStandardMaterial({
-      color: 0x2d4420,
-      roughness: 0.8,
-      metalness: 0.04
-    });
-    const meadowCap = new THREE.Mesh(meadowCapGeo, meadowCapMat);
-    meadowCap.position.y = 0.02;
-    treeGroup.add(meadowCap);
-
-    // Golden Halo Ring around mound base
-    const ringGeo = new THREE.RingGeometry(3.55, 3.66, 64);
+    // Glowing Golden Ring around Mound
+    const ringGeo = new THREE.RingGeometry(3.75, 3.86, 64);
     const ringMat = new THREE.MeshBasicMaterial({
       color: 0xffd700,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.4
+      opacity: 0.35
     });
     const ringMesh = new THREE.Mesh(ringGeo, ringMat);
     ringMesh.rotation.x = -Math.PI / 2;
-    ringMesh.position.y = 0.05;
+    ringMesh.position.y = 0.03;
     treeGroup.add(ringMesh);
 
-    // Fallen Glowing Petals scattered on the mound (Matching Reference Photo)
-    const fallenPetalCount = 38;
-    const fallenPetalGeo = new THREE.CircleGeometry(0.065, 6);
-    const fallenPetalMat = new THREE.MeshStandardMaterial({
-      color: 0xffb7c5,
-      emissive: 0xff758f,
-      emissiveIntensity: 0.35,
-      roughness: 0.4,
-      side: THREE.DoubleSide
-    });
-    for (let i = 0; i < fallenPetalCount; i++) {
-      const p = new THREE.Mesh(fallenPetalGeo, fallenPetalMat);
-      const ang = Math.random() * Math.PI * 2;
-      const rad = 0.4 + Math.random() * 2.8;
-      p.position.set(Math.cos(ang) * rad, 0.06 + Math.random() * 0.04, Math.sin(ang) * rad);
-      p.rotation.x = -Math.PI / 2 + (Math.random() - 0.5) * 0.3;
-      p.rotation.z = Math.random() * Math.PI * 2;
-      treeGroup.add(p);
-    }
-
-    // Rich Textured Bark Material (Deep Oak / Bonsai Wood)
+    // Wood Bark Material
     const barkMaterial = new THREE.MeshStandardMaterial({
-      color: 0x4a3224,
-      roughness: 0.85,
-      metalness: 0.12
+      color: 0x3f2a1d,
+      roughness: 0.88,
+      metalness: 0.08
     });
 
-    // Helper: Build Organic Tapered 3D Branch with CatmullRom Curve
+    // Helper: Build Organic Tapered 3D Branch
     function createTaperedBranch(targetParent, points, radiusBottom, radiusTop, tubularSegments = 20, radialSegments = 10) {
       const curve = new THREE.CatmullRomCurve3(points);
       const geometry = new THREE.TubeGeometry(curve, tubularSegments, 1, radialSegments, false);
@@ -627,235 +523,185 @@
       return curve;
     }
 
-    // Gnarled Trunk (Rising from mound and splitting wide)
+    // Main Trunk
     createTaperedBranch(
       treeGroup,
       [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-0.16, 1.05, 0.09),
-        new THREE.Vector3(0.06, 2.15, -0.04)
+        new THREE.Vector3(-0.15, 1.1, 0.1),
+        new THREE.Vector3(0.08, 2.25, -0.05)
       ],
-      0.48, 0.28, 22, 12
+      0.42, 0.22, 22, 12
     );
 
-    // Sprawling Buttress Roots (Anchoring to mound)
-    const rootAngles = [0.2, 1.4, 2.7, 4.0, 5.2];
+    // Gnarled Roots
+    const rootAngles = [0, 1.3, 2.5, 3.9, 5.1];
     rootAngles.forEach((ang) => {
       createTaperedBranch(
         treeGroup,
         [
-          new THREE.Vector3(Math.cos(ang) * 0.22, 0.6, Math.sin(ang) * 0.22),
-          new THREE.Vector3(Math.cos(ang) * 0.72, 0.16, Math.sin(ang) * 0.72),
-          new THREE.Vector3(Math.cos(ang) * 1.3, -0.04, Math.sin(ang) * 1.3)
+          new THREE.Vector3(Math.cos(ang) * 0.18, 0.55, Math.sin(ang) * 0.18),
+          new THREE.Vector3(Math.cos(ang) * 0.65, 0.15, Math.sin(ang) * 0.65),
+          new THREE.Vector3(Math.cos(ang) * 1.15, -0.02, Math.sin(ang) * 1.15)
         ],
-        0.18, 0.04, 12, 8
+        0.16, 0.04, 10, 7
       );
     });
 
-    // Upper Trunk inside swaying canopy
+    // Upper Trunk Continuation inside canopySwayGroup (relative to y = 2.2)
     createTaperedBranch(
       canopySwayGroup,
       [
-        new THREE.Vector3(0.06, 0.0, -0.04),
-        new THREE.Vector3(0, 0.95, 0)
+        new THREE.Vector3(0.08, 0.0, -0.05),
+        new THREE.Vector3(0, 0.9, 0)
       ],
-      0.28, 0.18, 12, 10
+      0.22, 0.15, 12, 10
     );
 
-    // 11 Sprawling Primary Boughs (Broad Umbrella Shape Matching Reference Photo)
+    // 11 Empty Branches with Blossom Cluster Points (Starts completely bare!)
     const branchSpecs = [
-      { pts: [[0, 0.1, 0], [-1.2, 0.6, 0.55], [-2.4, 1.15, 0.95]], r1: 0.16, r2: 0.035 },
-      { pts: [[0, 0.18, 0], [1.2, 0.68, 0.45], [2.45, 1.25, 0.85]], r1: 0.16, r2: 0.035 },
-      { pts: [[0, 0.35, 0], [-1.0, 1.15, -0.85], [-2.0, 1.85, -1.45]], r1: 0.14, r2: 0.035 },
-      { pts: [[0, 0.45, 0], [1.05, 1.25, -0.8], [2.1, 1.95, -1.35]], r1: 0.14, r2: 0.035 },
-      { pts: [[0, 0.68, 0], [-1.45, 1.65, -0.1], [-2.65, 2.3, -0.2]], r1: 0.13, r2: 0.03 },
-      { pts: [[0, 0.72, 0], [1.4, 1.7, 0.15], [2.6, 2.35, 0.25]], r1: 0.13, r2: 0.03 },
-      { pts: [[0, 0.8, 0], [-0.5, 1.75, 1.15], [-0.95, 2.65, 1.95]], r1: 0.12, r2: 0.03 },
-      { pts: [[0, 0.84, 0], [0.6, 1.8, 1.1], [1.05, 2.7, 1.85]], r1: 0.12, r2: 0.03 },
-      { pts: [[0, 0.86, 0], [-0.7, 1.95, -1.0], [-1.2, 2.95, -1.65]], r1: 0.11, r2: 0.028 },
-      { pts: [[0, 0.88, 0], [0.75, 2.0, -0.95], [1.25, 3.0, -1.55]], r1: 0.11, r2: 0.028 },
-      { pts: [[0, 0.92, 0], [-0.1, 2.15, 0.1], [0.05, 3.35, 0.05]], r1: 0.12, r2: 0.032 }
+      { pts: [[0, 0.1, 0], [-1.1, 0.6, 0.5], [-2.2, 1.1, 0.9]], r1: 0.14, r2: 0.03 },
+      { pts: [[0, 0.2, 0], [1.1, 0.7, 0.4], [2.25, 1.2, 0.75]], r1: 0.14, r2: 0.03 },
+      { pts: [[0, 0.4, 0], [-0.9, 1.1, -0.8], [-1.85, 1.75, -1.4]], r1: 0.13, r2: 0.03 },
+      { pts: [[0, 0.5, 0], [0.95, 1.2, -0.75], [1.95, 1.85, -1.25]], r1: 0.13, r2: 0.03 },
+      { pts: [[0, 0.7, 0], [-1.35, 1.6, -0.1], [-2.45, 2.25, -0.2]], r1: 0.12, r2: 0.025 },
+      { pts: [[0, 0.75, 0], [1.3, 1.65, 0.15], [2.4, 2.3, 0.25]], r1: 0.12, r2: 0.025 },
+      { pts: [[0, 0.8, 0], [-0.45, 1.7, 1.1], [-0.85, 2.55, 1.85]], r1: 0.11, r2: 0.025 },
+      { pts: [[0, 0.85, 0], [0.55, 1.75, 1.05], [0.95, 2.6, 1.75]], r1: 0.11, r2: 0.025 },
+      { pts: [[0, 0.85, 0], [-0.65, 1.9, -0.95], [-1.1, 2.85, -1.55]], r1: 0.10, r2: 0.025 },
+      { pts: [[0, 0.88, 0], [0.7, 1.95, -0.9], [1.15, 2.9, -1.45]], r1: 0.10, r2: 0.025 },
+      { pts: [[0, 0.9, 0], [-0.1, 2.1, 0.1], [0.05, 3.25, 0.05]], r1: 0.11, r2: 0.03 }
     ];
 
-    const flowerAnchors = [];
-    const leafGeo = new THREE.SphereGeometry(0.12, 8, 6);
-    leafGeo.scale(0.55, 0.15, 1.35);
-
-    const leafMaterials = [
-      new THREE.MeshStandardMaterial({ color: 0x2d6a4f, roughness: 0.55, metalness: 0.1 }),
-      new THREE.MeshStandardMaterial({ color: 0x40916c, roughness: 0.5, metalness: 0.1 }),
-      new THREE.MeshStandardMaterial({ color: 0x52b788, roughness: 0.45, metalness: 0.15 })
-    ];
-
+    const branchCurves = [];
     branchSpecs.forEach((b) => {
       const vecs = b.pts.map((p) => new THREE.Vector3(p[0], p[1], p[2]));
       const curve = createTaperedBranch(canopySwayGroup, vecs, b.r1, b.r2, 16, 8);
-      flowerAnchors.push(vecs[vecs.length - 1]);
-
-      // Delicate fresh spring leaves along branch
-      for (let l = 0; l < 14; l++) {
-        const t = 0.22 + (l / 14) * 0.75;
-        const pt = curve.getPointAt(t);
-        const leaf = new THREE.Mesh(leafGeo, leafMaterials[l % leafMaterials.length]);
-        leaf.position.set(
-          pt.x + (Math.random() - 0.5) * 0.25,
-          pt.y + (Math.random() - 0.5) * 0.2,
-          pt.z + (Math.random() - 0.5) * 0.25
-        );
-        leaf.rotation.set(
-          (Math.random() - 0.5) * 0.8,
-          Math.random() * Math.PI * 2,
-          (Math.random() - 0.5) * 0.8
-        );
-        canopySwayGroup.add(leaf);
-      }
+      branchCurves.push(curve);
     });
 
     // =========================================================================
-    // 4. 3D GLOWING SAKURA / MAGNOLIA BLOSSOMS (MATCHING REFERENCE IMAGE)
+    // 4. 3D BLOOMING FLOWERS BUILDER (BLOOMS CLUSTER ON EACH CLICK)
     // =========================================================================
     const activeFlowers = [];
     const fallingPetals = [];
 
-    function create3DBlossomCluster(position, isFinaleExtra = false) {
-      const count = isFinaleExtra ? 1 : 2; // clusters of blossoms
-      for (let c = 0; c < count; c++) {
-        const flower = new THREE.Group();
-        const clusterOffset = new THREE.Vector3(
-          (Math.random() - 0.5) * 0.35,
-          (Math.random() - 0.5) * 0.25,
-          (Math.random() - 0.5) * 0.35
-        );
-        flower.position.copy(position).add(clusterOffset);
+    function create3DFlower(position, isGolden = false) {
+      const flower = new THREE.Group();
+      flower.position.copy(position);
 
-        // Soft, rounded blossom petal geometry
-        const petalGeo = new THREE.SphereGeometry(0.15, 12, 10);
-        petalGeo.scale(0.7, 0.22, 1.4);
+      const petalGeo = new THREE.SphereGeometry(0.16, 12, 10);
+      petalGeo.scale(0.65, 0.22, 1.45);
 
-        const petalMat = new THREE.MeshStandardMaterial({
-          color: isFinaleExtra ? 0xffdfba : 0xffb7c5,
-          emissive: isFinaleExtra ? 0xffa07a : 0xff758f,
-          emissiveIntensity: 0.52,
-          roughness: 0.28,
-          metalness: 0.15
-        });
+      const petalMat = new THREE.MeshStandardMaterial({
+        color: isGolden ? 0xffd700 : 0xffb3c6,
+        emissive: isGolden ? 0xffaa00 : 0xff6b8b,
+        emissiveIntensity: 0.48,
+        roughness: 0.3,
+        metalness: 0.2
+      });
 
-        // 6 Radiant Petals
-        const petalCount = 6;
-        for (let i = 0; i < petalCount; i++) {
-          const angle = (i / petalCount) * Math.PI * 2;
-          const petal = new THREE.Mesh(petalGeo, petalMat);
-          petal.position.set(Math.cos(angle) * 0.14, 0.03, Math.sin(angle) * 0.14);
-          petal.rotation.y = -angle + Math.PI / 2;
-          petal.rotation.x = 0.26 + Math.random() * 0.08;
-          flower.add(petal);
-        }
-
-        // Glowing Golden Stamen Center
-        const stamenGeo = new THREE.SphereGeometry(0.075, 12, 12);
-        const stamenMat = new THREE.MeshBasicMaterial({ color: 0xfff8d6 });
-        const stamen = new THREE.Mesh(stamenGeo, stamenMat);
-        stamen.position.y = 0.045;
-        flower.add(stamen);
-
-        flower.scale.set(0.01, 0.01, 0.01);
-        flower.userData = { targetScale: isFinaleExtra ? 1.05 : 1.45, currentScale: 0.01 };
-        canopySwayGroup.add(flower);
-        activeFlowers.push(flower);
+      const petalCount = 6;
+      for (let i = 0; i < petalCount; i++) {
+        const angle = (i / petalCount) * Math.PI * 2;
+        const petal = new THREE.Mesh(petalGeo, petalMat);
+        petal.position.set(Math.cos(angle) * 0.15, 0.03, Math.sin(angle) * 0.15);
+        petal.rotation.y = -angle + Math.PI / 2;
+        petal.rotation.x = 0.28;
+        flower.add(petal);
       }
 
-      // Spawn falling glowing petals
-      for (let i = 0; i < 7; i++) {
+      // Glowing Golden Stamen Core
+      const coreGeo = new THREE.SphereGeometry(0.08, 12, 12);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0xfff3b0 });
+      const core = new THREE.Mesh(coreGeo, coreMat);
+      core.position.y = 0.05;
+      flower.add(core);
+
+      flower.scale.set(0.01, 0.01, 0.01);
+      flower.userData = { targetScale: isGolden ? 0.95 : 1.32, currentScale: 0.01 };
+      canopySwayGroup.add(flower);
+      activeFlowers.push(flower);
+
+      // Spawn drifting petals from the newly bloomed blossom
+      for (let i = 0; i < 6; i++) {
         const pMesh = new THREE.Mesh(
-          new THREE.CircleGeometry(0.065, 6),
+          new THREE.CircleGeometry(0.06, 6),
           new THREE.MeshBasicMaterial({
-            color: Math.random() > 0.4 ? 0xffd700 : 0xffb7c5,
+            color: Math.random() > 0.4 ? 0xffd700 : 0xffb3c6,
             side: THREE.DoubleSide,
             transparent: true,
-            opacity: 0.92
+            opacity: 0.9
           })
         );
-        pMesh.position.set(position.x, position.y + 2.1, position.z);
+        pMesh.position.set(position.x, position.y + 2.2, position.z);
         pMesh.userData = {
-          vx: (Math.random() - 0.5) * 0.032,
-          vy: -0.012 - Math.random() * 0.018,
-          vz: (Math.random() - 0.5) * 0.032,
-          rotSpeed: (Math.random() - 0.5) * 0.07
+          vx: (Math.random() - 0.5) * 0.035,
+          vy: -0.01 - Math.random() * 0.018,
+          vz: (Math.random() - 0.5) * 0.035,
+          rotSpeed: (Math.random() - 0.5) * 0.08
         };
         treeGroup.add(pMesh);
         fallingPetals.push(pMesh);
       }
     }
 
-    // =========================================================================
-    // 5. VERY SMALL GLOWING GOLDEN BIRDS (REPLACING PARROTS AS REQUESTED)
-    // =========================================================================
-    const smallBirds = [];
+    function bloomBranchCluster(branchIndex) {
+      const curve = branchCurves[branchIndex];
+      // Bloom 5 flowers along the upper half and tip of the branch
+      const positions = [0.55, 0.72, 0.85, 0.95, 1.0];
+      positions.forEach((t, idx) => {
+        const pt = curve.getPointAt(t);
+        const offset = new THREE.Vector3(
+          (Math.random() - 0.5) * 0.35,
+          (Math.random() - 0.5) * 0.25,
+          (Math.random() - 0.5) * 0.35
+        );
+        setTimeout(() => {
+          create3DFlower(pt.clone().add(offset), idx % 2 === 1);
+        }, idx * 70);
+      });
+    }
 
-    function create3DGoldenBird(orbitRadius, heightOffset, speed, phase) {
+    // =========================================================================
+    // 5. ANIMATED 3D GOLDEN BIRDS FLYING AROUND THE TREE
+    // =========================================================================
+    const birds = [];
+
+    function create3DBird(orbitRadius, heightOffset, speed, phase) {
       const bird = new THREE.Group();
 
-      // Radiant Warm Golden Ivory Material (Matching Reference Picture Birds)
-      const goldBodyMat = new THREE.MeshStandardMaterial({
-        color: 0xfff9e6,
-        emissive: 0xffd700,
-        emissiveIntensity: 0.88,
-        roughness: 0.22,
-        metalness: 0.35
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        emissive: 0xd97706,
+        emissiveIntensity: 0.45,
+        roughness: 0.3
       });
 
-      const goldWingMat = new THREE.MeshStandardMaterial({
+      const bodyGeo = new THREE.ConeGeometry(0.07, 0.26, 8);
+      bodyGeo.rotateX(Math.PI / 2);
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      bird.add(body);
+
+      const wingGeo = new THREE.PlaneGeometry(0.24, 0.11);
+      const wingMat = new THREE.MeshStandardMaterial({
         color: 0xffea79,
-        emissive: 0xffaa00,
-        emissiveIntensity: 0.82,
-        roughness: 0.2,
-        metalness: 0.4,
+        emissive: 0xffb703,
+        emissiveIntensity: 0.4,
         side: THREE.DoubleSide
       });
 
-      // Streamlined Miniature Bird Torso (very small & sleek)
-      const bodyGeo = new THREE.SphereGeometry(0.042, 10, 8);
-      bodyGeo.scale(0.8, 0.75, 1.8);
-      const body = new THREE.Mesh(bodyGeo, goldBodyMat);
-      bird.add(body);
-
-      // Head
-      const headGeo = new THREE.SphereGeometry(0.032, 10, 8);
-      const head = new THREE.Mesh(headGeo, goldBodyMat);
-      head.position.set(0, 0.02, 0.075);
-      bird.add(head);
-
-      // Delicate golden beak
-      const beakGeo = new THREE.ConeGeometry(0.012, 0.032, 6);
-      beakGeo.rotateX(Math.PI / 2);
-      const beak = new THREE.Mesh(beakGeo, goldBodyMat);
-      beak.position.set(0, 0.012, 0.11);
-      bird.add(beak);
-
-      // Trailing tail feathers
-      const tailGeo = new THREE.ConeGeometry(0.02, 0.15, 5);
-      tailGeo.rotateX(-Math.PI / 2);
-      const tail = new THREE.Mesh(tailGeo, goldWingMat);
-      tail.position.set(0, 0.005, -0.13);
-      bird.add(tail);
-
-      // Articulated Miniature Flapping Wings
-      const wingGeo = new THREE.PlaneGeometry(0.16, 0.075);
       const leftWingPivot = new THREE.Group();
-      const leftWing = new THREE.Mesh(wingGeo, goldWingMat);
-      leftWing.position.x = -0.08;
+      const leftWing = new THREE.Mesh(wingGeo, wingMat);
+      leftWing.position.x = -0.12;
       leftWingPivot.add(leftWing);
       bird.add(leftWingPivot);
 
       const rightWingPivot = new THREE.Group();
-      const rightWing = new THREE.Mesh(wingGeo, goldWingMat);
-      rightWing.position.x = 0.08;
+      const rightWing = new THREE.Mesh(wingGeo, wingMat);
+      rightWing.position.x = 0.12;
       rightWingPivot.add(rightWing);
       bird.add(rightWingPivot);
-
-      // Soft Golden Aura Light attached to bird
-      const auraLight = new THREE.PointLight(0xffd700, 0.6, 3.8);
-      bird.add(auraLight);
 
       bird.userData = {
         orbitRadius,
@@ -864,37 +710,35 @@
         phase,
         leftWingPivot,
         rightWingPivot,
-        flapSpeed: 11 + Math.random() * 3.5
+        flapSpeed: 11 + Math.random() * 4
       };
 
       scene.add(bird);
-      smallBirds.push(bird);
+      birds.push(bird);
     }
 
-    // Spawn 5 small glowing golden birds soaring in orbits around canopy (as in reference image)
-    create3DGoldenBird(3.4, 4.6, 0.58, 0.0);
-    create3DGoldenBird(4.1, 5.3, 0.48, 2.2);
-    create3DGoldenBird(3.1, 4.0, 0.64, 4.3);
-    create3DGoldenBird(4.4, 5.7, 0.44, 1.2);
-    create3DGoldenBird(3.7, 4.9, 0.54, 3.5);
+    create3DBird(3.2, 4.3, 0.65, 0);
+    create3DBird(3.7, 4.9, 0.55, 2.1);
+    create3DBird(2.9, 3.7, 0.72, 4.2);
+    create3DBird(4.0, 5.2, 0.48, 1.1);
 
     // =========================================================================
-    // 6. AMBIENT GOLDEN FIREFLIES / BOKEH FIELD
+    // 6. AMBIENT GOLDEN FIREFLIES PARTICLE FIELD
     // =========================================================================
-    const fireflyCount = 180;
+    const fireflyCount = 160;
     const fireflyGeo = new THREE.BufferGeometry();
     const fireflyPos = new Float32Array(fireflyCount * 3);
 
     for (let i = 0; i < fireflyCount; i++) {
       fireflyPos[i * 3] = (Math.random() - 0.5) * 14;
-      fireflyPos[i * 3 + 1] = Math.random() * 8.5;
+      fireflyPos[i * 3 + 1] = Math.random() * 8;
       fireflyPos[i * 3 + 2] = (Math.random() - 0.5) * 14;
     }
     fireflyGeo.setAttribute('position', new THREE.BufferAttribute(fireflyPos, 3));
 
     const fireflyMat = new THREE.PointsMaterial({
       color: 0xffea79,
-      size: 0.085,
+      size: 0.08,
       transparent: true,
       opacity: 0.85
     });
@@ -902,103 +746,75 @@
     scene.add(fireflyPoints);
 
     // =========================================================================
-    // 7. INTERACTIVE "MAKE A WISH" & FULLY BLOOMED BIRTHDAY FINALE
+    // 7. INTERACTIVE "MAKE A WISH" HANDLER & FULL-BLOOM FINALE
     // =========================================================================
     const wishBtn = document.getElementById('btn-make-wish');
-    const btnLabel = document.getElementById('btn-label');
-    const hudCard = document.getElementById('hud-card');
-    const hudTitle = document.getElementById('hud-title');
+    const wishCard = document.getElementById('wish-card');
+    const wishStepLabel = document.getElementById('wish-step-label');
     const wishTextEl = document.getElementById('wish-text');
     const counterEl = document.getElementById('bloom-counter');
 
-    function showerGoldenPetalsBurst() {
-      playFinaleFanfare();
-      // Burst 80 radiant golden & sakura petals
-      for (let i = 0; i < 80; i++) {
-        const anchor = flowerAnchors[i % flowerAnchors.length];
-        const pMesh = new THREE.Mesh(
-          new THREE.CircleGeometry(0.075, 6),
-          new THREE.MeshBasicMaterial({
-            color: Math.random() > 0.35 ? 0xffd700 : 0xffb7c5,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.95
-          })
-        );
-        pMesh.position.set(
-          anchor.x + (Math.random() - 0.5) * 1.6,
-          anchor.y + 2.1 + Math.random() * 0.8,
-          anchor.z + (Math.random() - 0.5) * 1.6
-        );
-        pMesh.userData = {
-          vx: (Math.random() - 0.5) * 0.045,
-          vy: -0.015 - Math.random() * 0.025,
-          vz: (Math.random() - 0.5) * 0.045,
-          rotSpeed: (Math.random() - 0.5) * 0.1
-        };
-        treeGroup.add(pMesh);
-        fallingPetals.push(pMesh);
-      }
-    }
-
     wishBtn.addEventListener('click', () => {
       if (isTreeFullyBloomed) {
-        showerGoldenPetalsBurst();
+        // Shower extra golden petals on click after full bloom
+        playBloomChime(7);
+        branchCurves.forEach((curve, idx) => {
+          const pt = curve.getPointAt(0.7 + Math.random() * 0.3);
+          setTimeout(() => create3DFlower(pt, true), idx * 35);
+        });
         return;
       }
 
       playBloomChime(currentWishIndex);
 
-      // Bloom 3D sakura blossom cluster on current branch
-      const anchor = flowerAnchors[currentWishIndex];
-      create3DBlossomCluster(anchor, false);
+      // Slowly bloom flowers on the next empty branch
+      bloomBranchCluster(currentWishIndex);
 
-      // Animate HUD quote rise
-      hudCard.classList.remove('pop');
-      void hudCard.offsetWidth;
-      hudCard.classList.add('pop');
-      hudTitle.textContent = `✦ WISH ${currentWishIndex + 1} OF ${wishes.length} ✦`;
+      // Update Wish Card UI
+      wishCard.classList.remove('pop');
+      void wishCard.offsetWidth;
+      wishCard.classList.add('pop');
+
+      wishStepLabel.textContent = `🌸 Wish ${currentWishIndex + 1} of ${wishes.length}`;
       wishTextEl.textContent = `“${wishes[currentWishIndex]}”`;
 
       currentWishIndex++;
       counterEl.textContent = `🌸 ${currentWishIndex} / ${wishes.length} Bloomed`;
-      canopyGlowLight.intensity = 1.6 + currentWishIndex * 0.18;
+      canopyGlowLight.intensity = 1.1 + currentWishIndex * 0.2;
 
-      // When all 11 bloomed: transform into reference image layout!
+      // Trigger Full-Bloom Finale once all 11 branches have bloomed
       if (currentWishIndex === wishes.length) {
         isTreeFullyBloomed = true;
+        wishBtn.innerHTML = '<span>Shower Golden Petals ✨</span>';
 
         setTimeout(() => {
           playFinaleFanfare();
-          canopyGlowLight.intensity = 4.2;
+          canopyGlowLight.intensity = 3.6;
 
-          // Burst 40 extra golden blossoms across entire canopy (creating dense canopy like reference image!)
-          for (let i = 0; i < 40; i++) {
-            const base = flowerAnchors[i % flowerAnchors.length];
-            const offset = new THREE.Vector3(
-              (Math.random() - 0.5) * 1.1,
-              (Math.random() - 0.5) * 0.85,
-              (Math.random() - 0.5) * 1.1
-            );
-            setTimeout(() => create3DBlossomCluster(base.clone().add(offset), true), i * 30);
-          }
+          // Fill out remaining canopy spaces with lush blossoms
+          branchCurves.forEach((curve, bIdx) => {
+            for (let k = 0; k < 3; k++) {
+              const pt = curve.getPointAt(0.4 + Math.random() * 0.6);
+              const offset = new THREE.Vector3(
+                (Math.random() - 0.5) * 0.55,
+                (Math.random() - 0.5) * 0.45,
+                (Math.random() - 0.5) * 0.55
+              );
+              setTimeout(() => create3DFlower(pt.clone().add(offset), k % 2 === 0), (bIdx * 3 + k) * 30);
+            }
+          });
 
-          // Transform HUD card matching exact reference image!
-          hudCard.classList.remove('pop');
-          void hudCard.offsetWidth;
-          hudCard.classList.add('pop', 'fully-bloomed');
-          hudTitle.textContent = '✨ FULLY BLOOMED WISH TREE ✨';
-          wishTextEl.textContent = finalBirthdayQuote;
-
-          // Transform button to "Shower Golden Petals ✨"
-          btnLabel.textContent = 'Shower Golden Petals ✨';
-          wishBtn.classList.add('gold-shower');
-        }, 1200);
+          wishCard.classList.remove('pop');
+          void wishCard.offsetWidth;
+          wishCard.classList.add('pop', 'finale');
+          wishStepLabel.textContent = '✨ FULLY BLOOMED WISH TREE ✨';
+          wishTextEl.textContent = finalTreeMessage;
+        }, 1600);
       }
     });
 
     // =========================================================================
-    // 8. 360° DRAG ROTATION, BREEZE SWAY & ANIMATION LOOP
+    // 8. 360° DRAG ROTATION, GENTLE SWAY & ANIMATION LOOP
     // =========================================================================
     let isDragging = false;
     let prevPointerX = 0;
@@ -1032,17 +848,16 @@
       requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Smooth drag inertia & gentle idle rotation
       if (!isDragging) {
-        targetRotationY += isTreeFullyBloomed ? 0.0035 : 0.0016;
+        targetRotationY += isTreeFullyBloomed ? 0.004 : 0.0018;
       }
       treeGroup.rotation.y += (targetRotationY - treeGroup.rotation.y) * 0.08;
 
-      // Natural wind sway (branches, leaves, and bloomed flowers move together)
-      canopySwayGroup.rotation.z = Math.sin(elapsed * 1.15) * 0.03;
-      canopySwayGroup.rotation.x = Math.cos(elapsed * 0.95) * 0.02;
+      // Subtle breeze sway on branches & blossoms
+      canopySwayGroup.rotation.z = Math.sin(elapsed * 1.15) * 0.028;
+      canopySwayGroup.rotation.x = Math.cos(elapsed * 0.95) * 0.018;
 
-      // Spring scale-in for bloomed 3D flowers
+      // Smooth spring scale-in animation for newly bloomed flowers
       for (const flower of activeFlowers) {
         if (flower.userData.currentScale < flower.userData.targetScale) {
           flower.userData.currentScale +=
@@ -1052,7 +867,7 @@
         }
       }
 
-      // Falling petals simulation
+      // Update falling petals
       for (let i = fallingPetals.length - 1; i >= 0; i--) {
         const p = fallingPetals[i];
         p.position.x += p.userData.vx + Math.sin(elapsed * 2 + i) * 0.004;
@@ -1060,7 +875,7 @@
         p.position.z += p.userData.vz;
         p.rotation.x += p.userData.rotSpeed;
         p.rotation.y += p.userData.rotSpeed;
-        p.material.opacity -= 0.0032;
+        p.material.opacity -= 0.0035;
 
         if (p.material.opacity <= 0 || p.position.y < 0.05) {
           treeGroup.remove(p);
@@ -1070,31 +885,30 @@
         }
       }
 
-      // Animate Small Glowing Golden Birds orbiting the tree (as in reference image)
-      const speedMult = isTreeFullyBloomed ? 1.3 : 1.0;
-      for (const b of smallBirds) {
+      // Animate 3D Golden Birds orbiting the canopy
+      const speedMult = isTreeFullyBloomed ? 1.4 : 1.0;
+      for (const b of birds) {
         const d = b.userData;
         const angle = elapsed * d.speed * speedMult + d.phase;
         const nextAngle = angle + 0.05;
 
         const x = Math.cos(angle) * d.orbitRadius;
         const z = Math.sin(angle) * d.orbitRadius;
-        const y = d.heightOffset + Math.sin(elapsed * 1.6 + d.phase) * 0.28;
+        const y = d.heightOffset + Math.sin(elapsed * 1.8 + d.phase) * 0.28;
 
         const nx = Math.cos(nextAngle) * d.orbitRadius;
         const nz = Math.sin(nextAngle) * d.orbitRadius;
-        const ny = d.heightOffset + Math.sin((elapsed + 0.05) * 1.6 + d.phase) * 0.28;
+        const ny = d.heightOffset + Math.sin((elapsed + 0.05) * 1.8 + d.phase) * 0.28;
 
         b.position.set(x, y, z);
         b.lookAt(nx, ny, nz);
 
-        const flap = Math.sin(elapsed * d.flapSpeed) * 0.58;
+        const flap = Math.sin(elapsed * d.flapSpeed) * 0.65;
         d.leftWingPivot.rotation.z = flap;
         d.rightWingPivot.rotation.z = -flap;
       }
 
-      // Fireflies drift
-      fireflyPoints.rotation.y = elapsed * 0.035;
+      fireflyPoints.rotation.y = elapsed * 0.04;
 
       renderer.render(scene, camera);
     }
