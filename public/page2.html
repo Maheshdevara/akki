@@ -696,67 +696,9 @@
       } catch (e) {}
     }
 
-    function playRocketLaunchSound() {
-      if (isSoundMuted) return;
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(320 + Math.random() * 40, now);
-        osc.frequency.exponentialRampToValueAtTime(1150, now + 0.55);
-        gain.gain.setValueAtTime(0.06, now);
-        gain.gain.linearRampToValueAtTime(0.16, now + 0.38);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.62);
-      } catch (e) {}
-    }
+    
 
-    function playAerialBurstSound() {
-      if (isSoundMuted) return;
-      try {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-        
-        // Deep bass boom
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(125, now);
-        osc.frequency.exponentialRampToValueAtTime(26, now + 0.52);
-        gain.gain.setValueAtTime(0.36, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.58);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.6);
-
-        // Crackle & shimmer
-        const bufferSize = ctx.sampleRate * 0.6;
-        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = noiseBuffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = (Math.random() > 0.82 ? (Math.random() * 2 - 1) : 0) * 0.45;
-        }
-        const noise = ctx.createBufferSource();
-        noise.buffer = noiseBuffer;
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(2400, now);
-        filter.Q.setValueAtTime(2.8, now);
-        const noiseGain = ctx.createGain();
-        noiseGain.gain.setValueAtTime(0.24, now);
-        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.62);
-        noise.connect(filter);
-        filter.connect(noiseGain);
-        noiseGain.connect(ctx.destination);
-        noise.start(now);
-      } catch (e) {}
-    }
+    
 
     const audioBtn = document.getElementById('audio-toggle');
     const audioIcon = document.getElementById('audio-icon');
@@ -866,15 +808,12 @@
         trail: []
       });
 
-      playRocketLaunchSound();
-
       if (!animId) {
         animateParticles();
       }
     }
 
     function detonateAerialFirework(bx, by) {
-      playAerialBurstSound();
 
       // Double expanding golden shockwave
       shockwaves.push({
