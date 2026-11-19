@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#080808" />
-  <title>Page 5 — Midnight Wish & 3D Birthday Cake ✨</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700;800&family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" />
+  <title>Page 5 — Midnight Wish & Sky Lanterns ✨</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕯️</text></svg>" />
+  <script>
+    if (window === window.top) {
+      window.location.replace('/?page=page5.html');
+    }
+  </script>
   <link rel="stylesheet" href="css/fullscreen.css">
-  <link rel="stylesheet" href="css/music.css">
+  <link rel="stylesheet" href="css/music.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700&family=Fredoka:wght@600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" />
   <style>
     :root {
       --bg-black: #080808;
@@ -18,8 +24,6 @@
       --gold-warm: #f5af2d;
       --gold-bright: #ffea79;
       --text-white: #ffffff;
-      --cake-red: #9e0e22;
-      --cake-dark-red: #720012;
     }
 
     * {
@@ -62,52 +66,52 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 50%, transparent 35%, rgba(6, 6, 9, 0.72) 75%, rgba(4, 4, 6, 0.94) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(5, 5, 8, 0.88) 100%);
     }
 
     /* ========================================================
-       SIDE FAIRY LIGHTS & VINES
+       MATCHING SIDE GOLDEN FAIRY LIGHTS
        ======================================================== */
     .side-fairy-lights {
       position: fixed;
       top: -15px;
       bottom: 0;
-      width: 18vw;
+      width: 20vw;
       z-index: 3;
       pointer-events: none;
       display: flex;
       justify-content: space-evenly;
-      filter: blur(0.5px);
-      opacity: 0.95;
+      filter: blur(1px);
+      opacity: 0.9;
     }
 
     .side-fairy-lights.left {
       left: 0;
-      mask-image: linear-gradient(to right, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to right, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
     }
 
     .side-fairy-lights.right {
       right: 0;
-      mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
     }
 
     .fairy-string {
-      height: 80vh;
-      width: 58px;
+      height: 75vh;
+      width: 55px;
       transform-origin: top center;
-      animation: swayBreeze 6.5s ease-in-out infinite alternate;
+      animation: swayBreeze 6s ease-in-out infinite alternate;
     }
 
     .fairy-string.delay {
-      height: 68vh;
-      animation-delay: -2.8s;
+      height: 62vh;
+      animation-delay: -2.5s;
     }
 
     @keyframes swayBreeze {
-      0% { transform: rotate(-2.2deg); }
-      100% { transform: rotate(2.2deg); }
+      0% { transform: rotate(-2deg); }
+      100% { transform: rotate(2deg); }
     }
 
     /* ========================================================
@@ -115,9 +119,9 @@
        ======================================================== */
     .top-bar {
       position: fixed;
-      top: max(18px, env(safe-area-inset-top));
-      left: 20px;
-      right: 20px;
+      top: max(16px, env(safe-area-inset-top));
+      left: max(18px, env(safe-area-inset-left));
+      right: max(18px, env(safe-area-inset-right));
       z-index: 20;
       display: flex;
       align-items: center;
@@ -132,83 +136,74 @@
       gap: 6px;
       padding: 8px 18px;
       border-radius: 50px;
-      background: rgba(14, 14, 18, 0.82);
+      background: rgba(14, 14, 18, 0.78);
       border: 1.5px solid rgba(255, 215, 0, 0.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       color: var(--gold-bright);
       text-decoration: none;
       font-size: 0.86rem;
       font-weight: 600;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 215, 0, 0.2);
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.2);
       transition: all 0.25s ease;
     }
 
     .nav-pill:hover {
       border-color: var(--gold-neon);
-      background: rgba(255, 215, 0, 0.18);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 22px rgba(255, 215, 0, 0.35);
+      background: rgba(255, 215, 0, 0.16);
+      transform: translateY(-1px);
     }
 
     .mic-status-pill {
       pointer-events: auto;
       padding: 8px 16px;
       border-radius: 50px;
-      background: rgba(14, 14, 18, 0.82);
-      border: 1.5px solid rgba(255, 215, 0, 0.45);
-      backdrop-filter: blur(14px);
+      background: rgba(14, 14, 18, 0.78);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       font-size: 0.82rem;
       font-weight: 600;
       color: #fff3b0;
       cursor: pointer;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
       transition: all 0.25s ease;
     }
 
     .mic-status-pill.listening {
       border-color: #4ade80;
-      color: #bbf7d0;
-      box-shadow: 0 0 20px rgba(74, 222, 128, 0.55);
-      animation: pulseMic 1.2s infinite;
-    }
-
-    @keyframes pulseMic {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      box-shadow: 0 0 16px rgba(74, 222, 128, 0.35);
     }
 
     /* ========================================================
-       BOTTOM CAKE CANDLE INTERACTION HUD
+       BOTTOM CANDLE INTERACTION HUD
        ======================================================== */
     .candle-hud {
       position: fixed;
-      bottom: max(28px, env(safe-area-inset-bottom));
+      bottom: max(24px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%);
       z-index: 20;
-      width: min(94vw, 620px);
+      width: min(92vw, 560px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       text-align: center;
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .candle-hud.hidden {
       opacity: 0;
-      transform: translate(-50%, 25px);
+      transform: translate(-50%, 20px);
       pointer-events: none;
     }
 
     .candle-prompt {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: clamp(1.08rem, 2.5vw, 1.48rem);
-      color: #fff9e6;
-      text-shadow: 0 2px 16px rgba(0, 0, 0, 1), 0 0 22px rgba(255, 215, 0, 0.55);
-      line-height: 1.35;
+      font-size: clamp(1.05rem, 2.4vw, 1.38rem);
+      color: #fff8dc;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 1), 0 0 20px rgba(255, 215, 0, 0.45);
     }
 
     .btn-blow-candle {
@@ -216,31 +211,31 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 14px 34px;
+      padding: 14px 32px;
       border-radius: 50px;
       border: 1.5px solid #fff3b0;
       background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
       color: #080808;
-      font-family: 'Fredoka', -apple-system, sans-serif;
-      font-size: 1.06rem;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
       font-weight: 700;
       letter-spacing: 0.4px;
       cursor: pointer;
-      box-shadow: 0 0 32px rgba(255, 215, 0, 0.6), 0 8px 24px rgba(0, 0, 0, 0.9);
-      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.55), 0 8px 22px rgba(0, 0, 0, 0.85);
+      transition: all 0.28s ease;
     }
 
     .btn-blow-candle:hover {
-      transform: translateY(-2px) scale(1.05);
+      transform: translateY(-2px) scale(1.04);
       background: #ffffff;
-      box-shadow: 0 0 45px rgba(255, 215, 0, 0.95);
+      box-shadow: 0 0 42px rgba(255, 215, 0, 0.9);
     }
 
     .breath-meter-bar {
-      width: 200px;
-      height: 6px;
+      width: 180px;
+      height: 5px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
       overflow: hidden;
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -253,12 +248,12 @@
     .breath-meter-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #ffd700, #4ade80);
+      background: linear-gradient(90deg, #ffd700, #ffffff);
       transition: width 0.08s linear;
     }
 
     /* ========================================================
-       HANDWRITTEN LETTER REVEAL OVERLAY (AFTER BLOWING CANDLE)
+       HANDWRITTEN LETTER REVEAL OVERLAY (AFTER LANTERNS RISE)
        ======================================================== */
     .letter-overlay {
       position: fixed;
@@ -286,40 +281,40 @@
       width: min(92vw, 640px);
       padding: 2.2rem 2rem;
       border-radius: 28px;
-      background: linear-gradient(155deg, rgba(20, 18, 24, 0.82), rgba(8, 8, 12, 0.9));
-      border: 1.5px solid rgba(255, 215, 0, 0.55);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: linear-gradient(155deg, rgba(20, 18, 22, 0.78), rgba(8, 8, 12, 0.86));
+      border: 1.5px solid rgba(255, 215, 0, 0.5);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       box-shadow:
-        0 0 60px rgba(255, 215, 0, 0.28),
-        inset 0 0 26px rgba(255, 215, 0, 0.1);
+        0 0 55px rgba(255, 215, 0, 0.25),
+        inset 0 0 24px rgba(255, 215, 0, 0.08);
     }
 
     .letter-header {
       font-family: 'Cinzel', serif;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 3px;
       color: var(--gold-warm);
       text-transform: uppercase;
-      margin-bottom: 0.95rem;
+      margin-bottom: 0.9rem;
     }
 
     .handwritten-body {
       font-family: 'Caveat', cursive;
-      font-size: clamp(1.55rem, 3.4vw, 2.05rem);
+      font-size: clamp(1.45rem, 3.2vw, 1.95rem);
       line-height: 1.42;
       color: #fff9e6;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
       margin-bottom: 1.3rem;
     }
 
     .handwritten-signoff {
       font-family: 'Caveat', cursive;
-      font-size: clamp(1.5rem, 3.2vw, 1.95rem);
+      font-size: clamp(1.4rem, 2.9vw, 1.8rem);
       font-weight: 700;
       color: var(--gold-neon);
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.65);
+      text-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
       margin-bottom: 1.6rem;
     }
 
@@ -328,30 +323,30 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 32px;
+      padding: 12px 30px;
       border-radius: 50px;
       border: 1.5px solid #fff3b0;
       background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
       color: #080808;
       text-decoration: none;
-      font-family: 'Fredoka', -apple-system, sans-serif;
+      font-family: 'Fredoka', sans-serif;
       font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-      box-shadow: 0 0 28px rgba(255, 215, 0, 0.55);
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.5);
       transition: all 0.28s ease;
     }
 
     .btn-replay-memories:hover {
       transform: translateY(-2px) scale(1.05);
       background: #ffffff;
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.95);
+      box-shadow: 0 0 38px rgba(255, 215, 0, 0.9);
     }
 
     @media (max-width: 768px) {
       .side-fairy-lights { display: none; }
-      .letter-glass-sheet { padding: 1.7rem 1.3rem; }
-      .btn-blow-candle { padding: 12px 26px; font-size: 0.98rem; }
+      .letter-glass-sheet { padding: 1.6rem 1.3rem; }
+      .btn-blow-candle { padding: 12px 24px; font-size: 0.96rem; }
       .top-bar { top: max(12px, env(safe-area-inset-top)); left: 12px; right: 12px; }
       .nav-pill, .mic-status-pill { padding: 6px 14px; font-size: 0.78rem; }
     }
@@ -359,49 +354,47 @@
 </head>
 <body>
 
-  <!-- 3D WebGL Canvas for Luxury Birthday Cake & Candles -->
+  <!-- 3D Cake, Flame, Smoke & Sky Lanterns Canvas -->
   <div id="finale-3d-container"></div>
   <div class="scene-vignette"></div>
 
-  <!-- Left & Right Cascading Golden Fairy Lights with Vines -->
+  <!-- Left & Right Cascading Golden Fairy Lights -->
   <aside class="side-fairy-lights left" aria-hidden="true">
     <svg class="fairy-string" viewBox="0 0 50 800" preserveAspectRatio="none">
-      <path d="M 25 0 Q 35 200 20 400 T 25 800" stroke="rgba(245, 175, 45, 0.45)" stroke-width="1.6" fill="none"/>
+      <path d="M 25 0 Q 35 200 20 400 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
       <circle cx="25" cy="90" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="32" cy="210" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="20" cy="360" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="28" cy="510" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="25" cy="680" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="28" cy="140" rx="4.5" ry="8" fill="rgba(74, 222, 128, 0.75)" transform="rotate(25 28 140)"/>
-      <ellipse cx="19" cy="280" rx="4.5" ry="8" fill="rgba(74, 222, 128, 0.75)" transform="rotate(-30 19 280)"/>
-      <ellipse cx="30" cy="450" rx="4.5" ry="8" fill="rgba(74, 222, 128, 0.75)" transform="rotate(20 30 450)"/>
+      <ellipse cx="28" cy="140" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(25 28 140)"/>
+      <ellipse cx="19" cy="280" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(-30 19 280)"/>
     </svg>
   </aside>
 
   <aside class="side-fairy-lights right" aria-hidden="true">
     <svg class="fairy-string delay" viewBox="0 0 50 800" preserveAspectRatio="none">
-      <path d="M 25 0 Q 15 250 30 500 T 25 800" stroke="rgba(245, 175, 45, 0.45)" stroke-width="1.6" fill="none"/>
+      <path d="M 25 0 Q 15 250 30 500 T 25 800" stroke="rgba(245, 175, 45, 0.4)" stroke-width="1.5" fill="none"/>
       <circle cx="25" cy="110" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="20" cy="250" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="28" cy="400" r="5.5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="22" cy="560" r="4.5" fill="#ffea79" filter="drop-shadow(0 0 8px #ffd700)"/>
       <circle cx="25" cy="710" r="5" fill="#ffd700" filter="drop-shadow(0 0 8px #ffd700)"/>
-      <ellipse cx="20" cy="180" rx="4.5" ry="8" fill="rgba(74, 222, 128, 0.75)" transform="rotate(-20 20 180)"/>
-      <ellipse cx="30" cy="330" rx="4.5" ry="8" fill="rgba(74, 222, 128, 0.75)" transform="rotate(35 30 330)"/>
-      <ellipse cx="22" cy="490" rx="4.5" ry="8" fill="rgba(74, 222, 128, 0.75)" transform="rotate(-25 22 490)"/>
+      <ellipse cx="20" cy="180" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(-20 20 180)"/>
+      <ellipse cx="30" cy="330" rx="4" ry="7" fill="rgba(74, 222, 128, 0.65)" transform="rotate(35 30 330)"/>
     </svg>
   </aside>
 
   <!-- Top Navigation -->
   <header class="top-bar">
     <a href="page4.html" class="nav-pill">← Back to Memories 📸</a>
-    <button type="button" class="mic-status-pill" id="mic-pill">🎤 Enable Mic Blow</button>
+    <button type="button" class="mic-status-pill" id="mic-pill">🎙️ Enable Mic Blow</button>
   </header>
 
-  <!-- Bottom Cake Interaction HUD (Matches Reference) -->
+  <!-- Bottom Candle Interaction Controls -->
   <div class="candle-hud" id="candle-hud">
     <p class="candle-prompt" id="candle-prompt">
-      “Make your 25th wish in silence... then blow into your mic or tap below”
+      Make your 25th wish in silence... then blow into your mic or tap below
     </p>
     <div class="breath-meter-bar" id="breath-bar">
       <div class="breath-meter-fill" id="breath-fill"></div>
@@ -411,7 +404,7 @@
     </button>
   </div>
 
-  <!-- Handwritten Finale Letter Overlay (NO LOVE SYMBOL AFTER AKKI) -->
+  <!-- Handwritten Finale Letter Overlay -->
   <section class="letter-overlay" id="letter-overlay">
     <div class="letter-glass-sheet">
       <div class="letter-header">✨ A Midnight Note For You ✨</div>
@@ -420,7 +413,7 @@
         Twenty-five looks magic on you. Every lantern rising tonight carries a wish for your peace, your boldest dreams, and the kind of happiness you effortlessly give to everyone lucky enough to know you. Keep shining with that fierce, unforgettable Scorpio light.
       </p>
       <div class="handwritten-signoff">Happy 25th Birthday, Akki ✨</div>
-      <a href="lock.html" class="btn-replay-memories">Replay Celebration ↺</a>
+      <a href="lock.html" class="btn-replay-memories">Replay Celebration ↻</a>
     </div>
   </section>
 
@@ -430,458 +423,274 @@
   <script src="js/music.js"></script>
   <script>
     // =========================================================================
-    // 1. THREE.JS SCENE SETUP
+    // 1. THREE.JS SCENE SETUP (3D CAKE, '25' CANDLE, SMOKE & SKY LANTERNS)
     // =========================================================================
     const container = document.getElementById('finale-3d-container');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x080808, 0.02);
+    scene.fog = new THREE.FogExp2(0x080808, 0.025);
 
     const isMobile = window.innerWidth < 768;
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 140);
-    camera.position.set(0, isMobile ? 2.5 : 2.2, isMobile ? 10.8 : 8.8);
-    camera.lookAt(0, 1.4, 0);
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 120);
+    camera.position.set(0, isMobile ? 3.6 : 3.4, isMobile ? 11.6 : 9.8);
+    camera.lookAt(0, 1.8, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
 
-    // Warm Ambient & Atmospheric Lighting
-    const ambientLight = new THREE.AmbientLight(0x352018, 1.5);
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0x282218, 1.3);
     scene.add(ambientLight);
 
-    const mainWarmLight = new THREE.DirectionalLight(0xffea79, 1.6);
-    mainWarmLight.position.set(5, 8, 7);
-    scene.add(mainWarmLight);
+    const rimLight = new THREE.DirectionalLight(0xffd700, 1.4);
+    rimLight.position.set(5, 9, 7);
+    scene.add(rimLight);
 
-    const softFillLight = new THREE.DirectionalLight(0xff6b81, 0.85);
-    softFillLight.position.set(-6, 5, 5);
-    scene.add(softFillLight);
+    const backRim = new THREE.DirectionalLight(0xf5af2d, 0.9);
+    backRim.position.set(-6, 5, -6);
+    scene.add(backRim);
 
-    const backRimLight = new THREE.DirectionalLight(0xffd700, 1.0);
-    backRimLight.position.set(0, 7, -6);
-    scene.add(backRimLight);
+    // Dynamic Candle PointLight
+    const candleLight = new THREE.PointLight(0xffae19, 3.2, 16);
+    candleLight.position.set(0, 3.3, 0.3);
+    scene.add(candleLight);
 
     // =========================================================================
-    // 2. BUILD 3D 2-TIER RED & GOLD LUXURY CAKE & '25' CANDLE NUMERALS
+    // 2. BUILD 3D LUXURY BIRTHDAY CAKE & '25' GOLDEN CANDLES
     // =========================================================================
     const cakeGroup = new THREE.Group();
-    cakeGroup.position.y = -0.55;
     scene.add(cakeGroup);
 
-    // Materials
-    const goldMetalMat = new THREE.MeshStandardMaterial({
-      color: 0xffd700,
-      emissive: 0x664400,
-      emissiveIntensity: 0.35,
-      roughness: 0.22,
-      metalness: 0.92
-    });
-
-    const goldBrightMat = new THREE.MeshStandardMaterial({
-      color: 0xffea79,
-      emissive: 0xaa7700,
-      emissiveIntensity: 0.45,
-      roughness: 0.18,
-      metalness: 0.95
-    });
-
-    const velvetRedMat = new THREE.MeshStandardMaterial({
-      color: 0x9e0e22,
-      emissive: 0x3d000a,
-      emissiveIntensity: 0.3,
+    const darkVelvetMat = new THREE.MeshStandardMaterial({
+      color: 0x16141a,
       roughness: 0.42,
-      metalness: 0.15
+      metalness: 0.25
     });
 
-    const darkVelvetRedMat = new THREE.MeshStandardMaterial({
-      color: 0x82091a,
-      emissive: 0x2b0007,
+    const goldMetallicMat = new THREE.MeshStandardMaterial({
+      color: 0xffd700,
+      emissive: 0x996500,
       emissiveIntensity: 0.25,
-      roughness: 0.45,
-      metalness: 0.12
+      roughness: 0.22,
+      metalness: 0.85
     });
 
-    const blackStandMat = new THREE.MeshStandardMaterial({
-      color: 0x111116,
-      roughness: 0.2,
-      metalness: 0.82
+    const glassStandMat = new THREE.MeshStandardMaterial({
+      color: 0x26242c,
+      roughness: 0.15,
+      metalness: 0.6,
+      transparent: true,
+      opacity: 0.85
     });
 
-    // 2.1 Black Obsidian Pedestal Stand
-    const standTop = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.7, 0.14, 64), blackStandMat);
-    standTop.position.y = 0.07;
+    // Glass Pedestal Base
+    const standTop = new THREE.Mesh(new THREE.CylinderGeometry(2.55, 2.45, 0.14, 64), glassStandMat);
+    standTop.position.y = 0.25;
     cakeGroup.add(standTop);
 
-    const standRim = new THREE.Mesh(new THREE.TorusGeometry(2.68, 0.045, 16, 64), goldMetalMat);
-    standRim.rotation.x = Math.PI / 2;
-    standRim.position.y = 0.14;
-    cakeGroup.add(standRim);
-
-    const standStem = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.82, 0.9, 32), blackStandMat);
-    standStem.position.y = -0.45;
+    const standStem = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.75, 0.55, 32), goldMetallicMat);
+    standStem.position.y = -0.08;
     cakeGroup.add(standStem);
 
-    const standBase = new THREE.Mesh(new THREE.CylinderGeometry(1.65, 1.85, 0.16, 48), blackStandMat);
-    standBase.position.y = -0.92;
-    cakeGroup.add(standBase);
+    // Bottom Cake Tier
+    const tier1 = new THREE.Mesh(new THREE.CylinderGeometry(1.95, 1.95, 0.95, 64), darkVelvetMat);
+    tier1.position.y = 0.78;
+    cakeGroup.add(tier1);
 
-    const standBaseGold = new THREE.Mesh(new THREE.TorusGeometry(1.82, 0.04, 16, 48), goldMetalMat);
-    standBaseGold.rotation.x = Math.PI / 2;
-    standBaseGold.position.y = -0.84;
-    cakeGroup.add(standBaseGold);
+    const goldBand1 = new THREE.Mesh(new THREE.TorusGeometry(1.96, 0.045, 16, 64), goldMetallicMat);
+    goldBand1.rotation.x = Math.PI / 2;
+    goldBand1.position.y = 0.34;
+    cakeGroup.add(goldBand1);
 
-    // 2.2 TIER 1 (BOTTOM TIER) — Rich Velvet Crimson Red with Baroque Gold Filigree
-    const tier1Radius = 2.25;
-    const tier1Height = 1.35;
-    const tier1Y = 0.14 + (tier1Height / 2); // 0.815
+    const goldBand1Top = new THREE.Mesh(new THREE.TorusGeometry(1.95, 0.035, 16, 64), goldMetallicMat);
+    goldBand1Top.rotation.x = Math.PI / 2;
+    goldBand1Top.position.y = 1.24;
+    cakeGroup.add(goldBand1Top);
 
-    const tier1Mesh = new THREE.Mesh(new THREE.CylinderGeometry(tier1Radius, tier1Radius, tier1Height, 64), velvetRedMat);
-    tier1Mesh.position.y = tier1Y;
-    cakeGroup.add(tier1Mesh);
+    // Top Cake Tier
+    const tier2 = new THREE.Mesh(new THREE.CylinderGeometry(1.32, 1.32, 0.85, 64), darkVelvetMat);
+    tier2.position.y = 1.68;
+    cakeGroup.add(tier2);
 
-    // Tier 1 Bottom & Top Golden Bead Pearl Borders
-    const pearlGeo = new THREE.SphereGeometry(0.062, 12, 12);
-    const pearlCount1 = 46;
-    for (let i = 0; i < pearlCount1; i++) {
-      const angle = (i / pearlCount1) * Math.PI * 2;
-      // Bottom border pearls
-      const bPearl = new THREE.Mesh(pearlGeo, goldMetalMat);
-      bPearl.position.set(Math.cos(angle) * (tier1Radius + 0.02), 0.18, Math.sin(angle) * (tier1Radius + 0.02));
-      cakeGroup.add(bPearl);
+    const goldBand2 = new THREE.Mesh(new THREE.TorusGeometry(1.33, 0.04, 16, 64), goldMetallicMat);
+    goldBand2.rotation.x = Math.PI / 2;
+    goldBand2.position.y = 1.28;
+    cakeGroup.add(goldBand2);
 
-      // Top border pearls
-      const tPearl = new THREE.Mesh(pearlGeo, goldMetalMat);
-      tPearl.position.set(Math.cos(angle) * (tier1Radius + 0.02), 0.14 + tier1Height - 0.04, Math.sin(angle) * (tier1Radius + 0.02));
-      cakeGroup.add(tPearl);
+    // Golden Pearl Spheres around Top Rim
+    for (let i = 0; i < 24; i++) {
+      const a = (i / 24) * Math.PI * 2;
+      const pearl = new THREE.Mesh(new THREE.SphereGeometry(0.055, 12, 12), goldMetallicMat);
+      pearl.position.set(Math.cos(a) * 1.26, 2.12, Math.sin(a) * 1.26);
+      cakeGroup.add(pearl);
     }
 
-    // Tier 1 Ornate Embossed Baroque Gold Filigree Medallions & Swags
-    const filigreeSegments = 12;
-    for (let i = 0; i < filigreeSegments; i++) {
-      const angle = (i / filigreeSegments) * Math.PI * 2;
-      const filigreeGroup = new THREE.Group();
-      filigreeGroup.position.set(Math.cos(angle) * tier1Radius, tier1Y, Math.sin(angle) * tier1Radius);
-      filigreeGroup.rotation.y = -angle + Math.PI / 2;
-
-      // Scalloped Baroque Filigree Arc Swag
-      const archMesh = new THREE.Mesh(new THREE.TorusGeometry(0.48, 0.038, 12, 24, Math.PI * 0.95), goldMetalMat);
-      archMesh.rotation.z = Math.PI * 0.52;
-      archMesh.position.y = -0.15;
-      filigreeGroup.add(archMesh);
-
-      // Center Baroque Acanthus Crest / Diamond Medallion
-      const crest = new THREE.Mesh(new THREE.OctahedronGeometry(0.14, 0), goldBrightMat);
-      crest.scale.set(0.9, 1.4, 0.4);
-      crest.position.set(0, 0.12, 0.04);
-      filigreeGroup.add(crest);
-
-      // Upper decorative acanthus leaf buds
-      const leafL = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.28, 8), goldMetalMat);
-      leafL.rotation.z = 0.55;
-      leafL.position.set(-0.16, 0.15, 0.02);
-      const leafR = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.28, 8), goldMetalMat);
-      leafR.rotation.z = -0.55;
-      leafR.position.set(0.16, 0.15, 0.02);
-      filigreeGroup.add(leafL, leafR);
-
-      cakeGroup.add(filigreeGroup);
+    // 3D "25" Golden Candle Sculpted Using Smooth Tube Paths
+    function buildNumberTube(points, offsetX) {
+      const curve = new THREE.CatmullRomCurve3(
+        points.map((p) => new THREE.Vector3(p[0] + offsetX, p[1], p[2]))
+      );
+      const geo = new THREE.TubeGeometry(curve, 36, 0.075, 14, false);
+      const mesh = new THREE.Mesh(geo, goldMetallicMat);
+      cakeGroup.add(mesh);
     }
 
-    // 2.3 TIER 2 (TOP TIER) — Rich Velvet Crimson Red with Gold Damask & Ribbons
-    const tier2Radius = 1.55;
-    const tier2Height = 1.18;
-    const tier2Y = 0.14 + tier1Height + (tier2Height / 2); // 2.08
+    // Numeral "2" (left of center)
+    buildNumberTube(
+      [
+        [-0.22, 2.78, 0],
+        [0.0, 2.94, 0],
+        [0.2, 2.78, 0],
+        [0.02, 2.52, 0],
+        [-0.22, 2.24, 0],
+        [0.22, 2.24, 0]
+      ],
+      -0.32
+    );
 
-    const tier2Mesh = new THREE.Mesh(new THREE.CylinderGeometry(tier2Radius, tier2Radius, tier2Height, 64), darkVelvetRedMat);
-    tier2Mesh.position.y = tier2Y;
-    cakeGroup.add(tier2Mesh);
+    // Numeral "5" (right of center)
+    buildNumberTube(
+      [
+        [0.2, 2.92, 0],
+        [-0.16, 2.92, 0],
+        [-0.18, 2.62, 0],
+        [0.06, 2.64, 0],
+        [0.22, 2.44, 0],
+        [0.04, 2.24, 0],
+        [-0.2, 2.28, 0]
+      ],
+      0.32
+    );
 
-    // Tier 2 Bead Pearl Borders
-    const pearlCount2 = 34;
-    for (let i = 0; i < pearlCount2; i++) {
-      const angle = (i / pearlCount2) * Math.PI * 2;
-      // Bottom border pearls
-      const bPearl = new THREE.Mesh(pearlGeo, goldMetalMat);
-      bPearl.position.set(Math.cos(angle) * (tier2Radius + 0.02), 0.14 + tier1Height + 0.04, Math.sin(angle) * (tier2Radius + 0.02));
-      cakeGroup.add(bPearl);
+    // Dual Wicks & 3D Flickering Flames above '2' and '5'
+    const flames = [];
+    const wickPositions = [
+      new THREE.Vector3(-0.32, 2.98, 0),
+      new THREE.Vector3(0.32, 2.98, 0)
+    ];
 
-      // Top border pearls
-      const tPearl = new THREE.Mesh(pearlGeo, goldMetalMat);
-      tPearl.position.set(Math.cos(angle) * (tier2Radius + 0.02), 0.14 + tier1Height + tier2Height - 0.04, Math.sin(angle) * (tier2Radius + 0.02));
-      cakeGroup.add(tPearl);
-    }
+    wickPositions.forEach((pos) => {
+      // Wick
+      const wick = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.014, 0.014, 0.14, 8),
+        new THREE.MeshBasicMaterial({ color: 0x222222 })
+      );
+      wick.position.copy(pos);
+      cakeGroup.add(wick);
 
-    // Tier 2 Circumference Baroque Filigree Band & Crests
-    const tier2FiligreeCount = 10;
-    for (let i = 0; i < tier2FiligreeCount; i++) {
-      const angle = (i / tier2FiligreeCount) * Math.PI * 2;
-      const g = new THREE.Group();
-      g.position.set(Math.cos(angle) * tier2Radius, tier2Y, Math.sin(angle) * tier2Radius);
-      g.rotation.y = -angle + Math.PI / 2;
-
-      // Baroque Scallop Arch
-      const arc = new THREE.Mesh(new THREE.TorusGeometry(0.36, 0.034, 12, 20, Math.PI * 0.9), goldMetalMat);
-      arc.rotation.z = Math.PI * 0.55;
-      arc.position.y = -0.12;
-      g.add(arc);
-
-      // Gold Medallion Crest
-      const orb = new THREE.Mesh(new THREE.SphereGeometry(0.09, 12, 12), goldBrightMat);
-      orb.scale.set(1, 1.3, 0.4);
-      orb.position.set(0, 0.12, 0.03);
-      g.add(orb);
-
-      cakeGroup.add(g);
-    }
-
-    // 2.4 3D GOLDEN '25' CANDLE NUMERALS ON TOP OF CAKE
-    const topSurfaceY = 0.14 + tier1Height + tier2Height; // 2.67
-    const numeralsGroup = new THREE.Group();
-    numeralsGroup.position.set(0, topSurfaceY, 0);
-    cakeGroup.add(numeralsGroup);
-
-    // Candle Wick & Flame containers for '2' and '5'
-    const flameMeshes = [];
-    const candleLights = [];
-
-    // Helper: Build 3D Golden Numeral '2'
-    function createNumeral2() {
-      const group = new THREE.Group();
-      const strokeRadius = 0.082;
-      const mat = goldBrightMat;
-
-      // Upper Arch
-      const arch = new THREE.Mesh(new THREE.TorusGeometry(0.28, strokeRadius, 16, 32, Math.PI * 1.15), mat);
-      arch.position.set(0.02, 0.62, 0);
-      arch.rotation.z = -0.3;
-      group.add(arch);
-
-      // Rounded Top-Left Start Cap
-      const capTop = new THREE.Mesh(new THREE.SphereGeometry(strokeRadius, 12, 12), mat);
-      capTop.position.set(-0.25, 0.58, 0);
-      group.add(capTop);
-
-      // Diagonal Stroke
-      const diagLen = 0.62;
-      const diag = new THREE.Mesh(new THREE.CylinderGeometry(strokeRadius, strokeRadius, diagLen, 16), mat);
-      diag.position.set(0.01, 0.26, 0);
-      diag.rotation.z = 0.62;
-      group.add(diag);
-
-      // Horizontal Bottom Base
-      const baseLen = 0.62;
-      const baseBar = new THREE.Mesh(new THREE.CylinderGeometry(strokeRadius, strokeRadius, baseLen, 16), mat);
-      baseBar.position.set(0.04, 0.06, 0);
-      baseBar.rotation.z = Math.PI / 2;
-      group.add(baseBar);
-
-      // Base Caps
-      const capL = new THREE.Mesh(new THREE.SphereGeometry(strokeRadius, 12, 12), mat);
-      capL.position.set(-0.27, 0.06, 0);
-      const capR = new THREE.Mesh(new THREE.SphereGeometry(strokeRadius, 12, 12), mat);
-      capR.position.set(0.35, 0.06, 0);
-      group.add(capL, capR);
-
-      // Candle Wick on top
-      const wick = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.12, 8), new THREE.MeshBasicMaterial({ color: 0x222222 }));
-      wick.position.set(0.02, 0.95, 0);
-      group.add(wick);
-
-      // Flame
-      const flame = createFlameMesh();
-      flame.position.set(0.02, 1.12, 0);
-      group.add(flame);
-      flameMeshes.push(flame);
-
-      return group;
-    }
-
-    // Helper: Build 3D Golden Numeral '5'
-    function createNumeral5() {
-      const group = new THREE.Group();
-      const strokeRadius = 0.082;
-      const mat = goldBrightMat;
-
-      // Top Horizontal Bar
-      const topBarLen = 0.56;
-      const topBar = new THREE.Mesh(new THREE.CylinderGeometry(strokeRadius, strokeRadius, topBarLen, 16), mat);
-      topBar.position.set(0.02, 0.88, 0);
-      topBar.rotation.z = Math.PI / 2;
-      group.add(topBar);
-
-      // Top Bar Right Cap
-      const capTR = new THREE.Mesh(new THREE.SphereGeometry(strokeRadius, 12, 12), mat);
-      capTR.position.set(0.3, 0.88, 0);
-      group.add(capTR);
-
-      // Upper Vertical Stem
-      const stemLen = 0.38;
-      const stem = new THREE.Mesh(new THREE.CylinderGeometry(strokeRadius, strokeRadius, stemLen, 16), mat);
-      stem.position.set(-0.24, 0.7, 0);
-      group.add(stem);
-
-      // Lower Curved Belly
-      const belly = new THREE.Mesh(new THREE.TorusGeometry(0.28, strokeRadius, 16, 32, Math.PI * 1.38), mat);
-      belly.position.set(0.02, 0.32, 0);
-      belly.rotation.z = -1.85;
-      group.add(belly);
-
-      // Belly Bottom-Left Cap
-      const capBL = new THREE.Mesh(new THREE.SphereGeometry(strokeRadius, 12, 12), mat);
-      capBL.position.set(-0.25, 0.16, 0);
-      group.add(capBL);
-
-      // Candle Wick on top
-      const wick = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.12, 8), new THREE.MeshBasicMaterial({ color: 0x222222 }));
-      wick.position.set(-0.02, 0.95, 0);
-      group.add(wick);
-
-      // Flame
-      const flame = createFlameMesh();
-      flame.position.set(-0.02, 1.12, 0);
-      group.add(flame);
-      flameMeshes.push(flame);
-
-      return group;
-    }
-
-    // Helper: Radiant Candle Flame Mesh
-    function createFlameMesh() {
+      // Flame Pivot at wick tip
       const flamePivot = new THREE.Group();
+      flamePivot.position.set(pos.x, pos.y + 0.07, pos.z);
 
-      // Outer Warm Amber Teardrop
-      const outerGeo = new THREE.SphereGeometry(0.14, 16, 16);
-      outerGeo.scale(0.68, 2.1, 0.68);
-      outerGeo.translate(0, 0.14, 0);
-      const outerMat = new THREE.MeshBasicMaterial({
-        color: 0xffaa00,
+      const outerFlameGeo = new THREE.SphereGeometry(0.095, 16, 16);
+      outerFlameGeo.scale(0.68, 1.95, 0.68);
+      outerFlameGeo.translate(0, 0.14, 0);
+      const outerFlameMat = new THREE.MeshBasicMaterial({
+        color: 0xffae19,
         transparent: true,
         opacity: 0.92
       });
-      const outerMesh = new THREE.Mesh(outerGeo, outerMat);
-      flamePivot.add(outerMesh);
+      const outerFlame = new THREE.Mesh(outerFlameGeo, outerFlameMat);
+      flamePivot.add(outerFlame);
 
-      // Inner Bright White-Gold Core
-      const innerGeo = new THREE.SphereGeometry(0.075, 14, 14);
-      innerGeo.scale(0.65, 1.85, 0.65);
-      innerGeo.translate(0, 0.1, 0);
-      const innerMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-      const innerMesh = new THREE.Mesh(innerGeo, innerMat);
-      flamePivot.add(innerMesh);
+      const innerFlameGeo = new THREE.SphereGeometry(0.052, 12, 12);
+      innerFlameGeo.scale(0.6, 1.7, 0.6);
+      innerFlameGeo.translate(0, 0.11, 0);
+      const innerFlameMat = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+      });
+      const innerFlame = new THREE.Mesh(innerFlameGeo, innerFlameMat);
+      flamePivot.add(innerFlame);
 
-      // Candle PointLight for dynamic cast lighting
-      const light = new THREE.PointLight(0xffae19, 3.6, 15);
-      light.position.set(0, 0.2, 0);
-      flamePivot.add(light);
-      candleLights.push(light);
+      cakeGroup.add(flamePivot);
+      flames.push(flamePivot);
+    });
 
-      return flamePivot;
+    // =========================================================================
+    // 3. CURLING SMOKE WISPS & 35 RISING GOLDEN SKY LANTERNS
+    // =========================================================================
+    const smokeParticles = [];
+    const skyLanterns = [];
+    let isCandleBlownOut = false;
+    let windBend = 0;
+
+    function spawnSmokeWisp(origin) {
+      const geo = new THREE.SphereGeometry(0.07, 10, 10);
+      const mat = new THREE.MeshBasicMaterial({
+        color: 0xd8dee9,
+        transparent: true,
+        opacity: 0.45
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.copy(origin);
+      mesh.userData = {
+        vy: 0.018 + Math.random() * 0.012,
+        phase: Math.random() * Math.PI * 2,
+        grow: 1.015
+      };
+      scene.add(mesh);
+      smokeParticles.push(mesh);
     }
 
-    // Position '2' and '5' side-by-side on top of cake
-    const num2 = createNumeral2();
-    num2.position.set(-0.46, 0, 0);
-    const num5 = createNumeral5();
-    num5.position.set(0.46, 0, 0);
-    numeralsGroup.add(num2, num5);
-
-    // =========================================================================
-    // 3. 40 FLOATING SKY LANTERNS IN BACKGROUND (MATCHING SCREENSHOT)
-    // =========================================================================
-    const skyLanterns = [];
-    const smokeParticles = [];
-    let isCandleExtinguished = false;
-
-    function createBackgroundLanterns() {
-      const lanternGeo = new THREE.CylinderGeometry(0.24, 0.17, 0.44, 16, 1, true);
+    function launchSkyLanterns() {
+      const lanternGeo = new THREE.CylinderGeometry(0.24, 0.16, 0.44, 16, 1, true);
       const lanternMat = new THREE.MeshBasicMaterial({
-        color: 0xffb834,
+        color: 0xffc845,
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.88
+        opacity: 0.92
       });
-      const coreGeo = new THREE.SphereGeometry(0.1, 10, 10);
+
+      const coreGeo = new THREE.SphereGeometry(0.11, 10, 10);
       const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-      for (let i = 0; i < 42; i++) {
+      for (let i = 0; i < 38; i++) {
         const lantern = new THREE.Group();
         const shell = new THREE.Mesh(lanternGeo, lanternMat);
         const core = new THREE.Mesh(coreGeo, coreMat);
-        core.position.y = -0.06;
+        core.position.y = -0.08;
         lantern.add(shell, core);
 
-        // Distribute in deep background
         lantern.position.set(
-          (Math.random() - 0.5) * 20,
-          -1.5 + Math.random() * 9,
-          -4 - Math.random() * 18
+          (Math.random() - 0.5) * 14,
+          -2.5 - Math.random() * 6,
+          -2 - Math.random() * 14
         );
 
-        const s = 0.55 + Math.random() * 0.75;
-        lantern.scale.set(s, s, s);
+        const scale = 0.65 + Math.random() * 0.75;
+        lantern.scale.set(scale, scale, scale);
         lantern.userData = {
-          baseY: lantern.position.y,
-          vy: 0.006 + Math.random() * 0.012,
+          vy: 0.022 + Math.random() * 0.024,
           swayPhase: Math.random() * Math.PI * 2,
-          swaySpeed: 1.2 + Math.random() * 1.5,
-          swayAmp: 0.008 + Math.random() * 0.014
+          swayAmp: 0.008 + Math.random() * 0.01
         };
 
         scene.add(lantern);
         skyLanterns.push(lantern);
       }
     }
-    createBackgroundLanterns();
 
-    // Twinkling Starfield Points
-    const starCount = 260;
+    // Background Twinkling Starfield Points
+    const starCount = 220;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(starCount * 3);
     for (let i = 0; i < starCount; i++) {
-      starPos[i * 3] = (Math.random() - 0.5) * 36;
-      starPos[i * 3 + 1] = Math.random() * 20 - 3;
-      starPos[i * 3 + 2] = -5 - Math.random() * 25;
+      starPos[i * 3] = (Math.random() - 0.5) * 28;
+      starPos[i * 3 + 1] = Math.random() * 16 - 2;
+      starPos[i * 3 + 2] = -4 - Math.random() * 20;
     }
     starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
     const starPoints = new THREE.Points(
       starGeo,
-      new THREE.PointsMaterial({ color: 0xffea79, size: 0.075, transparent: true, opacity: 0.85 })
+      new THREE.PointsMaterial({ color: 0xffea79, size: 0.08, transparent: true, opacity: 0.85 })
     );
     scene.add(starPoints);
 
-    // Dynamic Smoke Wisps (Rising from candle extinguish)
-    function spawnSmokePuff(pos) {
-      for (let i = 0; i < 18; i++) {
-        const geo = new THREE.SphereGeometry(0.06 + Math.random() * 0.04, 10, 10);
-        const mat = new THREE.MeshBasicMaterial({
-          color: 0xccd5e1,
-          transparent: true,
-          opacity: 0.45
-        });
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.set(
-          pos.x + (Math.random() - 0.5) * 0.14,
-          pos.y + i * 0.04,
-          pos.z + (Math.random() - 0.5) * 0.14
-        );
-        mesh.userData = {
-          vy: 0.018 + Math.random() * 0.022,
-          vx: (Math.random() - 0.5) * 0.008,
-          phase: Math.random() * Math.PI * 2,
-          growth: 1.018,
-          life: 0,
-          maxLife: 70 + Math.random() * 45
-        };
-        scene.add(mesh);
-        smokeParticles.push(mesh);
-      }
-    }
-
     // =========================================================================
-    // 4. CANDLE BLOW INTERACTION & CELEBRATION SEQUENCE
+    // 4. WEB AUDIO BLOW DETECTION & EXTINGUISH SEQUENCE
     // =========================================================================
     const btnBlow = document.getElementById('btn-blow');
     const micPill = document.getElementById('mic-pill');
@@ -892,6 +701,7 @@
 
     let micAnalyser = null;
     let micDataArray = null;
+    let blowHoldFrames = 0;
 
     function playChimeReveal() {
       try {
@@ -913,47 +723,43 @@
       } catch (e) {}
     }
 
-    function blowCandleSequence() {
-      if (isCandleExtinguished) return;
-      isCandleExtinguished = true;
+    function extinguishCandleSequence() {
+      if (isCandleBlownOut) return;
+      isCandleBlownOut = true;
+      try { window.parent.postMessage({ type: 'DUCK_BGM' }, '*'); } catch(e) {}
 
       candleHud.classList.add('hidden');
       micPill.style.opacity = '0';
       micPill.style.pointerEvents = 'none';
 
-      // 1. Extinguish Flames & Spawn Realistic Smoke Trails
-      flameMeshes.forEach(flame => {
-        flame.visible = false;
-      });
-      candleLights.forEach(light => {
-        light.intensity = 0;
-      });
-
-      // Spawn curling smoke from '2' and '5'
-      const pos2 = new THREE.Vector3(-0.46, topSurfaceY + 1.05, 0);
-      const pos5 = new THREE.Vector3(0.46, topSurfaceY + 1.05, 0);
-      spawnSmokePuff(pos2);
-      spawnSmokePuff(pos5);
-
-      // 2. Play celebratory harmonic bells & accelerate lanterns
-      playChimeReveal();
-      for (const lantern of skyLanterns) {
-        lantern.userData.vy *= 3.5;
+      // Spawn curling smoke wisps from both candle wicks
+      for (let i = 0; i < 24; i++) {
+        setTimeout(() => {
+          wickPositions.forEach((wp) => {
+            spawnSmokeWisp(new THREE.Vector3(wp.x, wp.y + 0.1, wp.z));
+          });
+        }, i * 65);
       }
 
-      // 3. Smoothly reveal the handwritten keepsake letter
+      // Launch rising sky lanterns and chime
+      setTimeout(() => {
+        playChimeReveal();
+        launchSkyLanterns();
+      }, 450);
+
+      // Reveal handwritten keepsake letter once lanterns fill the sky
       setTimeout(() => {
         letterOverlay.classList.add('visible');
-      }, 2000);
+      }, 2400);
     }
 
     btnBlow.addEventListener('click', () => {
-      blowCandleSequence();
+      windBend = 0.75;
+      setTimeout(extinguishCandleSequence, 220);
     });
 
-    // Mic blow detection
     micPill.addEventListener('click', async () => {
-      if (micAnalyser || isCandleExtinguished) return;
+      if (micAnalyser || isCandleBlownOut) return;
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const AudioClass = window.AudioContext || window.webkitAudioContext;
@@ -964,16 +770,16 @@
         source.connect(micAnalyser);
         micDataArray = new Uint8Array(micAnalyser.frequencyBinCount);
 
-        micPill.textContent = '🎤 Listening — Blow Into Mic!';
+        micPill.textContent = '🎙️ Listening — Blow Now!';
         micPill.classList.add('listening');
         breathBar.classList.add('active');
       } catch (err) {
-        micPill.textContent = '🎤 Tap Button Below to Blow';
+        micPill.textContent = '🎙️ Tap Button Below to Blow';
       }
     });
 
     // =========================================================================
-    // 5. 360° DRAG ROTATION & ANIMATION LOOP
+    // 5. 360° DRAG ROTATION & REAL-TIME ANIMATION LOOP
     // =========================================================================
     let isDragging = false;
     let prevX = 0;
@@ -986,7 +792,7 @@
 
     window.addEventListener('pointermove', (e) => {
       if (!isDragging) return;
-      targetRotY += (e.clientX - prevX) * 0.007;
+      targetRotY += (e.clientX - prevX) * 0.008;
       prevX = e.clientX;
     });
 
@@ -997,82 +803,88 @@
     window.addEventListener('resize', () => {
       const mobile = window.innerWidth < 768;
       camera.aspect = window.innerWidth / window.innerHeight;
-      camera.position.set(0, mobile ? 2.5 : 2.2, mobile ? 10.8 : 8.8);
+      camera.position.z = mobile ? 11.6 : 9.8;
+      camera.position.y = mobile ? 3.6 : 3.4;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Main Render Loop
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     function animate() {
       requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
 
-      // Gentle interactive cake rotation
+      // Check microphone breath energy if enabled
+      if (micAnalyser && !isCandleBlownOut) {
+        micAnalyser.getByteFrequencyData(micDataArray);
+        let lowEnergy = 0;
+        for (let i = 0; i < 12; i++) lowEnergy += micDataArray[i];
+        const avg = lowEnergy / 12;
+
+        const pct = Math.min(100, Math.max(0, ((avg - 45) / 75) * 100));
+        breathFill.style.width = `${pct}%`;
+
+        if (avg > 65) {
+          windBend = Math.min(0.85, (avg - 55) * 0.015);
+          blowHoldFrames++;
+          if (blowHoldFrames > 14) {
+            extinguishCandleSequence();
+          }
+        } else {
+          windBend *= 0.88;
+          blowHoldFrames = Math.max(0, blowHoldFrames - 1);
+        }
+      }
+
+      // Gentle cake pedestal rotation
+      if (!isDragging) targetRotY += 0.0025;
       cakeGroup.rotation.y += (targetRotY - cakeGroup.rotation.y) * 0.08;
-      if (!isDragging) {
-        cakeGroup.rotation.y += 0.0028;
+
+      // Animate 3D Candle Flames
+      flames.forEach((flame, idx) => {
+        if (!isCandleBlownOut) {
+          const flicker = 1 + Math.sin(t * 18 + idx * 2) * 0.08 + Math.cos(t * 27) * 0.05;
+          flame.scale.set(1, flicker, 1);
+          flame.rotation.z = Math.sin(t * 9 + idx) * 0.06 + windBend;
+          flame.rotation.x = Math.cos(t * 7) * 0.04 + windBend * 0.5;
+        } else {
+          flame.scale.lerp(new THREE.Vector3(0.001, 0.001, 0.001), 0.18);
+        }
+      });
+
+      if (!isCandleBlownOut) {
+        candleLight.intensity = 3.0 + Math.sin(t * 16) * 0.35;
+      } else {
+        candleLight.intensity += (0.55 - candleLight.intensity) * 0.05;
       }
 
-      // Flame flicker and light pulsing before extinguish
-      if (!isCandleExtinguished) {
-        const flicker1 = 1 + Math.sin(t * 18) * 0.08 + Math.cos(t * 26) * 0.06;
-        const flicker2 = 1 + Math.cos(t * 22) * 0.08 + Math.sin(t * 16) * 0.06;
-
-        if (flameMeshes[0]) {
-          flameMeshes[0].scale.set(flicker1, flicker1 * 1.05, flicker1);
-          flameMeshes[0].rotation.z = Math.sin(t * 12) * 0.08;
-        }
-        if (flameMeshes[1]) {
-          flameMeshes[1].scale.set(flicker2, flicker2 * 1.05, flicker2);
-          flameMeshes[1].rotation.z = Math.cos(t * 14) * 0.08;
-        }
-        candleLights.forEach(light => {
-          light.intensity = 3.4 + Math.sin(t * 16) * 0.6;
-        });
-
-        // Mic volume analysis for blowing
-        if (micAnalyser) {
-          micAnalyser.getByteFrequencyData(micDataArray);
-          let sum = 0;
-          for (let i = 0; i < micDataArray.length; i++) {
-            sum += micDataArray[i];
-          }
-          const avg = sum / micDataArray.length;
-          const pct = Math.min(100, (avg / 52) * 100);
-          breathFill.style.width = `${pct}%`;
-
-          if (avg > 55) {
-            blowCandleSequence();
-          }
-        }
-      }
-
-      // Update Smoke Particles
+      // Update curling smoke wisps
       for (let i = smokeParticles.length - 1; i >= 0; i--) {
-        const p = smokeParticles[i];
-        p.userData.life++;
-        p.position.y += p.userData.vy;
-        p.position.x += Math.sin(t * 3 + p.userData.phase) * 0.005 + p.userData.vx;
-        p.scale.multiplyScalar(p.userData.growth);
-        p.material.opacity = Math.max(0, 0.45 * (1 - p.userData.life / p.userData.maxLife));
-
-        if (p.userData.life >= p.userData.maxLife) {
-          scene.remove(p);
+        const s = smokeParticles[i];
+        s.position.y += s.userData.vy;
+        s.position.x += Math.sin(t * 3 + s.userData.phase) * 0.008;
+        s.scale.multiplyScalar(s.userData.grow);
+        s.material.opacity -= 0.0045;
+        if (s.material.opacity <= 0) {
+          scene.remove(s);
+          s.geometry.dispose();
+          s.material.dispose();
           smokeParticles.splice(i, 1);
         }
       }
 
-      // Update Background Floating Lanterns
+      // Update rising 3D sky lanterns
       for (const l of skyLanterns) {
         l.position.y += l.userData.vy;
-        l.position.x += Math.sin(t * l.userData.swaySpeed + l.userData.swayPhase) * l.userData.swayAmp;
-        if (l.position.y > 14) {
+        l.position.x += Math.sin(t * 1.4 + l.userData.swayPhase) * l.userData.swayAmp;
+        l.rotation.y += 0.008;
+        if (l.position.y > 12) {
           l.position.y = -3.5;
         }
       }
 
+      starPoints.rotation.y = t * 0.015;
       renderer.render(scene, camera);
     }
 

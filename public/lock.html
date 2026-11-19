@@ -1271,12 +1271,6 @@
 
       if (isCorrect) {
         isUnlocked = true;
-        sessionStorage.setItem('celebration_unlocked', 'true');
-        sessionStorage.setItem('celebration_music_enabled', 'true');
-
-        if (window.top && window.top.CelebrationMusicMaster) {
-          try { window.top.CelebrationMusicMaster.play(); } catch (e) {}
-        }
 
         if (window.top && window.top.enterCelebrationFullscreen) {
           try { window.top.enterCelebrationFullscreen(); } catch (e) {}

@@ -10,6 +10,7 @@
   <title>A Secret Awaits ✨ — Akshaya's 25th Birthday</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
   <link rel="stylesheet" href="css/fullscreen.css">
+  <link rel="stylesheet" href="css/music.css">
   <style>
     * {
       margin: 0;
@@ -44,11 +45,14 @@
 </head>
 <body>
 
-  <!-- Master Birthday Background Audio Element -->
-  <audio id="master-bg-audio" loop preload="auto">
-    <source src="audio/bday_music.mp3" type="audio/mpeg">
-    <source src="bday_music.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Background Music Audio Element (Looping & Continuous across celebration) -->
+  <audio id="bgm-player" src="audio/bday_music.mp3" preload="auto" loop playsinline></audio>
+
+  <!-- Floating Music Toggle Controller -->
+  <button id="master-music-btn" class="global-music-btn muted" aria-label="Toggle Birthday Music" style="display: none;">
+    <span class="music-icon">🎵</span>
+    <span class="music-label">Birthday Music</span>
+  </button>
 
   <!-- Seamless Continuous Fullscreen Presentation Shell -->
   <iframe
@@ -63,59 +67,12 @@
 
   <!-- Master Fullscreen Controller Script -->
   <script src="js/fullscreen.js"></script>
+  <!-- Master Music Controller Script -->
+  <script src="js/music.js"></script>
 
   <script>
+    // Synchronize document title, URL bar and background music
     const appFrame = document.getElementById('app-frame');
-    const masterAudio = document.getElementById('master-bg-audio');
-
-    // Master Continuous Audio Controller across all pages
-    window.CelebrationMusicMaster = {
-      audio: masterAudio,
-      isPlaying: false,
-      play() {
-        if (!masterAudio) return;
-        sessionStorage.setItem('celebration_music_enabled', 'true');
-        sessionStorage.setItem('celebration_unlocked', 'true');
-        masterAudio.muted = false;
-        masterAudio.play().then(() => {
-          this.isPlaying = true;
-          this.notifyChildFrames();
-        }).catch(e => {
-          console.log('Audio autoplay awaiting interaction:', e);
-        });
-      },
-      pause() {
-        if (!masterAudio) return;
-        masterAudio.pause();
-        this.isPlaying = false;
-        this.notifyChildFrames();
-      },
-      toggle() {
-        if (this.isPlaying) {
-          this.pause();
-        } else {
-          this.play();
-        }
-      },
-      notifyChildFrames() {
-        try {
-          if (appFrame && appFrame.contentWindow && appFrame.contentWindow.CelebrationMusic) {
-            appFrame.contentWindow.CelebrationMusic.updateUi();
-          }
-        } catch (e) {}
-      }
-    };
-
-    if (masterAudio) {
-      masterAudio.addEventListener('play', () => {
-        window.CelebrationMusicMaster.isPlaying = true;
-        window.CelebrationMusicMaster.notifyChildFrames();
-      });
-      masterAudio.addEventListener('pause', () => {
-        window.CelebrationMusicMaster.isPlaying = false;
-        window.CelebrationMusicMaster.notifyChildFrames();
-      });
-    }
 
     // Handle deep-link query parameter e.g. /?page=page1.html
     try {
@@ -123,6 +80,10 @@
       const targetPage = urlParams.get('page');
       if (targetPage && targetPage !== 'index.html') {
         appFrame.src = targetPage;
+        // If starting directly from Page 1 or later, trigger music
+        if (targetPage !== 'lock.html' && window.triggerStartFromPage1) {
+          window.triggerStartFromPage1();
+        }
       }
     } catch (e) {}
 
@@ -142,12 +103,9 @@
           window.history.replaceState(null, '', newPath);
         }
 
-        // If unlocked and not on lock page, ensure background music is playing
-        const isUnlocked = sessionStorage.getItem('celebration_unlocked') === 'true' || 
-                           sessionStorage.getItem('celebration_music_enabled') === 'true';
-        const isMuted = sessionStorage.getItem('celebration_music_muted') === 'true';
-        if (isUnlocked && !isMuted && cleanSlug !== 'lock' && cleanSlug !== 'index') {
-          window.CelebrationMusicMaster.play();
+        // Start music when arriving at Page 1 or any subsequent page
+        if (cleanSlug !== 'lock' && cleanSlug !== 'index' && window.triggerStartFromPage1) {
+          window.triggerStartFromPage1();
         }
       } catch (err) {}
     });
@@ -158,18 +116,6 @@
         appFrame.contentWindow.history.back();
       } catch (err) {}
     });
-
-    // Interaction fallback for autoplay policies
-    const unlockMasterAudio = () => {
-      const isUnlocked = sessionStorage.getItem('celebration_unlocked') === 'true' || 
-                         sessionStorage.getItem('celebration_music_enabled') === 'true';
-      const isMuted = sessionStorage.getItem('celebration_music_muted') === 'true';
-      if (isUnlocked && !isMuted && masterAudio && masterAudio.paused) {
-        window.CelebrationMusicMaster.play();
-      }
-    };
-    window.addEventListener('pointerdown', unlockMasterAudio, { once: true });
-    window.addEventListener('keydown', unlockMasterAudio, { once: true });
   </script>
 </body>
 </html>
