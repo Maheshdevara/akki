@@ -17,6 +17,10 @@
     { "source": "/page3", "destination": "/surprise.html" },
     { "source": "/page3.html", "destination": "/surprise.html" },
     { "source": "/page4", "destination": "/page4.html" },
-    { "source": "/page4.html", "destination": "/page4.html" }
+    { "source": "/page4.html", "destination": "/page4.html" },
+    { "source": "/page5", "destination": "/page5.html" },
+    { "source": "/page5.html", "destination": "/page5.html" },
+    { "source": "/cake", "destination": "/page5.html" },
+    { "source": "/lanterns", "destination": "/page5.html" }
   ]
 }
