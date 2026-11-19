@@ -44,6 +44,12 @@
 </head>
 <body>
 
+  <!-- Master Birthday Background Audio Element -->
+  <audio id="master-bg-audio" loop preload="auto">
+    <source src="audio/bday_music.mp3" type="audio/mpeg">
+    <source src="bday_music.mp3" type="audio/mpeg">
+  </audio>
+
   <!-- Seamless Continuous Fullscreen Presentation Shell -->
   <iframe
     id="app-frame"
@@ -59,8 +65,57 @@
   <script src="js/fullscreen.js"></script>
 
   <script>
-    // Synchronize document title and URL bar as the celebration progresses
     const appFrame = document.getElementById('app-frame');
+    const masterAudio = document.getElementById('master-bg-audio');
+
+    // Master Continuous Audio Controller across all pages
+    window.CelebrationMusicMaster = {
+      audio: masterAudio,
+      isPlaying: false,
+      play() {
+        if (!masterAudio) return;
+        sessionStorage.setItem('celebration_music_enabled', 'true');
+        sessionStorage.setItem('celebration_unlocked', 'true');
+        masterAudio.muted = false;
+        masterAudio.play().then(() => {
+          this.isPlaying = true;
+          this.notifyChildFrames();
+        }).catch(e => {
+          console.log('Audio autoplay awaiting interaction:', e);
+        });
+      },
+      pause() {
+        if (!masterAudio) return;
+        masterAudio.pause();
+        this.isPlaying = false;
+        this.notifyChildFrames();
+      },
+      toggle() {
+        if (this.isPlaying) {
+          this.pause();
+        } else {
+          this.play();
+        }
+      },
+      notifyChildFrames() {
+        try {
+          if (appFrame && appFrame.contentWindow && appFrame.contentWindow.CelebrationMusic) {
+            appFrame.contentWindow.CelebrationMusic.updateUi();
+          }
+        } catch (e) {}
+      }
+    };
+
+    if (masterAudio) {
+      masterAudio.addEventListener('play', () => {
+        window.CelebrationMusicMaster.isPlaying = true;
+        window.CelebrationMusicMaster.notifyChildFrames();
+      });
+      masterAudio.addEventListener('pause', () => {
+        window.CelebrationMusicMaster.isPlaying = false;
+        window.CelebrationMusicMaster.notifyChildFrames();
+      });
+    }
 
     // Handle deep-link query parameter e.g. /?page=page1.html
     try {
@@ -86,6 +141,14 @@
         if (window.location.pathname !== newPath) {
           window.history.replaceState(null, '', newPath);
         }
+
+        // If unlocked and not on lock page, ensure background music is playing
+        const isUnlocked = sessionStorage.getItem('celebration_unlocked') === 'true' || 
+                           sessionStorage.getItem('celebration_music_enabled') === 'true';
+        const isMuted = sessionStorage.getItem('celebration_music_muted') === 'true';
+        if (isUnlocked && !isMuted && cleanSlug !== 'lock' && cleanSlug !== 'index') {
+          window.CelebrationMusicMaster.play();
+        }
       } catch (err) {}
     });
 
@@ -95,6 +158,18 @@
         appFrame.contentWindow.history.back();
       } catch (err) {}
     });
+
+    // Interaction fallback for autoplay policies
+    const unlockMasterAudio = () => {
+      const isUnlocked = sessionStorage.getItem('celebration_unlocked') === 'true' || 
+                         sessionStorage.getItem('celebration_music_enabled') === 'true';
+      const isMuted = sessionStorage.getItem('celebration_music_muted') === 'true';
+      if (isUnlocked && !isMuted && masterAudio && masterAudio.paused) {
+        window.CelebrationMusicMaster.play();
+      }
+    };
+    window.addEventListener('pointerdown', unlockMasterAudio, { once: true });
+    window.addEventListener('keydown', unlockMasterAudio, { once: true });
   </script>
 </body>
 </html>
