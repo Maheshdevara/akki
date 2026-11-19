@@ -32,6 +32,9 @@
     document.body.appendChild(audio);
   }
 
+  // Ensure volume is always full (never decreased)
+  audio.volume = 1.0;
+
   let musicBtn = document.getElementById('master-music-btn');
   if (!musicBtn) {
     musicBtn = document.createElement('button');
@@ -65,6 +68,7 @@
   function playMusic() {
     if (userHasMuted) return;
     musicBtn.style.display = 'inline-flex';
+    audio.volume = 1.0; // Never decrease volume
     audio.play().then(() => {
       updateButtonUI(true);
       try { sessionStorage.setItem('bgm_active', '1'); } catch(e) {}
@@ -72,6 +76,7 @@
       // Autoplay waiting for user gesture
       const unlockAutoplay = () => {
         if (!userHasMuted) {
+          audio.volume = 1.0;
           audio.play().then(() => updateButtonUI(true)).catch(() => {});
         }
         window.removeEventListener('click', unlockAutoplay);
@@ -103,10 +108,8 @@
     if (!event.data) return;
     if (event.data.type === 'START_BGM') {
       playMusic();
-    } else if (event.data.type === 'DUCK_BGM') {
-      audio.volume = 0.25;
-      setTimeout(() => { audio.volume = 1.0; }, 6000);
     }
+    // Note: Volume is kept at 100% full volume throughout (never decreased)
   });
 
   window.triggerStartFromPage1 = playMusic;

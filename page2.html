@@ -696,6 +696,68 @@
       } catch (e) {}
     }
 
+    function playRocketLaunchSound() {
+      if (isSoundMuted) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(320 + Math.random() * 40, now);
+        osc.frequency.exponentialRampToValueAtTime(1150, now + 0.55);
+        gain.gain.setValueAtTime(0.06, now);
+        gain.gain.linearRampToValueAtTime(0.16, now + 0.38);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.62);
+      } catch (e) {}
+    }
+
+    function playAerialBurstSound() {
+      if (isSoundMuted) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        
+        // Deep bass boom
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(125, now);
+        osc.frequency.exponentialRampToValueAtTime(26, now + 0.52);
+        gain.gain.setValueAtTime(0.36, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.58);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.6);
+
+        // Crackle & shimmer
+        const bufferSize = ctx.sampleRate * 0.6;
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() > 0.82 ? (Math.random() * 2 - 1) : 0) * 0.45;
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = noiseBuffer;
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(2400, now);
+        filter.Q.setValueAtTime(2.8, now);
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.24, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.62);
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+        noise.start(now);
+      } catch (e) {}
+    }
+
     const audioBtn = document.getElementById('audio-toggle');
     const audioIcon = document.getElementById('audio-icon');
     const audioLabel = document.getElementById('audio-label');
@@ -718,12 +780,13 @@
     window.addEventListener('click', () => getAudioContext(), { once: true });
 
     // =========================================================================
-    // 2. TARGETED BLAST HELPER (FOR POPPED BALLOONS & FIRECRACKERS)
+    // 2. CANVAS ENGINE: BALLOON BLASTS & AERIAL FIREWORKS
     // =========================================================================
     const canvas = document.getElementById('firecracker-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
     let shockwaves = [];
+    let rockets = [];
     let animId = null;
 
     function resizeCanvas() {
@@ -732,6 +795,12 @@
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
+
+    // Pure Gold, Starlight Champagne, Amber, and Sparkling White (ZERO RED!)
+    const blastColors = [
+      '#ffd700', '#ffea79', '#ffffff', '#f5af2d', 
+      '#fff8db', '#ffdf40', '#ffe885', '#fffae6'
+    ];
 
     function triggerBlastAt(bx, by) {
       playFirecrackerBurstSound();
@@ -747,8 +816,6 @@
       });
 
       const count = 48;
-      const blastColors = ['#ffd700', '#ffea79', '#ff1a40', '#ffffff', '#ffae19', '#00f3ff', '#ff6b81'];
-
       for (let i = 0; i < count; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = 2.6 + Math.random() * 8.8;
@@ -774,38 +841,146 @@
     }
 
     // =========================================================================
-    // 3. CONTINUOUS BOTTOM-TO-TOP CLICKABLE GOLD & BLACK BALLOONS
+    // 3. AERIAL FIREWORKS SYSTEM (LAUNCH ROCKETS & CHRYSANTHEMUM WILLOW BURSTS)
+    // =========================================================================
+    function launchAerialFirework(targetX, targetY) {
+      const w = canvas.width;
+      const h = canvas.height;
+
+      const startX = targetX ? (targetX + (Math.random() - 0.5) * 35) : (w * (0.12 + Math.random() * 0.76));
+      const startY = h + 15;
+      const endX = targetX || (startX + (Math.random() - 0.5) * 80);
+      const endY = targetY || (h * (0.12 + Math.random() * 0.28));
+
+      const distY = startY - endY;
+      const frames = 36 + Math.floor(Math.random() * 12);
+      const vy = -distY / frames;
+      const vx = (endX - startX) / frames;
+
+      rockets.push({
+        x: startX,
+        y: startY,
+        vx: vx,
+        vy: vy,
+        endY: endY,
+        trail: []
+      });
+
+      playRocketLaunchSound();
+
+      if (!animId) {
+        animateParticles();
+      }
+    }
+
+    function detonateAerialFirework(bx, by) {
+      playAerialBurstSound();
+
+      // Double expanding golden shockwave
+      shockwaves.push({
+        x: bx,
+        y: by,
+        radius: 6,
+        maxRadius: 130 + Math.random() * 50,
+        speed: 7.2,
+        opacity: 0.95,
+        color: '#ffd700'
+      });
+      shockwaves.push({
+        x: bx,
+        y: by,
+        radius: 3,
+        maxRadius: 85 + Math.random() * 35,
+        speed: 5.2,
+        opacity: 0.85,
+        color: '#ffffff'
+      });
+
+      // 72-96 Grand Willow Chrysanthemum Stars
+      const starCount = 76 + Math.floor(Math.random() * 20);
+      for (let i = 0; i < starCount; i++) {
+        const angle = (i / starCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.25;
+        const speed = 3.2 + Math.random() * 9.8;
+        const color = blastColors[Math.floor(Math.random() * blastColors.length)];
+
+        particles.push({
+          x: bx,
+          y: by,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          friction: 0.942 + Math.random() * 0.02,
+          gravity: 0.085 + Math.random() * 0.04, // Willow golden rain drop
+          size: 3.0 + Math.random() * 3.4,
+          color: color,
+          opacity: 1.0,
+          life: 0,
+          maxLife: 60 + Math.random() * 45,
+          isGlitter: Math.random() > 0.35,
+          isWillow: true
+        });
+      }
+    }
+
+    // =========================================================================
+    // 4. CONTINUOUS BOTTOM-TO-TOP CLICKABLE GOLD, BLACK & TRANSPARENT BALLOONS
     // =========================================================================
     const balloonsContainer = document.getElementById('balloons-container');
 
+    // ONLY Black, Gold, and Transparent Palettes (Zero Red!)
     const balloonPalettes = [
+      // 1. Shimmering 24K Liquid Gold
       {
-        light: 'rgba(255, 250, 190, 0.92)',
-        fill: 'rgba(255, 215, 0, 0.72)',
-        dark: 'rgba(179, 125, 0, 0.78)',
-        rim: 'rgba(255, 235, 130, 0.85)',
-        stroke: 'rgba(255, 225, 100, 0.65)'
+        name: '24K Gold',
+        light: 'rgba(255, 252, 215, 0.95)',
+        fill: 'rgba(255, 215, 0, 0.78)',
+        dark: 'rgba(180, 128, 0, 0.85)',
+        rim: 'rgba(255, 235, 140, 0.9)',
+        stroke: 'rgba(255, 225, 100, 0.75)'
       },
+      // 2. Warm Starlight Amber Gold
       {
-        light: 'rgba(255, 245, 210, 0.9)',
-        fill: 'rgba(245, 175, 45, 0.7)',
-        dark: 'rgba(145, 90, 10, 0.78)',
-        rim: 'rgba(255, 220, 110, 0.85)',
-        stroke: 'rgba(255, 200, 80, 0.6)'
+        name: 'Amber Gold',
+        light: 'rgba(255, 248, 220, 0.95)',
+        fill: 'rgba(245, 175, 45, 0.76)',
+        dark: 'rgba(155, 95, 15, 0.85)',
+        rim: 'rgba(255, 220, 110, 0.9)',
+        stroke: 'rgba(255, 205, 80, 0.7)'
       },
+      // 3. Luxury Onyx Black with Golden Rim
       {
-        light: 'rgba(255, 225, 130, 0.55)',
-        fill: 'rgba(22, 22, 26, 0.74)',
-        dark: 'rgba(5, 5, 8, 0.86)',
-        rim: 'rgba(255, 215, 0, 0.75)',
+        name: 'Onyx Black & Gold',
+        light: 'rgba(255, 225, 130, 0.65)',
+        fill: 'rgba(22, 22, 28, 0.84)',
+        dark: 'rgba(6, 6, 9, 0.94)',
+        rim: 'rgba(255, 215, 0, 0.85)',
+        stroke: 'rgba(255, 215, 0, 0.75)'
+      },
+      // 4. Midnight Obsidian Black
+      {
+        name: 'Midnight Black',
+        light: 'rgba(255, 235, 165, 0.6)',
+        fill: 'rgba(32, 30, 36, 0.8)',
+        dark: 'rgba(10, 10, 14, 0.94)',
+        rim: 'rgba(245, 175, 45, 0.82)',
+        stroke: 'rgba(245, 175, 45, 0.7)'
+      },
+      // 5. Crystal Transparent Glass with Golden Sheen
+      {
+        name: 'Crystal Transparent',
+        light: 'rgba(255, 255, 255, 0.9)',
+        fill: 'rgba(255, 255, 255, 0.16)',
+        dark: 'rgba(255, 215, 0, 0.28)',
+        rim: 'rgba(255, 235, 150, 0.72)',
         stroke: 'rgba(255, 215, 0, 0.65)'
       },
+      // 6. Smoked Translucent Gold
       {
-        light: 'rgba(255, 235, 165, 0.5)',
-        fill: 'rgba(32, 30, 34, 0.72)',
-        dark: 'rgba(10, 10, 12, 0.85)',
-        rim: 'rgba(245, 175, 45, 0.75)',
-        stroke: 'rgba(245, 175, 45, 0.6)'
+        name: 'Translucent Smoked Gold',
+        light: 'rgba(255, 245, 185, 0.75)',
+        fill: 'rgba(40, 36, 30, 0.52)',
+        dark: 'rgba(16, 14, 10, 0.75)',
+        rim: 'rgba(255, 215, 0, 0.8)',
+        stroke: 'rgba(255, 215, 0, 0.62)'
       }
     ];
 
@@ -934,34 +1109,12 @@
     startBalloonSpawner();
 
     // =========================================================================
-    // 4. RANDOM FIRECRACKER BLASTS ENGINE
+    // 5. ANIMATION LOOP: PARTICLES, SHOCKWAVES & AERIAL FIREWORK ROCKETS
     // =========================================================================
-    function spawnRandomFirecracker() {
-      const w = canvas.width;
-      const h = canvas.height;
-
-      let bx, by;
-      const marginX = w * 0.1;
-      const marginY = h * 0.1;
-
-      const locChoice = Math.random();
-      if (locChoice < 0.4) {
-        bx = marginX + Math.random() * (w - 2 * marginX);
-        by = marginY + Math.random() * (h * 0.25);
-      } else if (locChoice < 0.7) {
-        bx = marginX * 0.5 + Math.random() * (w * 0.24);
-        by = marginY + Math.random() * (h * 0.72);
-      } else {
-        bx = w - (marginX * 0.5 + Math.random() * (w * 0.24));
-        by = marginY + Math.random() * (h * 0.72);
-      }
-
-      triggerBlastAt(bx, by);
-    }
-
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // 1. Shockwaves
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
         sw.radius += sw.speed;
@@ -984,6 +1137,38 @@
         }
       }
 
+      // 2. Aerial Rockets
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const r = rockets[i];
+        r.x += r.vx;
+        r.y += r.vy;
+        r.vy += 0.07;
+
+        r.trail.push({ x: r.x, y: r.y, alpha: 1.0, size: 2.8 + Math.random() * 1.8 });
+        if (r.trail.length > 9) r.trail.shift();
+
+        ctx.save();
+        for (let j = 0; j < r.trail.length; j++) {
+          const pt = r.trail[j];
+          pt.alpha *= 0.85;
+          const radius = pt.size * ((j + 1) / r.trail.length);
+          ctx.globalAlpha = pt.alpha;
+          ctx.fillStyle = '#ffea79';
+          ctx.shadowColor = '#ffd700';
+          ctx.shadowBlur = 10;
+          ctx.beginPath();
+          ctx.arc(pt.x + (Math.random() - 0.5) * 2, pt.y + (Math.random() - 0.5) * 2, radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+
+        if (r.y <= r.endY || r.vy >= -0.6) {
+          detonateAerialFirework(r.x, r.y);
+          rockets.splice(i, 1);
+        }
+      }
+
+      // 3. Spark & Confetti Particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.vx *= p.friction;
@@ -1003,7 +1188,7 @@
         ctx.shadowBlur = p.isGlitter ? 14 : 6;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size * (1 - prog * 0.5), 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size * (1 - prog * 0.4), 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
 
@@ -1012,21 +1197,34 @@
         }
       }
 
-      if (particles.length > 0 || shockwaves.length > 0) {
+      if (particles.length > 0 || shockwaves.length > 0 || rockets.length > 0) {
         animId = requestAnimationFrame(animateParticles);
       } else {
         animId = null;
       }
     }
 
-
-    function scheduleNextBlast() {
-      spawnRandomFirecracker();
-      const nextDelay = 650 + Math.random() * 1150;
-      setTimeout(scheduleNextBlast, nextDelay);
+    // =========================================================================
+    // 6. AERIAL FIREWORKS SCHEDULER & INTERACTIVE SKY LAUNCH
+    // =========================================================================
+    function scheduleNextAerialFirework() {
+      launchAerialFirework();
+      const nextDelay = 2200 + Math.random() * 1600;
+      setTimeout(scheduleNextAerialFirework, nextDelay);
     }
 
-    setTimeout(scheduleNextBlast, 1200);
+    // Opening festive 3-rocket salute
+    setTimeout(() => launchAerialFirework(window.innerWidth * 0.28, window.innerHeight * 0.22), 700);
+    setTimeout(() => launchAerialFirework(window.innerWidth * 0.72, window.innerHeight * 0.20), 1250);
+    setTimeout(() => launchAerialFirework(window.innerWidth * 0.50, window.innerHeight * 0.16), 1800);
+    setTimeout(scheduleNextAerialFirework, 2800);
+
+    // Interactive Sky Tap: Touch or Click anywhere to launch an Aerial Firework!
+    window.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.flying-balloon')) return;
+      launchAerialFirework(e.clientX, Math.min(e.clientY, window.innerHeight * 0.42));
+    });
+  
   </script>
   <script src="js/fullscreen.js"></script>
   <script src="js/music.js"></script>

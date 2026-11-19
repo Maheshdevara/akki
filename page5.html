@@ -337,6 +337,42 @@
       transition: all 0.28s ease;
     }
 
+    .letter-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn-back-memories {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 26px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(255, 215, 0, 0.65);
+      background: rgba(18, 16, 24, 0.88);
+      color: var(--gold-bright);
+      text-decoration: none;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+      transition: all 0.28s ease;
+    }
+
+    .btn-back-memories:hover {
+      transform: translateY(-2px) scale(1.04);
+      border-color: var(--gold-neon);
+      background: rgba(255, 215, 0, 0.2);
+      color: #ffffff;
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.55);
+    }
+
     .btn-replay-memories:hover {
       transform: translateY(-2px) scale(1.05);
       background: #ffffff;
@@ -413,7 +449,10 @@
         Twenty-five looks magic on you. Every lantern rising tonight carries a wish for your peace, your boldest dreams, and the kind of happiness you effortlessly give to everyone lucky enough to know you. Keep shining with that fierce, unforgettable Scorpio light.
       </p>
       <div class="handwritten-signoff">Happy 25th Birthday, Akki ✨</div>
-      <a href="lock.html" class="btn-replay-memories">Replay Celebration ↻</a>
+      <div class="letter-actions">
+        <a href="page4.html" class="btn-back-memories">← Back to Memories 📸</a>
+        <a href="lock.html" class="btn-replay-memories">Replay Celebration ↻</a>
+      </div>
     </div>
   </section>
 
@@ -726,7 +765,7 @@
     function extinguishCandleSequence() {
       if (isCandleBlownOut) return;
       isCandleBlownOut = true;
-      try { window.parent.postMessage({ type: 'DUCK_BGM' }, '*'); } catch(e) {}
+      
 
       candleHud.classList.add('hidden');
       micPill.style.opacity = '0';
