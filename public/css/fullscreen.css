@@ -9,11 +9,11 @@
   --fs-gold-bright: #ffea79;
 }
 
-/* Floating Full Screen Button (Laptop & Phone) */
+/* Floating Full Screen Button (PC & Phone) */
 .global-fs-btn {
   position: fixed;
-  top: 18px;
-  left: 20px;
+  top: max(16px, env(safe-area-inset-top));
+  left: max(18px, env(safe-area-inset-left));
   z-index: 99999;
   display: inline-flex;
   align-items: center;
@@ -21,17 +21,17 @@
   gap: 7px;
   padding: 8px 16px;
   border-radius: 50px;
-  background: rgba(14, 14, 20, 0.85);
+  background: rgba(14, 14, 20, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1.2px solid rgba(255, 215, 0, 0.5);
+  border: 1.2px solid rgba(255, 215, 0, 0.55);
   color: var(--fs-gold-bright);
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65), 0 0 14px rgba(255, 215, 0, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.75), 0 0 16px rgba(255, 215, 0, 0.3);
   transition: opacity 0.3s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -42,7 +42,7 @@
   background: rgba(255, 215, 0, 0.25);
   border-color: var(--fs-gold);
   color: #ffffff;
-  box-shadow: 0 0 24px rgba(255, 215, 0, 0.65);
+  box-shadow: 0 0 24px rgba(255, 215, 0, 0.7);
   transform: translateY(-2px) scale(1.04);
 }
 
@@ -58,7 +58,7 @@
 }
 
 /* ========================================================
-   CRITICAL: ONCE FULLSCREEN IS ACTIVATED, HIDE THE BUTTON
+   ONCE FULLSCREEN IS ACTIVATED, HIDE THE BUTTON
    COMPLETELY SO IT NEVER ASKS OR DISTRACTS AGAIN!
    ======================================================== */
 :fullscreen .global-fs-btn,
@@ -72,10 +72,60 @@ body.is-in-fullscreen .global-fs-btn {
   pointer-events: none !important;
 }
 
-/* Ensure modern safe-area support for iPhone Notch and Android bars */
+/* ========================================================
+   IPHONE FULLSCREEN HELPER TOAST
+   ======================================================== */
+.iphone-fullscreen-tip {
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100000;
+  width: min(92vw, 420px);
+  padding: 10px 16px;
+  border-radius: 50px;
+  background: rgba(18, 16, 22, 0.94);
+  border: 1.2px solid rgba(255, 215, 0, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffea79;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 215, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  animation: fadeInDownTip 0.4s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@keyframes fadeInDownTip {
+  from { opacity: 0; transform: translate(-50%, -15px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.iphone-fullscreen-tip strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.iphone-tip-close {
+  background: none;
+  border: none;
+  color: #ffd700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* Ensure modern safe-area support for any iPhone model (Notch & Dynamic Island) */
 html, body {
   min-height: 100vh;
   min-height: 100dvh;
+  min-height: -webkit-fill-available;
 }
 
 body {
@@ -90,7 +140,7 @@ body {
 @media (max-width: 600px) {
   .global-fs-btn {
     top: max(12px, env(safe-area-inset-top));
-    left: max(12px, env(safe-area-inset-left));
+    left: max(14px, env(safe-area-inset-left));
     padding: 6px 13px;
     font-size: 0.75rem;
     gap: 5px;
