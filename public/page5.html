@@ -538,18 +538,18 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.06;
+    renderer.toneMappingExposure = 0.96;
     container.appendChild(renderer.domElement);
 
     // Warm Ambient & Physical Key Lighting
-    const ambientLight = new THREE.AmbientLight(0xfff6ea, 1.05);
+    const ambientLight = new THREE.AmbientLight(0xfff6ea, 0.70);
     scene.add(ambientLight);
 
-    const keySunlight = new THREE.DirectionalLight(0xffeed8, 1.35);
+    const keySunlight = new THREE.DirectionalLight(0xffeed8, 0.95);
     keySunlight.position.set(3.5, 6.0, 4.5);
     scene.add(keySunlight);
 
-    const warmFillLight = new THREE.DirectionalLight(0xffd8b0, 0.85);
+    const warmFillLight = new THREE.DirectionalLight(0xffd8b0, 0.45);
     warmFillLight.position.set(-3.8, 3.2, 3.0);
     scene.add(warmFillLight);
 
@@ -559,11 +559,11 @@
 
     // Candlelight PointLights
     const candleLightLeft = new THREE.PointLight(0xffaa33, 2.6, 6.5, 1.5);
-    candleLightLeft.position.set(-0.34, 2.72, 0.15);
+    candleLightLeft.position.set(-0.34, 3.12, 0.15);
     scene.add(candleLightLeft);
 
     const candleLightRight = new THREE.PointLight(0xffaa33, 2.6, 6.5, 1.5);
-    candleLightRight.position.set(0.34, 2.72, 0.15);
+    candleLightRight.position.set(0.34, 3.12, 0.15);
     scene.add(candleLightRight);
 
     const candleLight = candleLightLeft;
@@ -706,6 +706,8 @@
     const tier2NormalMap = textureLoader.load('images/cake_tier2_normal.png');
     const tierTopMap = textureLoader.load('images/cake_top_diffuse.png');
     const tierTopNormal = textureLoader.load('images/cake_top_normal.png');
+    const tierShelfMap = textureLoader.load('images/cake_tier_shelf.png');
+    const tierShelfNormal = textureLoader.load('images/cake_tier_shelf_normal.png');
 
     function generateFiligreeButterflyTexture() {
       const c = document.createElement('canvas');
@@ -973,8 +975,16 @@
       metalness: 0.03
     });
 
-    const materialsTier1 = [tier1SideMat, tierTopMat, tierTopMat];
-    const materialsTier2 = [tier2SideMat, tierTopMat, tierTopMat];
+    const tierShelfMat = new THREE.MeshStandardMaterial({
+      map: tierShelfMap,
+      normalMap: tierShelfNormal,
+      normalScale: new THREE.Vector2(0.6, 0.6),
+      roughness: 0.45,
+      metalness: 0.02
+    });
+
+    const materialsTier1 = [tier1SideMat, tierShelfMat, tierShelfMat];
+    const materialsTier2 = [tier2SideMat, tierTopMat, tierShelfMat];
     const tier1ButtercreamMat = tier1SideMat;
     const tier2ButtercreamMat = tier2SideMat;
 
@@ -1102,7 +1112,7 @@
 
     const tier1Bevel = new THREE.Mesh(
       new THREE.TorusGeometry(1.93, 0.032, 10, 64),
-      tierTopMat
+      tierShelfMat
     );
     tier1Bevel.rotation.x = Math.PI / 2;
     tier1Bevel.position.y = 1.255;
@@ -1221,17 +1231,8 @@
       return bGroup;
     }
 
-    // Butterfly 1: Tier 1, front-left (matching photo!)
-    const butterfly1 = createRoseGoldButterfly(1.25, 0.50);
-    butterfly1.position.set(-1.32, 0.64, 1.48);
-    butterfly1.rotation.set(-0.15, 0.72, -0.22);
-    cakeGroup.add(butterfly1);
-
-    // Butterfly 2: Tier 2, front-right (matching photo!)
-    const butterfly2 = createRoseGoldButterfly(1.20, 0.48);
-    butterfly2.position.set(0.98, 1.82, 0.88);
-    butterfly2.rotation.set(-0.10, -0.68, 0.18);
-    cakeGroup.add(butterfly2);
+    // Butterfly 1 & 2 are authentically preserved in the photographic normal-mapped buttercream facade!
+    // Butterfly 3 perches proudly on the top-tier rim with realistic 3D fluttering wings in space:
 
     // Butterfly 3: Tier 2, top-left rim (matching photo!)
     const butterfly3 = createRoseGoldButterfly(1.30, 0.52);
@@ -1246,7 +1247,7 @@
       const curve = new THREE.CatmullRomCurve3(
         points.map((p) => new THREE.Vector3(p[0] + offsetX, p[1], p[2]))
       );
-      const geo = new THREE.TubeGeometry(curve, 36, 0.088, 12, false);
+      const geo = new THREE.TubeGeometry(curve, 48, 0.108, 16, false);
       const mesh = new THREE.Mesh(geo, goldCandleMat);
       cakeGroup.add(mesh);
       return mesh;
@@ -1843,9 +1844,11 @@
     let dragVelocityY = 0;
     let cakeRotX = 0;
 
+    let hasUserDragged = false;
     container.addEventListener('pointerdown', (e) => {
       if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.letter-glass-sheet')) return;
       isDragging = true;
+      hasUserDragged = true;
       prevX = e.clientX;
       prevY = e.clientY;
       dragVelocityY = 0;
@@ -1914,29 +1917,29 @@
         }
       }
 
-      // Interactive Momentum & Ambient Turntable Spin
+      // Interactive Momentum & Ambient Presentation
       if (!isDragging) {
-        dragVelocityY *= 0.94;
-        if (Math.abs(dragVelocityY) > 0.0008) {
-          cakeGroup.rotation.y += dragVelocityY;
+        if (!hasUserDragged) {
+          // Stays proudly front-facing with gentle organic 3D parallax sway
+          const targetSway = Math.sin(t * 0.45) * 0.06;
+          cakeGroup.rotation.y += (targetSway - cakeGroup.rotation.y) * 0.06;
         } else {
-          // Smooth ambient turntable rotation so user sees it in full 3D!
-          cakeGroup.rotation.y += 0.0032;
+          dragVelocityY *= 0.94;
+          if (Math.abs(dragVelocityY) > 0.0008) {
+            cakeGroup.rotation.y += dragVelocityY;
+          } else {
+            // Smooth ambient turntable rotation so user sees all sides in full 3D
+            cakeGroup.rotation.y += 0.0028;
+          }
         }
       }
 
-      // Subtle flutter on butterfly wings
-      const flutter1 = 0.50 + Math.sin(t * 3.2) * 0.05;
-      butterfly1.children[2].rotation.y = flutter1;
-      butterfly1.children[3].rotation.y = -flutter1;
-
-      const flutter2 = 0.48 + Math.sin(t * 3.5 + 1) * 0.05;
-      butterfly2.children[2].rotation.y = flutter2;
-      butterfly2.children[3].rotation.y = -flutter2;
-
-      const flutter3 = 0.52 + Math.sin(t * 2.8 + 2) * 0.05;
-      butterfly3.children[2].rotation.y = flutter3;
-      butterfly3.children[3].rotation.y = -flutter3;
+      // Subtle flutter on 3D top-rim butterfly wings
+      if (typeof butterfly3 !== 'undefined' && butterfly3.children.length >= 4) {
+        const flutter3 = 0.52 + Math.sin(t * 2.8 + 2) * 0.05;
+        butterfly3.children[2].rotation.y = flutter3;
+        butterfly3.children[3].rotation.y = -flutter3;
+      }
 
       // Animate background bokeh orbs
       for (let i = 0; i < bokehOrbs.length; i++) {
