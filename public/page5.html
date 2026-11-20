@@ -1024,6 +1024,10 @@
 
     // Braided Black Cotton Wicks & Flickering Teardrop Flames
     const flames = [];
+    const wickPositions = [
+      new THREE.Vector3(-0.34, 3.06, 0),
+      new THREE.Vector3(0.34, 3.06, 0)
+    ];
     const wickGeo = new THREE.CylinderGeometry(0.012, 0.012, 0.08, 6);
     const wickMat = new THREE.MeshBasicMaterial({ color: 0x111111 });
 
@@ -1042,13 +1046,13 @@
     innerFlameGeo.translate(0, 0.11, 0);
     const innerFlameMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-    [-0.34, 0.34].forEach((x) => {
+    wickPositions.forEach((pos) => {
       const wick = new THREE.Mesh(wickGeo, wickMat);
-      wick.position.set(x, 3.06, 0);
+      wick.position.copy(pos);
       cakeGroup.add(wick);
 
       const flamePivot = new THREE.Group();
-      flamePivot.position.set(x, 3.10, 0);
+      flamePivot.position.set(pos.x, pos.y + 0.04, pos.z);
 
       const outerFlame = new THREE.Mesh(outerFlameGeo, outerFlameMat);
       flamePivot.add(outerFlame);
