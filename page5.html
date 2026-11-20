@@ -505,6 +505,8 @@
     candleLightRight.position.set(0.34, 3.25, 0.15);
     scene.add(candleLightRight);
 
+    const candleLight = candleLightLeft;
+
     // =========================================================================
     // 2. BUILD NATURAL ARTISANAL 3D BIRTHDAY CAKE & "25" GOLDEN CANDLES
     // =========================================================================
@@ -1450,9 +1452,11 @@
       });
 
       if (!isCandleBlownOut) {
-        candleLight.intensity = 3.0 + Math.sin(t * 16) * 0.35;
+        candleLight.intensity = 2.6 + Math.sin(t * 16) * 0.35;
+        if (candleLightRight) candleLightRight.intensity = 2.6 + Math.sin(t * 14 + 1) * 0.35;
       } else {
-        candleLight.intensity += (0.55 - candleLight.intensity) * 0.05;
+        candleLight.intensity += (0.4 - candleLight.intensity) * 0.05;
+        if (candleLightRight) candleLightRight.intensity += (0.4 - candleLightRight.intensity) * 0.05;
       }
 
       // Update curling smoke wisps
