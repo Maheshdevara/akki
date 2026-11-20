@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#080808" />
-  <title>Page 5 — Midnight Wish & Sky Lanterns ✨</title>
+  <title>Page 5 — Midnight Wish, Sky Lanterns & Crackers ✨</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕯️</text></svg>" />
   <script>
     if (window === window.top) {
@@ -23,6 +23,7 @@
       --gold-neon: #ffd700;
       --gold-warm: #f5af2d;
       --gold-bright: #ffea79;
+      --rose-gold: #e29584;
       --text-white: #ffffff;
     }
 
@@ -44,9 +45,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* ========================================================
-       3D WEBGL SCENE CONTAINER
-       ======================================================== */
+    /* 3D WebGL Canvas Container */
     #finale-3d-container {
       position: fixed;
       inset: 0;
@@ -66,18 +65,27 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(5, 5, 8, 0.88) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 40%, rgba(5, 5, 8, 0.88) 100%);
     }
 
-    /* ========================================================
-       MATCHING SIDE GOLDEN FAIRY LIGHTS
-       ======================================================== */
+    /* Celebratory Aerial Fireworks & Sparkler Crackers Canvas */
+    #firecracker-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Side Fairy Light Swags */
     .side-fairy-lights {
       position: fixed;
       top: -15px;
       bottom: 0;
       width: 20vw;
-      z-index: 3;
+      z-index: 4;
       pointer-events: none;
       display: flex;
       justify-content: space-evenly;
@@ -114,9 +122,7 @@
       100% { transform: rotate(2deg); }
     }
 
-    /* ========================================================
-       TOP NAVIGATION
-       ======================================================== */
+    /* Top Navigation Bar */
     .top-bar {
       position: fixed;
       top: max(16px, env(safe-area-inset-top));
@@ -174,9 +180,7 @@
       box-shadow: 0 0 16px rgba(74, 222, 128, 0.35);
     }
 
-    /* ========================================================
-       BOTTOM CANDLE INTERACTION HUD
-       ======================================================== */
+    /* Bottom Candle Interaction HUD */
     .candle-hud {
       position: fixed;
       bottom: max(24px, env(safe-area-inset-bottom));
@@ -259,9 +263,7 @@
       transition: width 0.08s linear;
     }
 
-    /* ========================================================
-       HANDWRITTEN LETTER REVEAL OVERLAY (AFTER LANTERNS RISE)
-       ======================================================== */
+    /* Handwritten Finale Letter Overlay */
     .letter-overlay {
       position: fixed;
       inset: 0;
@@ -285,13 +287,13 @@
     }
 
     .letter-glass-sheet {
-      width: min(92vw, 640px);
-      padding: 2.2rem 2rem;
-      border-radius: 28px;
-      background: linear-gradient(155deg, rgba(20, 18, 22, 0.78), rgba(8, 8, 12, 0.86));
-      border: 1.5px solid rgba(255, 215, 0, 0.5);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      width: min(90vw, 580px);
+      padding: 1.8rem 1.6rem;
+      border-radius: 26px;
+      background: linear-gradient(155deg, rgba(18, 16, 22, 0.74), rgba(8, 8, 12, 0.82));
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       box-shadow:
         0 0 55px rgba(255, 215, 0, 0.25),
         inset 0 0 24px rgba(255, 215, 0, 0.08);
@@ -299,49 +301,30 @@
 
     .letter-header {
       font-family: 'Cinzel', serif;
-      font-size: 0.82rem;
+      font-size: 0.80rem;
       font-weight: 700;
       letter-spacing: 3px;
       color: var(--gold-warm);
       text-transform: uppercase;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.8rem;
     }
 
     .handwritten-body {
       font-family: 'Caveat', cursive;
-      font-size: clamp(1.45rem, 3.2vw, 1.95rem);
-      line-height: 1.42;
+      font-size: clamp(1.4rem, 3.0vw, 1.85rem);
+      line-height: 1.40;
       color: #fff9e6;
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
-      margin-bottom: 1.3rem;
+      margin-bottom: 1.2rem;
     }
 
     .handwritten-signoff {
       font-family: 'Caveat', cursive;
-      font-size: clamp(1.4rem, 2.9vw, 1.8rem);
+      font-size: clamp(1.35rem, 2.8vw, 1.75rem);
       font-weight: 700;
       color: var(--gold-neon);
       text-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
-      margin-bottom: 1.6rem;
-    }
-
-    .btn-replay-memories {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 30px;
-      border-radius: 50px;
-      border: 1.5px solid #fff3b0;
-      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
-      color: #080808;
-      text-decoration: none;
-      font-family: 'Fredoka', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      box-shadow: 0 0 26px rgba(255, 215, 0, 0.5);
-      transition: all 0.28s ease;
+      margin-bottom: 1.4rem;
     }
 
     .letter-actions {
@@ -350,7 +333,7 @@
       justify-content: center;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
     }
 
     .btn-back-memories {
@@ -358,14 +341,14 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 26px;
+      padding: 11px 24px;
       border-radius: 50px;
       border: 1.5px solid rgba(255, 215, 0, 0.65);
       background: rgba(18, 16, 24, 0.88);
       color: var(--gold-bright);
       text-decoration: none;
       font-family: 'Fredoka', sans-serif;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: 0.4px;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
@@ -380,6 +363,25 @@
       box-shadow: 0 0 26px rgba(255, 215, 0, 0.55);
     }
 
+    .btn-replay-memories {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 28px;
+      border-radius: 50px;
+      border: 1.5px solid #fff3b0;
+      background: linear-gradient(135deg, #ffd700 0%, #ffea79 50%, #f5af2d 100%);
+      color: #080808;
+      text-decoration: none;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.5);
+      transition: all 0.28s ease;
+    }
+
     .btn-replay-memories:hover {
       transform: translateY(-2px) scale(1.05);
       background: #ffffff;
@@ -388,7 +390,7 @@
 
     @media (max-width: 768px) {
       .side-fairy-lights { display: none; }
-      .letter-glass-sheet { padding: 1.6rem 1.3rem; }
+      .letter-glass-sheet { padding: 1.5rem 1.2rem; }
       .btn-blow-candle { padding: 12px 24px; font-size: 0.96rem; }
       .top-bar { top: max(12px, env(safe-area-inset-top)); left: 12px; right: 12px; }
       .nav-pill, .mic-status-pill { padding: 6px 14px; font-size: 0.78rem; }
@@ -400,6 +402,9 @@
   <!-- 3D Cake, Flame, Smoke & Sky Lanterns Canvas -->
   <div id="finale-3d-container"></div>
   <div class="scene-vignette"></div>
+
+  <!-- Celebratory Aerial Fireworks & Sparkler Crackers Canvas Overlay -->
+  <canvas id="firecracker-canvas"></canvas>
 
   <!-- Left & Right Cascading Golden Fairy Lights -->
   <aside class="side-fairy-lights left" aria-hidden="true">
@@ -448,9 +453,9 @@
   </div>
 
   <!-- Handwritten Finale Letter Overlay -->
-  <section class="letter-overlay" id="letter-overlay">
+  <aside class="letter-overlay" id="letter-overlay">
     <div class="letter-glass-sheet">
-      <div class="letter-header">✨ A Midnight Note For You ✨</div>
+      <div class="letter-header">✦ A MIDNIGHT KEEPSAKE TO REMEMBER ✦</div>
       <p class="handwritten-body">
         Dear Akshaya,<br />
         Twenty-five looks magic on you. Every lantern rising tonight carries a wish for your peace, your boldest dreams, and the kind of happiness you effortlessly give to everyone lucky enough to know you. Keep shining with that fierce, unforgettable Scorpio light.
@@ -458,104 +463,306 @@
       <div class="handwritten-signoff">Happy 25th Birthday, Akki ✨</div>
       <div class="letter-actions">
         <a href="page4.html" class="btn-back-memories">← Back to Memories 📸</a>
-        <a href="lock.html" class="btn-replay-memories">Replay Celebration ↻</a>
+        <a href="page1.html" class="btn-replay-memories">Replay Celebration ↻</a>
       </div>
     </div>
-  </section>
+  </aside>
 
-  <!-- Three.js CDN -->
+  <!-- Three.js, Fullscreen and Continuous Background Audio -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="js/fullscreen.js"></script>
   <script src="js/music.js"></script>
   <script>
     // =========================================================================
-    // 1. THREE.JS SCENE SETUP (3D CAKE, '25' CANDLE, SMOKE & SKY LANTERNS)
+    // 1. THREE.JS SCENE SETUP
     // =========================================================================
     const container = document.getElementById('finale-3d-container');
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x080808, 0.025);
+    scene.fog = new THREE.FogExp2(0x08080c, 0.035);
 
     const isMobile = window.innerWidth < 768;
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 120);
-    camera.position.set(0, isMobile ? 2.85 : 2.55, isMobile ? 8.4 : 7.2);
-    camera.lookAt(0, 1.85, 0);
+    const camera = new THREE.PerspectiveCamera(
+      42,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, isMobile ? 2.85 : 2.50, isMobile ? 8.4 : 7.2);
+    camera.lookAt(0, 1.48, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.20;
     container.appendChild(renderer.domElement);
 
-    // Studio Lighting for Decadent Chocolate Cake
-    const ambientLight = new THREE.AmbientLight(0xfff3e6, 1.35);
+    // Warm Ambient & Physical Key Lighting
+    const ambientLight = new THREE.AmbientLight(0xfff6ea, 1.05);
     scene.add(ambientLight);
 
-    const studioKeyLight = new THREE.DirectionalLight(0xfff7ed, 1.5);
-    studioKeyLight.position.set(4.0, 7.0, 4.5);
-    scene.add(studioKeyLight);
+    const keySunlight = new THREE.DirectionalLight(0xffeed8, 1.45);
+    keySunlight.position.set(3.5, 6.0, 4.5);
+    scene.add(keySunlight);
 
-    const warmFillLight = new THREE.DirectionalLight(0xffeedd, 0.85);
-    warmFillLight.position.set(-4.5, 3.5, 3.0);
+    const warmFillLight = new THREE.DirectionalLight(0xffd8b0, 0.90);
+    warmFillLight.position.set(-3.8, 3.2, 3.0);
     scene.add(warmFillLight);
 
-    const goldenRimLight = new THREE.DirectionalLight(0xffd000, 1.4);
+    const goldenRimLight = new THREE.DirectionalLight(0xffd700, 1.4);
     goldenRimLight.position.set(0, 5.0, -5.5);
     scene.add(goldenRimLight);
 
-    // Warm Candlelight PointLights (one above each numeral)
-    const candleLightLeft = new THREE.PointLight(0xffa233, 2.5, 6.5, 1.5);
+    // Candlelight PointLights
+    const candleLightLeft = new THREE.PointLight(0xffaa33, 2.8, 6.5, 1.5);
     candleLightLeft.position.set(-0.34, 3.25, 0.15);
     scene.add(candleLightLeft);
 
-    const candleLightRight = new THREE.PointLight(0xffa233, 2.5, 6.5, 1.5);
+    const candleLightRight = new THREE.PointLight(0xffaa33, 2.8, 6.5, 1.5);
     candleLightRight.position.set(0.34, 3.25, 0.15);
     scene.add(candleLightRight);
 
     const candleLight = candleLightLeft;
 
     // =========================================================================
-    // 2. BUILD CHOCOLATE CAKE WITH NUTS, FRONT VIEW & BACKGROUND LIGHTS
+    // 2. HIGH-RES PROCEDURAL TEXTURES (EXACT PHOTO REPLICA)
     // =========================================================================
-    const cakeGroup = new THREE.Group();
-    cakeGroup.position.set(0, 0.72, 0);
-    cakeGroup.rotation.y = 0; // Perfectly centered front view
-    scene.add(cakeGroup);
+    // Helper to paint palette-knife dahlia/magnolia flowers on cake tiers
+    function drawImpastoPaletteKnifeFlower(ctx, cx, cy, radius, rotation) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rotation || 0);
 
-    // --- ULTRA-FAST PROCEDURAL TEXTURES (CHOCOLATE & BOKEH) ---
-    function generateChocolateFrostingTexture() {
+      // Sage green leaves radiating behind petals
+      const leafAngles = [-1.35, -0.75, 0.65, 1.25, 2.15];
+      leafAngles.forEach((la) => {
+        ctx.save();
+        ctx.rotate(la);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(radius * 0.45, -radius * 0.28, radius * 0.95, 0);
+        ctx.quadraticCurveTo(radius * 0.45, radius * 0.28, 0, 0);
+        const leafGrad = ctx.createLinearGradient(0, 0, radius * 0.95, 0);
+        leafGrad.addColorStop(0, '#4e7b25');
+        leafGrad.addColorStop(0.5, '#689f38');
+        leafGrad.addColorStop(1, '#9ccc65');
+        ctx.fillStyle = leafGrad;
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(radius * 0.85, 0);
+        ctx.stroke();
+        ctx.restore();
+      });
+
+      // Baby's breath florets around flower
+      for (let k = 0; k < 12; k++) {
+        const ba = (k / 12) * Math.PI * 2 + 0.25;
+        const br = radius * 0.8 + (k % 3) * 12;
+        const bx = Math.cos(ba) * br;
+        const by = Math.sin(ba) * br;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.beginPath();
+        ctx.arc(bx, by, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(100, 145, 65, 0.5)';
+        ctx.lineWidth = 1.0;
+        ctx.beginPath();
+        ctx.moveTo(bx * 0.7, by * 0.7);
+        ctx.lineTo(bx, by);
+        ctx.stroke();
+      }
+
+      // Outer Impasto Palette-Knife Petals (14-16 spreading petals)
+      const petalCount = 14;
+      for (let i = 0; i < petalCount; i++) {
+        const a = (i / petalCount) * Math.PI * 2 + (i % 2) * 0.12;
+        const pLen = radius * (0.85 + (i % 3) * 0.08);
+        const pWidth = radius * 0.28;
+        ctx.save();
+        ctx.rotate(a);
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(pWidth * 0.6, -pWidth * 0.7, pLen * 0.7, -pWidth * 0.5, pLen, 0);
+        ctx.bezierCurveTo(pLen * 0.7, pWidth * 0.5, pWidth * 0.6, pWidth * 0.7, 0, 0);
+
+        const pGrad = ctx.createLinearGradient(0, 0, pLen, 0);
+        pGrad.addColorStop(0, '#c2185b');
+        pGrad.addColorStop(0.3, '#e91e63');
+        pGrad.addColorStop(0.7, '#f48fb1');
+        pGrad.addColorStop(0.95, '#fff0f5');
+        ctx.fillStyle = pGrad;
+        ctx.shadowColor = 'rgba(180, 50, 90, 0.35)';
+        ctx.shadowBlur = 6;
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+        ctx.lineWidth = 2.0;
+        ctx.beginPath();
+        ctx.moveTo(radius * 0.1, 0);
+        ctx.lineTo(pLen * 0.9, 0);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Inner Petal Layer (deep pink, textured)
+      for (let i = 0; i < 9; i++) {
+        const a = (i / 9) * Math.PI * 2 + 0.35;
+        const pLen = radius * 0.55;
+        const pWidth = radius * 0.22;
+        ctx.save();
+        ctx.rotate(a);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(pWidth * 0.5, -pWidth * 0.6, pLen * 0.6, -pWidth * 0.4, pLen, 0);
+        ctx.bezierCurveTo(pLen * 0.6, pWidth * 0.4, pWidth * 0.5, pWidth * 0.6, 0, 0);
+        const pGrad2 = ctx.createLinearGradient(0, 0, pLen, 0);
+        pGrad2.addColorStop(0, '#ad1457');
+        pGrad2.addColorStop(0.55, '#d81b60');
+        pGrad2.addColorStop(1, '#ffcdd2');
+        ctx.fillStyle = pGrad2;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Bright Golden-Yellow Stamen Center
+      const stamenRadius = radius * 0.22;
+      const sGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, stamenRadius);
+      sGrad.addColorStop(0, '#fffde7');
+      sGrad.addColorStop(0.45, '#ffd54f');
+      sGrad.addColorStop(1, '#f57f17');
+      ctx.fillStyle = sGrad;
+      ctx.beginPath();
+      ctx.arc(0, 0, stamenRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pollen grains
+      for (let p = 0; p < 18; p++) {
+        const pa = (p / 18) * Math.PI * 2;
+        const pr = stamenRadius * (0.35 + (p % 3) * 0.25);
+        ctx.fillStyle = (p % 2 === 0) ? '#ffffff' : '#ffea00';
+        ctx.beginPath();
+        ctx.arc(Math.cos(pa) * pr, Math.sin(pa) * pr, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+
+    // Tier 1 Texture (Warm Vanilla Buttercream with Hand-Painted Front Flowers)
+    function generateTier1FullTexture() {
       const c = document.createElement('canvas');
-      c.width = 256;
-      c.height = 256;
+      c.width = 1024;
+      c.height = 512;
       const ctx = c.getContext('2d');
 
-      // Rich dark Belgian chocolate fudge base
-      ctx.fillStyle = '#2c1810';
-      ctx.fillRect(0, 0, 256, 256);
+      // User's exact gradient palette: linear-gradient(90deg, #e9d9b9, #fff9e9, #e9d9b9)
+      const grad = ctx.createLinearGradient(0, 0, 1024, 0);
+      grad.addColorStop(0.0, '#e9d9b9');
+      grad.addColorStop(0.25, '#fff9e9');
+      grad.addColorStop(0.50, '#fffbf2');
+      grad.addColorStop(0.75, '#fff9e9');
+      grad.addColorStop(1.0, '#e9d9b9');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1024, 512);
 
-      // Artisanal horizontal spatula sweeps of chocolate ganache
-      for (let y = 0; y < 256; y += 10) {
-        const alpha = 0.08 + Math.sin(y * 0.09) * 0.04;
-        ctx.fillStyle = y % 20 === 0 ? `rgba(65, 36, 24, ${alpha * 1.6})` : `rgba(22, 10, 6, ${alpha * 1.4})`;
-        ctx.fillRect(0, y, 256, 8);
+      // Artisanal horizontal spatula sweeps
+      for (let y = 0; y < 512; y += 12) {
+        const alpha = 0.04 + Math.sin(y * 0.08) * 0.02;
+        ctx.fillStyle = (y % 24 === 0) ? `rgba(255, 255, 255, ${alpha * 1.5})` : `rgba(215, 195, 170, ${alpha})`;
+        ctx.fillRect(0, y, 1024, 9);
       }
 
-      // Micro hazelnut praline flecks
-      for (let i = 0; i < 30; i++) {
-        const x = (i * 37) % 256;
-        const y = (i * 49) % 256;
-        ctx.fillStyle = i % 2 === 0 ? '#b87c42' : '#8a4f21';
-        ctx.fillRect(x, y, 2, 2);
-      }
+      // Front-Right Magnificent Dahlia / Magnolia Flower (x=680, y=340, radius=140)
+      drawImpastoPaletteKnifeFlower(ctx, 680, 340, 140, 0.15);
+
+      // Front-Left Dahlia / Magnolia Flower (x=340, y=360, radius=110)
+      drawImpastoPaletteKnifeFlower(ctx, 340, 360, 110, -0.20);
+
+      // Far Left Accent Blossom (x=180, y=340, radius=85)
+      drawImpastoPaletteKnifeFlower(ctx, 180, 340, 85, 0.35);
+
+      // Scattered sugar pearls on front
+      const pearlCoords = [
+        [460, 270], [490, 290], [512, 250], [535, 295],
+        [565, 260], [750, 280], [300, 270], [610, 310]
+      ];
+      pearlCoords.forEach(([px, py]) => {
+        for (let k = 0; k < 3; k++) {
+          const kx = px + (k === 0 ? 0 : k === 1 ? 6 : -5);
+          const ky = py + (k === 0 ? 0 : k === 1 ? 5 : 6);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.beginPath();
+          ctx.arc(kx, ky, 3.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(kx - 1, ky - 1, 1.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
 
       const tex = new THREE.CanvasTexture(c);
       tex.wrapS = THREE.RepeatWrapping;
-      tex.wrapT = THREE.RepeatWrapping;
-      tex.repeat.set(2, 1);
+      tex.wrapT = THREE.ClampToEdgeWrapping;
       return tex;
     }
 
-    function generateChocolateBumpMap() {
+    // Tier 2 Texture (Warm Vanilla Buttercream with Front Flank Flowers)
+    function generateTier2FullTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024;
+      c.height = 512;
+      const ctx = c.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 1024, 0);
+      grad.addColorStop(0.0, '#e9d9b9');
+      grad.addColorStop(0.25, '#fff9e9');
+      grad.addColorStop(0.50, '#fffbf2');
+      grad.addColorStop(0.75, '#fff9e9');
+      grad.addColorStop(1.0, '#e9d9b9');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1024, 512);
+
+      for (let y = 0; y < 512; y += 12) {
+        const alpha = 0.04 + Math.sin(y * 0.08) * 0.02;
+        ctx.fillStyle = (y % 24 === 0) ? `rgba(255, 255, 255, ${alpha * 1.5})` : `rgba(215, 195, 170, ${alpha})`;
+        ctx.fillRect(0, y, 1024, 9);
+      }
+
+      // Tier 2 Front-Right Painted Blossom (x=670, y=310, radius=105)
+      drawImpastoPaletteKnifeFlower(ctx, 670, 310, 105, 0.25);
+
+      // Tier 2 Front-Left Painted Blossom (x=355, y=325, radius=98)
+      drawImpastoPaletteKnifeFlower(ctx, 355, 325, 98, -0.22);
+
+      // Sugar pearl clusters on Tier 2
+      const pearlCoords2 = [
+        [475, 230], [512, 210], [545, 235], [740, 240], [290, 240]
+      ];
+      pearlCoords2.forEach(([px, py]) => {
+        for (let k = 0; k < 3; k++) {
+          const kx = px + (k === 0 ? 0 : k === 1 ? 5 : -4);
+          const ky = py + (k === 0 ? 0 : k === 1 ? 4 : 5);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.beginPath();
+          ctx.arc(kx, ky, 2.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.ClampToEdgeWrapping;
+      return tex;
+    }
+
+    function generateButtercreamBumpMap() {
       const c = document.createElement('canvas');
       c.width = 256;
       c.height = 256;
@@ -563,53 +770,239 @@
       ctx.fillStyle = '#808080';
       ctx.fillRect(0, 0, 256, 256);
 
-      // Spatula ridges
-      for (let y = 0; y < 256; y += 14) {
-        const val = 128 + Math.floor(Math.sin(y * 0.07) * 20);
+      for (let y = 0; y < 256; y += 12) {
+        const val = 128 + Math.floor(Math.sin(y * 0.08) * 16);
         ctx.fillStyle = `rgb(${val},${val},${val})`;
-        ctx.fillRect(0, y, 256, 10);
+        ctx.fillRect(0, y, 256, 8);
       }
 
       const tex = new THREE.CanvasTexture(c);
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
-      tex.repeat.set(2, 1);
       return tex;
     }
 
-    function generateFastStrawberryTexture() {
+    // Exquisite Laser-Cut Rose Gold Butterfly Wing Texture with Rose-Gold Metallic Sheen
+    function generateFiligreeButterflyTexture() {
+      const c = document.createElement('canvas');
+      c.width = 300;
+      c.height = 300;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, 300, 300);
+
+      const foilGrad = ctx.createRadialGradient(210, 110, 10, 210, 110, 120);
+      foilGrad.addColorStop(0.0, 'rgba(255, 225, 215, 0.85)');
+      foilGrad.addColorStop(0.5, 'rgba(235, 160, 145, 0.75)');
+      foilGrad.addColorStop(1.0, 'rgba(200, 120, 105, 0.65)');
+
+      // Forewing profile
+      ctx.fillStyle = foilGrad;
+      ctx.beginPath();
+      ctx.moveTo(150, 160);
+      ctx.bezierCurveTo(150, 100, 165, 45, 215, 25);
+      ctx.bezierCurveTo(255, 12, 285, 45, 280, 100);
+      ctx.bezierCurveTo(275, 140, 240, 165, 150, 160);
+      ctx.fill();
+
+      // Hindwing profile
+      ctx.beginPath();
+      ctx.moveTo(150, 160);
+      ctx.bezierCurveTo(230, 165, 265, 200, 250, 245);
+      ctx.bezierCurveTo(235, 280, 185, 275, 150, 200);
+      ctx.closePath();
+      ctx.fill();
+
+      // Gleaming rose-gold lace lines & borders
+      ctx.strokeStyle = '#fff0eb';
+      ctx.lineWidth = 4.2;
+      ctx.stroke();
+
+      ctx.strokeStyle = '#e28876';
+      ctx.lineWidth = 3.2;
+
+      ctx.beginPath();
+      ctx.moveTo(150, 160);
+      ctx.bezierCurveTo(150, 100, 165, 45, 215, 25);
+      ctx.bezierCurveTo(255, 12, 285, 45, 280, 100);
+      ctx.bezierCurveTo(275, 140, 240, 165, 150, 160);
+      ctx.stroke();
+
+      // Lace filigree cells
+      const cells = [
+        [200, 60, 16], [230, 55, 14], [255, 75, 12], [225, 95, 18], [250, 115, 15],
+        [190, 105, 16], [215, 130, 14], [180, 140, 12], [195, 190, 18], [225, 210, 15],
+        [205, 240, 14], [180, 220, 16], [165, 185, 12]
+      ];
+      cells.forEach(([cx, cy, cr]) => {
+        ctx.beginPath();
+        ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(cx, cy, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      for (let i = 0; i < 7; i++) {
+        const a = -0.2 + (i / 6) * 1.6;
+        ctx.beginPath();
+        ctx.moveTo(150, 160);
+        ctx.lineTo(150 + Math.cos(a) * 115, 160 - Math.sin(a) * 115);
+        ctx.stroke();
+      }
+
+      ctx.save();
+      ctx.translate(300, 0);
+      ctx.scale(-1, 1);
+      ctx.drawImage(c, 150, 0, 150, 300, 150, 0, 150, 300);
+      ctx.restore();
+
+      return new THREE.CanvasTexture(c);
+    }
+
+    // High-Definition Polished 24K Gold Fairy Silhouette Charm
+    function generateGoldFairyTexture() {
+      const c = document.createElement('canvas');
+      c.width = 256;
+      c.height = 320;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, 256, 320);
+
+      const gGrad = ctx.createLinearGradient(60, 40, 200, 280);
+      gGrad.addColorStop(0.0, '#fff9a6');
+      gGrad.addColorStop(0.3, '#ffd700');
+      gGrad.addColorStop(0.7, '#e6b014');
+      gGrad.addColorStop(1.0, '#b8860b');
+      ctx.fillStyle = gGrad;
+      ctx.shadowColor = 'rgba(255, 215, 0, 0.95)';
+      ctx.shadowBlur = 10;
+
+      // Fairy Head & Bun
+      ctx.beginPath();
+      ctx.arc(128, 56, 13, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(120, 48, 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Slender Torso
+      ctx.beginPath();
+      ctx.moveTo(125, 68);
+      ctx.lineTo(131, 68);
+      ctx.lineTo(132, 112);
+      ctx.lineTo(124, 112);
+      ctx.closePath();
+      ctx.fill();
+
+      // Flowing Fairy Ballerina Skirt
+      ctx.beginPath();
+      ctx.moveTo(124, 112);
+      ctx.bezierCurveTo(98, 142, 85, 182, 95, 206);
+      ctx.bezierCurveTo(128, 216, 145, 202, 158, 196);
+      ctx.bezierCurveTo(150, 156, 140, 128, 132, 112);
+      ctx.closePath();
+      ctx.fill();
+
+      // Delicate Ballerina Legs
+      ctx.lineWidth = 5.2;
+      ctx.strokeStyle = gGrad;
+      ctx.beginPath();
+      ctx.moveTo(122, 204);
+      ctx.quadraticCurveTo(118, 240, 114, 275);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(134, 202);
+      ctx.quadraticCurveTo(145, 238, 155, 268);
+      ctx.stroke();
+
+      // Raised Arm Holding Star Wand
+      ctx.beginPath();
+      ctx.moveTo(129, 82);
+      ctx.quadraticCurveTo(150, 80, 172, 70);
+      ctx.stroke();
+
+      ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.moveTo(172, 70);
+      ctx.lineTo(186, 52);
+      ctx.stroke();
+
+      function draw5PointStar(cx, cy, spikes, outerRadius, innerRadius) {
+        let rot = Math.PI / 2 * 3;
+        let step = Math.PI / spikes;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+          let x = cx + Math.cos(rot) * outerRadius;
+          let y = cy + Math.sin(rot) * outerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+          x = cx + Math.cos(rot) * innerRadius;
+          y = cy + Math.sin(rot) * innerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+        }
+        ctx.lineTo(cx, cy - outerRadius);
+        ctx.closePath();
+        ctx.fill();
+      }
+      draw5PointStar(187, 50, 5, 11.5, 5.0);
+
+      // Openwork Wing Arcs
+      ctx.save();
+      ctx.strokeStyle = gGrad;
+      ctx.lineWidth = 3.4;
+      ctx.beginPath();
+      ctx.moveTo(124, 84);
+      ctx.bezierCurveTo(90, 34, 52, 40, 56, 80);
+      ctx.bezierCurveTo(60, 110, 95, 110, 124, 100);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(124, 100);
+      ctx.bezierCurveTo(80, 114, 75, 150, 104, 150);
+      ctx.bezierCurveTo(118, 150, 122, 130, 124, 110);
+      ctx.stroke();
+      ctx.restore();
+
+      return new THREE.CanvasTexture(c);
+    }
+
+    // Glowing Sky Lantern Paper Texture
+    function generateSkyLanternTexture() {
       const c = document.createElement('canvas');
       c.width = 128;
       c.height = 128;
       const ctx = c.getContext('2d');
+
       const grad = ctx.createLinearGradient(0, 0, 0, 128);
-      grad.addColorStop(0, '#eb1c30');
-      grad.addColorStop(0.6, '#cc1224');
-      grad.addColorStop(1, '#940916');
+      grad.addColorStop(0.0, '#ffe885');
+      grad.addColorStop(0.4, '#ffc038');
+      grad.addColorStop(0.8, '#ff9618');
+      grad.addColorStop(1.0, '#ff6e08');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 128, 128);
-      for (let row = 0; row < 8; row++) {
-        const y = 8 + row * 15;
-        const offset = (row % 2) * 8;
-        for (let col = 0; col < 8; col++) {
-          const x = (col * 16 + offset) % 128;
-          ctx.fillStyle = 'rgba(70, 0, 10, 0.45)';
-          ctx.fillRect(x, y, 3, 4);
-          ctx.fillStyle = '#ffea6c';
-          ctx.fillRect(x + 1, y + 1, 1.5, 2);
-        }
-      }
+
+      const glow = ctx.createRadialGradient(64, 105, 5, 64, 105, 60);
+      glow.addColorStop(0.0, 'rgba(255, 255, 255, 0.95)');
+      glow.addColorStop(0.3, 'rgba(255, 235, 120, 0.85)');
+      glow.addColorStop(0.7, 'rgba(255, 160, 40, 0.4)');
+      glow.addColorStop(1.0, 'rgba(255, 120, 20, 0.0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, 128, 128);
+
       return new THREE.CanvasTexture(c);
     }
 
-    // Soft glowing bokeh light texture
+    // Soft Bokeh Light Texture
     function generateBokehTexture() {
       const c = document.createElement('canvas');
       c.width = 128;
       c.height = 128;
       const ctx = c.getContext('2d');
       const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-      grad.addColorStop(0.0, 'rgba(255, 255, 235, 1.0)');
+      grad.addColorStop(0.0, 'rgba(255, 255, 240, 1.0)');
       grad.addColorStop(0.25, 'rgba(255, 215, 90, 0.85)');
       grad.addColorStop(0.55, 'rgba(255, 170, 45, 0.45)');
       grad.addColorStop(0.85, 'rgba(245, 140, 25, 0.15)');
@@ -619,456 +1012,316 @@
       return new THREE.CanvasTexture(c);
     }
 
-    const chocolateMap = generateChocolateFrostingTexture();
-    const chocolateBump = generateChocolateBumpMap();
-    const strawberryMap = generateFastStrawberryTexture();
+    const tier1FullMap = generateTier1FullTexture();
+    const tier2FullMap = generateTier2FullTexture();
+    const buttercreamBump = generateButtercreamBumpMap();
+    const butterflyTex = generateFiligreeButterflyTexture();
+    const fairyTex = generateGoldFairyTexture();
+    const lanternTex = generateSkyLanternTexture();
     const bokehTexture = generateBokehTexture();
 
-    // Decadent Chocolate Fudge Material
-    const chocolateCakeMat = new THREE.MeshStandardMaterial({
-      color: 0x341d14,
-      map: chocolateMap,
-      bumpMap: chocolateBump,
-      bumpScale: 0.024,
-      roughness: 0.52,
-      metalness: 0.08
-    });
-
-    // Mirror Chocolate Ganache Glaze Material (Rich & Glossy)
-    const ganacheMat = new THREE.MeshStandardMaterial({
-      color: 0x1d0d07,
-      roughness: 0.14,
-      metalness: 0.18
-    });
-
-    // Roasted Golden Hazelnut & Almond Nuts Materials
-    const nutGoldMat = new THREE.MeshStandardMaterial({
-      color: 0xd49b55, // Golden toasted nut
-      roughness: 0.60,
+    // =========================================================================
+    // 3. MATERIALS CONFIGURATION
+    // =========================================================================
+    const whiteCeramicStandMat = new THREE.MeshStandardMaterial({
+      color: 0xfcfcfc,
+      roughness: 0.12,
       metalness: 0.04
     });
-    const nutDeepMat = new THREE.MeshStandardMaterial({
-      color: 0x9e5b29, // Roasted hazelnut skin
-      roughness: 0.65,
+
+    const tier1ButtercreamMat = new THREE.MeshStandardMaterial({
+      map: tier1FullMap,
+      bumpMap: buttercreamBump,
+      bumpScale: 0.015,
+      roughness: 0.38,
       metalness: 0.03
     });
 
-    // Chocolate Truffle Ball Material (Ferrero style)
-    const truffleMat = new THREE.MeshStandardMaterial({
-      color: 0x22110a,
-      roughness: 0.70,
-      metalness: 0.05
+    const tier2ButtercreamMat = new THREE.MeshStandardMaterial({
+      map: tier2FullMap,
+      bumpMap: buttercreamBump,
+      bumpScale: 0.015,
+      roughness: 0.38,
+      metalness: 0.03
     });
 
-    // Piped Whipped Cream / Vanilla Chantilly Rosettes Material
-    const pipedCreamMat = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      roughness: 0.45,
-      metalness: 0.02
+    const sugarPearlMat = new THREE.MeshStandardMaterial({
+      color: 0xfffcf2,
+      roughness: 0.18,
+      metalness: 0.22
     });
 
-    // 24K Polished Metallic Gold Material
-    const goldLeafMat = new THREE.MeshStandardMaterial({
+    const roseGoldFiligreeMat = new THREE.MeshStandardMaterial({
+      map: butterflyTex,
+      color: 0xffb2a2,
+      emissive: 0x441c14,
+      metalness: 0.35,
+      roughness: 0.25,
+      transparent: true,
+      alphaTest: 0.08,
+      side: THREE.DoubleSide
+    });
+
+    const goldFairyMat = new THREE.MeshStandardMaterial({
+      map: fairyTex,
+      color: 0xffd700,
+      emissive: 0x553300,
+      metalness: 0.40,
+      roughness: 0.18,
+      transparent: true,
+      alphaTest: 0.1,
+      side: THREE.DoubleSide
+    });
+
+    const goldCandleMat = new THREE.MeshStandardMaterial({
       color: 0xffd700,
       emissive: 0x442a00,
-      metalness: 0.92,
-      roughness: 0.20
+      metalness: 0.95,
+      roughness: 0.18
     });
 
-    // Sleek Obsidian Black Glazed Porcelain Cake Stand
-    const pedestalStandMat = new THREE.MeshStandardMaterial({
-      color: 0x111116,
-      roughness: 0.20,
-      metalness: 0.18
-    });
-
-    // Strawberry Material
-    const strawberryMat = new THREE.MeshStandardMaterial({
-      color: 0xee2035,
-      map: strawberryMap,
-      roughness: 0.25,
-      metalness: 0.06
-    });
-
-    // Fresh Green Calyx Leaf Material
-    const calyxLeafMat = new THREE.MeshStandardMaterial({
-      color: 0x306e22,
-      roughness: 0.45,
+    const pinkPetalOuterMat = new THREE.MeshStandardMaterial({
+      color: 0xf48fb1,
+      roughness: 0.38,
       metalness: 0.04
     });
 
-    // Ripe Blackberry Material
-    const blackberryMat = new THREE.MeshStandardMaterial({
-      color: 0x12101c,
-      roughness: 0.18,
-      metalness: 0.14
+    const pinkPetalLightMat = new THREE.MeshStandardMaterial({
+      color: 0xfff0f5,
+      roughness: 0.40,
+      metalness: 0.02
     });
 
-    // Ripe Blueberry Material
-    const blueberryMat = new THREE.MeshStandardMaterial({
-      color: 0x1c2438,
-      roughness: 0.32,
-      metalness: 0.08
+    const babysBreathMat = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      roughness: 0.25,
+      metalness: 0.05
     });
 
     // =========================================================================
-    // 1. SLEEK PEDESTAL CAKE STAND
+    // 4. ASSEMBLE 3D CAKE, SCALLOPED STAND, FLOWERS, BUTTERFLIES & FAIRY
     // =========================================================================
+    const cakeGroup = new THREE.Group();
+    cakeGroup.position.set(0, 0.62, 0);
+    scene.add(cakeGroup);
+
+    // 1) WHITE CERAMIC SCALLOPED PEDESTAL CAKE STAND
     const standGroup = new THREE.Group();
 
-    // Platter top disc with rounded lip
-    const standPlatter = new THREE.Mesh(
-      new THREE.CylinderGeometry(2.45, 2.40, 0.12, 48),
-      pedestalStandMat
-    );
-    standPlatter.position.y = 0.06;
-    standGroup.add(standPlatter);
-
-    const standLip = new THREE.Mesh(
-      new THREE.TorusGeometry(2.42, 0.038, 10, 48),
-      pedestalStandMat
-    );
-    standLip.rotation.x = Math.PI / 2;
-    standLip.position.y = 0.12;
-    standGroup.add(standLip);
-
-    // Fine 24K gold trim around platter rim
-    const standGoldTrim = new THREE.Mesh(
-      new THREE.TorusGeometry(2.44, 0.018, 10, 48),
-      goldLeafMat
-    );
-    standGoldTrim.rotation.x = Math.PI / 2;
-    standGoldTrim.position.y = 0.06;
-    standGroup.add(standGoldTrim);
-
-    // Sculpted Baluster Pedestal Column
-    const balusterPoints = [
-      new THREE.Vector2(0.42, 0.0),
-      new THREE.Vector2(0.32, -0.18),
-      new THREE.Vector2(0.24, -0.38),
-      new THREE.Vector2(0.34, -0.58),
-      new THREE.Vector2(0.60, -0.74),
-      new THREE.Vector2(0.98, -0.84),
-      new THREE.Vector2(1.22, -0.88),
-      new THREE.Vector2(0.0, -0.88)
+    // Sculpted Baluster Stem & Foot via LatheGeometry
+    const standPoints = [
+      new THREE.Vector2(0.00, -0.92),
+      new THREE.Vector2(1.24, -0.92),
+      new THREE.Vector2(1.26, -0.88),
+      new THREE.Vector2(1.10, -0.84),
+      new THREE.Vector2(0.55, -0.72),
+      new THREE.Vector2(0.32, -0.52),
+      new THREE.Vector2(0.24, -0.32),
+      new THREE.Vector2(0.32, -0.15),
+      new THREE.Vector2(0.48, 0.00),
+      new THREE.Vector2(2.32, 0.02),
+      new THREE.Vector2(2.32, 0.08),
+      new THREE.Vector2(0.00, 0.08)
     ];
-    const balusterGeo = new THREE.LatheGeometry(balusterPoints, 32);
-    const standStem = new THREE.Mesh(balusterGeo, pedestalStandMat);
+    const standStem = new THREE.Mesh(new THREE.LatheGeometry(standPoints, 48), whiteCeramicStandMat);
     standGroup.add(standStem);
 
-    // Flared pedestal base disc
-    const standBase = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.22, 1.28, 0.08, 36),
-      pedestalStandMat
-    );
-    standBase.position.y = -0.92;
-    standGroup.add(standBase);
+    // 20 Wavy Scallop Petal Lobes around platter rim (ruffled ceramic edges like in photo)
+    const scallopCount = 20;
+    const scallopGeo = new THREE.SphereGeometry(0.24, 12, 8);
+    scallopGeo.scale(1.15, 0.18, 0.90);
+    for (let i = 0; i < scallopCount; i++) {
+      const a = (i / scallopCount) * Math.PI * 2;
+      const scallop = new THREE.Mesh(scallopGeo, whiteCeramicStandMat);
+      scallop.position.set(Math.cos(a) * 2.30, 0.065, Math.sin(a) * 2.30);
+      scallop.rotation.y = -a;
+      standGroup.add(scallop);
+    }
 
-    // Soft grounded shadow beneath stand
-    const shadowGeo = new THREE.CircleGeometry(1.65, 24);
-    const shadowMat = new THREE.MeshBasicMaterial({
-      color: 0x000000,
-      transparent: true,
-      opacity: 0.55
-    });
-    const standShadow = new THREE.Mesh(shadowGeo, shadowMat);
+    // Cake board disc
+    const cakeBoard = new THREE.Mesh(
+      new THREE.CylinderGeometry(2.05, 2.05, 0.025, 48),
+      new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25 })
+    );
+    cakeBoard.position.y = 0.095;
+    standGroup.add(cakeBoard);
+
+    // Ground shadow beneath stand
+    const standShadow = new THREE.Mesh(
+      new THREE.CircleGeometry(1.65, 32),
+      new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.55 })
+    );
     standShadow.rotation.x = -Math.PI / 2;
-    standShadow.position.y = -0.965;
+    standShadow.position.y = -0.96;
     standGroup.add(standShadow);
 
     cakeGroup.add(standGroup);
 
-    // =========================================================================
-    // 2. TIER 1: CHOCOLATE CAKE WITH CRUNCHY ROASTED NUTS RIM & GANACHE DRIPS
-    // =========================================================================
+    // 2) TIER 1: DOUBLE LAYERED CAKE (BOTTOM TIER)
+    // rotation.y = Math.PI places texture center u=0.5 directly facing the front camera (+Z)!
     const tier1 = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.95, 1.95, 1.12, 48),
-      chocolateCakeMat
+      new THREE.CylinderGeometry(1.95, 1.95, 1.15, 48),
+      tier1ButtercreamMat
     );
-    tier1.position.y = 0.68;
+    tier1.position.y = 0.685;
+    tier1.rotation.y = Math.PI;
     cakeGroup.add(tier1);
 
     const tier1Bevel = new THREE.Mesh(
-      new THREE.TorusGeometry(1.92, 0.04, 10, 48),
-      chocolateCakeMat
+      new THREE.TorusGeometry(1.93, 0.032, 10, 48),
+      tier1ButtercreamMat
     );
     tier1Bevel.rotation.x = Math.PI / 2;
-    tier1Bevel.position.y = 1.23;
+    tier1Bevel.position.y = 1.255;
     cakeGroup.add(tier1Bevel);
 
-    const tier1GanacheTop = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.94, 1.94, 0.025, 48),
-      ganacheMat
-    );
-    tier1GanacheTop.position.y = 1.245;
-    cakeGroup.add(tier1GanacheTop);
-
-    // Helper: Create Natural Chocolate Ganache Drips
-    function createNaturalDrips(radius, topY, dripData, material) {
-      const dripGroup = new THREE.Group();
-
-      const lipMesh = new THREE.Mesh(
-        new THREE.TorusGeometry(radius + 0.015, 0.026, 10, 48),
-        material
-      );
-      lipMesh.rotation.x = Math.PI / 2;
-      lipMesh.position.y = topY;
-      dripGroup.add(lipMesh);
-
-      dripData.forEach(([angleFrac, length, widthScale]) => {
-        const angle = angleFrac * Math.PI * 2;
-        const w = 0.042 * (widthScale || 1.0);
-        const l = length;
-
-        const dripNeck = new THREE.Mesh(
-          new THREE.CylinderGeometry(w * 1.15, w * 0.75, l, 8),
-          material
-        );
-        dripNeck.position.set(
-          Math.cos(angle) * (radius + 0.012),
-          topY - l / 2,
-          Math.sin(angle) * (radius + 0.012)
-        );
-        dripGroup.add(dripNeck);
-
-        const bulb = new THREE.Mesh(
-          new THREE.SphereGeometry(w * 1.25, 8, 8),
-          material
-        );
-        bulb.scale.set(1.0, 1.35, 1.0);
-        bulb.position.set(
-          Math.cos(angle) * (radius + 0.014),
-          topY - l,
-          Math.sin(angle) * (radius + 0.014)
-        );
-        dripGroup.add(bulb);
-      });
-
-      return dripGroup;
+    // Continuous Sugar Pearl Bead Border around Tier 1 base
+    const pearlRing1 = new THREE.Group();
+    const pearlGeo1 = new THREE.SphereGeometry(0.042, 8, 8);
+    for (let i = 0; i < 44; i++) {
+      const a = (i / 44) * Math.PI * 2;
+      const p = new THREE.Mesh(pearlGeo1, sugarPearlMat);
+      p.position.set(Math.cos(a) * 1.96, 0.14, Math.sin(a) * 1.96);
+      pearlRing1.add(p);
     }
+    cakeGroup.add(pearlRing1);
 
-    const tier1DripData = [
-      [0.05, 0.58, 1.15], [0.14, 0.22, 0.85], [0.22, 0.68, 1.25], [0.34, 0.32, 0.9],
-      [0.45, 0.60, 1.2],  [0.54, 0.24, 0.85], [0.63, 0.52, 1.1],  [0.72, 0.35, 0.95],
-      [0.83, 0.65, 1.2],  [0.94, 0.28, 0.88]
-    ];
-    const tier1Drips = createNaturalDrips(1.95, 1.24, tier1DripData, ganacheMat);
-    cakeGroup.add(tier1Drips);
-
-    // CRUNCHY ROASTED NUTS BORDER (Toasted Hazelnuts & Almonds around Tier 1 Base)
-    const nutChunkGeo = new THREE.DodecahedronGeometry(0.042, 0);
-    const nutPralineGroup = new THREE.Group();
-
-    for (let i = 0; i < 34; i++) {
-      const a = (i / 34) * Math.PI * 2;
-      const mat = (i % 3 === 0) ? nutDeepMat : nutGoldMat;
-      const nut = new THREE.Mesh(nutChunkGeo, mat);
-      const rad = 1.98 + (Math.sin(i * 3.7) * 0.035);
-      const s = 0.8 + (Math.cos(i * 2.1) * 0.3);
-      nut.scale.set(s * 1.2, s * 0.75, s * 0.9);
-      nut.position.set(Math.cos(a) * rad, 0.15 + (i % 2) * 0.025, Math.sin(a) * rad);
-      nut.rotation.set(i * 0.5, i * 0.9, i * 0.3);
-      nutPralineGroup.add(nut);
-    }
-    cakeGroup.add(nutPralineGroup);
-
-    // =========================================================================
-    // 3. TIER 2: TOP CHOCOLATE TIER WITH ROASTED NUTS SEAM & GANACHE DRIPS
-    // =========================================================================
+    // 3) TIER 2: TOP TIER
+    // rotation.y = Math.PI places texture center u=0.5 directly facing the front camera (+Z)!
     const tier2 = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.30, 1.30, 0.95, 48),
-      chocolateCakeMat
+      new THREE.CylinderGeometry(1.30, 1.30, 1.05, 48),
+      tier2ButtercreamMat
     );
-    tier2.position.y = 1.72;
+    tier2.position.y = 1.785;
+    tier2.rotation.y = Math.PI;
     cakeGroup.add(tier2);
 
     const tier2Bevel = new THREE.Mesh(
-      new THREE.TorusGeometry(1.27, 0.035, 10, 48),
-      chocolateCakeMat
+      new THREE.TorusGeometry(1.28, 0.030, 10, 48),
+      tier2ButtercreamMat
     );
     tier2Bevel.rotation.x = Math.PI / 2;
-    tier2Bevel.position.y = 2.19;
+    tier2Bevel.position.y = 2.305;
     cakeGroup.add(tier2Bevel);
 
-    const tier2GanacheTop = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.29, 1.29, 0.025, 48),
-      ganacheMat
-    );
-    tier2GanacheTop.position.y = 2.20;
-    cakeGroup.add(tier2GanacheTop);
-
-    const tier2DripData = [
-      [0.08, 0.48, 1.1], [0.22, 0.25, 0.85], [0.38, 0.58, 1.2],
-      [0.52, 0.28, 0.9], [0.66, 0.50, 1.15], [0.80, 0.22, 0.85], [0.92, 0.45, 1.05]
-    ];
-    const tier2Drips = createNaturalDrips(1.30, 2.20, tier2DripData, ganacheMat);
-    cakeGroup.add(tier2Drips);
-
-    // Toasted Nut Sprinkles around Tier 2 base junction
-    const midNutsGroup = new THREE.Group();
-    for (let i = 0; i < 22; i++) {
-      const a = (i / 22) * Math.PI * 2;
-      const mat = (i % 2 === 0) ? nutGoldMat : nutDeepMat;
-      const nut = new THREE.Mesh(nutChunkGeo, mat);
-      const rad = 1.34 + (Math.sin(i * 4.3) * 0.025);
-      const s = 0.7 + (Math.cos(i * 1.9) * 0.25);
-      nut.scale.set(s, s * 0.7, s);
-      nut.position.set(Math.cos(a) * rad, 1.26, Math.sin(a) * rad);
-      nut.rotation.set(i * 0.7, i * 0.4, i * 0.8);
-      midNutsGroup.add(nut);
+    // Continuous Sugar Pearl Bead Border around Tier 2 base
+    const pearlRing2 = new THREE.Group();
+    const pearlGeo2 = new THREE.SphereGeometry(0.038, 8, 8);
+    for (let i = 0; i < 32; i++) {
+      const a = (i / 32) * Math.PI * 2;
+      const p = new THREE.Mesh(pearlGeo2, sugarPearlMat);
+      p.position.set(Math.cos(a) * 1.32, 1.28, Math.sin(a) * 1.32);
+      pearlRing2.add(p);
     }
-    cakeGroup.add(midNutsGroup);
+    cakeGroup.add(pearlRing2);
 
-    // Soft Whipped Cream Swirl Rosettes around Tier 2 top
-    const rosetteGeo = new THREE.ConeGeometry(0.052, 0.075, 7);
-    rosetteGeo.scale(1.15, 0.75, 1.15);
-    const pearlGeo = new THREE.SphereGeometry(0.022, 8, 8);
+    // 4) TOP TIER CROWN: PINK FROSTING PETALS & BABY'S BREATH FLORETS
+    const petalOuterGeo = new THREE.ConeGeometry(0.08, 0.28, 8);
+    petalOuterGeo.scale(1.2, 0.28, 1.5);
+    const babyBreathFloretGeo = new THREE.SphereGeometry(0.022, 6, 6);
 
-    const crownRosettes = new THREE.Group();
+    const topPetalNest = new THREE.Group();
     for (let i = 0; i < 16; i++) {
       const a = (i / 16) * Math.PI * 2;
-      const rosette = new THREE.Mesh(rosetteGeo, pipedCreamMat);
-      rosette.scale.set(0.85, 0.85, 0.85);
-      rosette.position.set(Math.cos(a) * 1.24, 2.22, Math.sin(a) * 1.24);
-      rosette.rotation.y = a;
-      crownRosettes.add(rosette);
+      const mat = (i % 2 === 0) ? pinkPetalOuterMat : pinkPetalLightMat;
+      const petal = new THREE.Mesh(petalOuterGeo, mat);
+      petal.position.set(Math.cos(a) * 0.95, 2.31, Math.sin(a) * 0.95);
+      petal.rotation.set(0.45, a, 0);
+      topPetalNest.add(petal);
 
       if (i % 2 === 0) {
-        const pearl = new THREE.Mesh(pearlGeo, goldLeafMat);
-        pearl.position.set(Math.cos(a) * 1.22, 2.28, Math.sin(a) * 1.22);
-        crownRosettes.add(pearl);
+        const bbFloret = new THREE.Mesh(babyBreathFloretGeo, babysBreathMat);
+        bbFloret.position.set(Math.cos(a + 0.1) * 1.05, 2.34, Math.sin(a + 0.1) * 1.05);
+        topPetalNest.add(bbFloret);
       }
     }
-    cakeGroup.add(crownRosettes);
+    cakeGroup.add(topPetalNest);
 
-    // =========================================================================
-    // 4. TOP CROWN: CHOCOLATE TRUFFLE NUTS, FRESH STRAWBERRIES & ROASTED HAZELNUTS
-    // =========================================================================
-    const strawberryPoints = [
-      new THREE.Vector2(0.00, 0.00),
-      new THREE.Vector2(0.04, 0.04),
-      new THREE.Vector2(0.08, 0.10),
-      new THREE.Vector2(0.12, 0.18),
-      new THREE.Vector2(0.135, 0.26),
-      new THREE.Vector2(0.125, 0.32),
-      new THREE.Vector2(0.08, 0.37),
-      new THREE.Vector2(0.00, 0.38)
-    ];
-    const wholeStrawberryGeo = new THREE.LatheGeometry(strawberryPoints, 16);
-    const slicedStrawberryGeo = new THREE.CylinderGeometry(0.13, 0.02, 0.36, 12, 1, false, 0, Math.PI);
-    const starCalyxGeo = new THREE.CylinderGeometry(0.01, 0.075, 0.015, 5);
-    const stemGeo = new THREE.CylinderGeometry(0.012, 0.015, 0.06, 6);
+    // 5) GOLDEN FAIRY SILHOUETTE EMBLEM (CENTER FRONT OF TIER 2)
+    const fairyMesh = new THREE.Mesh(new THREE.PlaneGeometry(0.52, 0.68), goldFairyMat);
+    fairyMesh.position.set(0, 1.78, 1.315);
+    cakeGroup.add(fairyMesh);
 
-    function createEfficientStrawberry(isSliced) {
-      const group = new THREE.Group();
-      if (!isSliced) {
-        const body = new THREE.Mesh(wholeStrawberryGeo, strawberryMat);
-        group.add(body);
-        const calyx = new THREE.Mesh(starCalyxGeo, calyxLeafMat);
-        calyx.position.y = 0.37;
-        group.add(calyx);
-        const stem = new THREE.Mesh(stemGeo, calyxLeafMat);
-        stem.position.y = 0.40;
-        stem.rotation.z = 0.12;
-        group.add(stem);
-      } else {
-        const slice = new THREE.Mesh(slicedStrawberryGeo, strawberryMat);
-        slice.rotation.z = Math.PI;
-        group.add(slice);
-      }
-      group.scale.set(0.85, 0.85, 0.85);
-      return group;
+    // 6) 3D ROSE-GOLD FILIGREE BUTTERFLIES (MATCHING PHOTO)
+    function createRoseGoldButterfly(scale, wingAngle) {
+      const bGroup = new THREE.Group();
+
+      const bodyGeo = new THREE.CylinderGeometry(0.018, 0.012, 0.22, 8);
+      const roseGoldSolidMat = new THREE.MeshStandardMaterial({
+        color: 0xffb2a2,
+        emissive: 0x441c14,
+        metalness: 0.40,
+        roughness: 0.20
+      });
+      const body = new THREE.Mesh(bodyGeo, roseGoldSolidMat);
+      body.rotation.x = Math.PI / 2;
+      bGroup.add(body);
+
+      const antGeo = new THREE.CylinderGeometry(0.005, 0.005, 0.12, 6);
+      [-0.035, 0.035].forEach((ax) => {
+        const ant = new THREE.Mesh(antGeo, roseGoldSolidMat);
+        ant.position.set(ax, 0.14, 0.04);
+        ant.rotation.z = (ax < 0) ? 0.35 : -0.35;
+        bGroup.add(ant);
+      });
+
+      const wingPlaneGeo = new THREE.PlaneGeometry(0.52, 0.52);
+
+      // Left Wing
+      const leftPivot = new THREE.Group();
+      leftPivot.position.set(-0.015, 0, 0);
+      const leftWing = new THREE.Mesh(wingPlaneGeo, roseGoldFiligreeMat);
+      leftWing.position.set(-0.26, 0, 0);
+      leftPivot.add(leftWing);
+      leftPivot.rotation.y = (wingAngle || 0.45);
+      bGroup.add(leftPivot);
+
+      // Right Wing
+      const rightPivot = new THREE.Group();
+      rightPivot.position.set(0.015, 0, 0);
+      const rightWing = new THREE.Mesh(wingPlaneGeo, roseGoldFiligreeMat);
+      rightWing.position.set(0.26, 0, 0);
+      rightWing.scale.x = -1;
+      rightPivot.add(rightWing);
+      rightPivot.rotation.y = -(wingAngle || 0.45);
+      bGroup.add(rightPivot);
+
+      bGroup.scale.set(scale, scale, scale);
+      return bGroup;
     }
 
-    const blueberryGeo = new THREE.SphereGeometry(0.045, 8, 8);
-    const curlGeo = new THREE.TorusGeometry(0.045, 0.012, 6, 12, Math.PI * 1.35);
-    const wholeHazelnutGeo = new THREE.SphereGeometry(0.055, 10, 10);
-    wholeHazelnutGeo.scale(1.0, 1.15, 0.95);
+    // Butterfly 1: Tier 1, front-left (matching photo!)
+    const butterfly1 = createRoseGoldButterfly(1.25, 0.50);
+    butterfly1.position.set(-1.32, 0.64, 1.48);
+    butterfly1.rotation.set(-0.15, 0.72, -0.22);
+    cakeGroup.add(butterfly1);
 
-    // Garnish top perimeter: Strawberries + Ferrero Chocolate Truffles with crushed nuts
-    const topGarnish = [
-      { angle: 0.10, rad: 1.04, rotY: 0.3, rotZ: 0.20, type: 'strawberry', sliced: false },
-      { angle: 0.65, rad: 0.98, rotY: 0.8, rotZ: 0.12, type: 'truffle' },
-      { angle: 1.20, rad: 1.05, rotY: 1.5, rotZ: -0.18, type: 'strawberry', sliced: true },
-      { angle: 1.78, rad: 0.98, rotY: 2.2, rotZ: 0.15, type: 'hazelnut' },
-      { angle: 2.35, rad: 1.04, rotY: 2.7, rotZ: -0.22, type: 'strawberry', sliced: false },
-      { angle: 2.95, rad: 1.00, rotY: 3.3, rotZ: 0.18, type: 'truffle' },
-      { angle: 3.55, rad: 0.98, rotY: 3.9, rotZ: -0.15, type: 'strawberry', sliced: true },
-      { angle: 4.15, rad: 1.04, rotY: 4.5, rotZ: 0.22, type: 'hazelnut' },
-      { angle: 4.80, rad: 1.00, rotY: 5.2, rotZ: -0.20, type: 'strawberry', sliced: false },
-      { angle: 5.45, rad: 1.02, rotY: 5.8, rotZ: 0.14, type: 'truffle' }
-    ];
+    // Butterfly 2: Tier 2, front-right (matching photo!)
+    const butterfly2 = createRoseGoldButterfly(1.20, 0.48);
+    butterfly2.position.set(0.98, 1.82, 0.88);
+    butterfly2.rotation.set(-0.10, -0.68, 0.18);
+    cakeGroup.add(butterfly2);
 
-    topGarnish.forEach(p => {
-      if (p.type === 'strawberry') {
-        const sb = createEfficientStrawberry(p.sliced);
-        sb.position.set(Math.cos(p.angle) * p.rad, 2.21, Math.sin(p.angle) * p.rad);
-        sb.rotation.y = p.rotY;
-        sb.rotation.z = p.rotZ;
-        cakeGroup.add(sb);
-      } else if (p.type === 'truffle') {
-        // Ferrero-style chocolate truffle with nut coating
-        const truffle = new THREE.Mesh(wholeHazelnutGeo, truffleMat);
-        truffle.position.set(Math.cos(p.angle) * p.rad, 2.25, Math.sin(p.angle) * p.rad);
-        cakeGroup.add(truffle);
-
-        // Crushed nuts on truffle
-        for (let k = 0; k < 4; k++) {
-          const nutBit = new THREE.Mesh(nutChunkGeo, nutGoldMat);
-          nutBit.scale.set(0.35, 0.35, 0.35);
-          nutBit.position.set(
-            Math.cos(p.angle) * p.rad + (Math.sin(k * 1.5) * 0.045),
-            2.25 + (Math.cos(k * 1.8) * 0.04),
-            Math.sin(p.angle) * p.rad + (Math.sin(k * 2.2) * 0.045)
-          );
-          cakeGroup.add(nutBit);
-        }
-      } else if (p.type === 'hazelnut') {
-        // Whole golden roasted hazelnut
-        const hazelnut = new THREE.Mesh(wholeHazelnutGeo, nutGoldMat);
-        hazelnut.position.set(Math.cos(p.angle) * p.rad, 2.24, Math.sin(p.angle) * p.rad);
-        hazelnut.rotation.set(0.3, p.angle, 0.2);
-        cakeGroup.add(hazelnut);
-      }
-
-      // Blueberry nestled inward
-      const bl = new THREE.Mesh(blueberryGeo, blueberryMat);
-      bl.position.set(Math.cos(p.angle - 0.16) * (p.rad - 0.18), 2.23, Math.sin(p.angle - 0.16) * (p.rad - 0.18));
-      cakeGroup.add(bl);
-
-      // Chocolate curl
-      const curl = new THREE.Mesh(curlGeo, ganacheMat);
-      curl.position.set(Math.cos(p.angle + 0.12) * (p.rad - 0.22), 2.23, Math.sin(p.angle + 0.12) * (p.rad - 0.22));
-      curl.rotation.x = Math.PI / 2;
-      curl.rotation.z = p.angle;
-      cakeGroup.add(curl);
-    });
-
-    // Scattered chopped nut granules on top glaze
-    for (let i = 0; i < 18; i++) {
-      const na = (i / 18) * Math.PI * 2 + 0.2;
-      const nr = 0.55 + ((i * 7) % 10) * 0.055;
-      const nutNib = new THREE.Mesh(nutChunkGeo, (i % 2 === 0) ? nutGoldMat : nutDeepMat);
-      nutNib.scale.set(0.4, 0.25, 0.35);
-      nutNib.position.set(Math.cos(na) * nr, 2.22, Math.sin(na) * nr);
-      nutNib.rotation.set(i * 0.8, i * 0.5, i * 0.3);
-      cakeGroup.add(nutNib);
-    }
+    // Butterfly 3: Tier 2, top-left rim (matching photo!)
+    const butterfly3 = createRoseGoldButterfly(1.30, 0.52);
+    butterfly3.position.set(-0.95, 2.42, 0.82);
+    butterfly3.rotation.set(-0.28, 0.65, -0.35);
+    cakeGroup.add(butterfly3);
 
     // =========================================================================
-    // 5. SCULPTED 3D METALLIC GOLDEN "25" BIRTHDAY CANDLES (FRONT-FACING)
+    // 5. METALLIC GOLDEN "25" CANDLES & FLICKERING FLAMES
     // =========================================================================
     function buildArtisanalCandleNumeral(points, offsetX) {
       const curve = new THREE.CatmullRomCurve3(
         points.map((p) => new THREE.Vector3(p[0] + offsetX, p[1], p[2]))
       );
       const geo = new THREE.TubeGeometry(curve, 36, 0.088, 12, false);
-      const mesh = new THREE.Mesh(geo, goldLeafMat);
+      const mesh = new THREE.Mesh(geo, goldCandleMat);
       cakeGroup.add(mesh);
       return mesh;
     }
 
-    // Numeral "2" - perfectly aligned in front plane
+    // Numeral "2"
     buildArtisanalCandleNumeral(
       [
         [-0.24, 2.80, 0],
@@ -1081,7 +1334,7 @@
       -0.34
     );
 
-    // Numeral "5" - perfectly aligned in front plane
+    // Numeral "5"
     buildArtisanalCandleNumeral(
       [
         [0.22, 3.06, 0],
@@ -1099,7 +1352,7 @@
     const waxBaseMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 });
     [-0.34, 0.34].forEach(x => {
       const waxBase = new THREE.Mesh(waxBaseGeo, waxBaseMat);
-      waxBase.position.set(x, 2.29, 0);
+      waxBase.position.set(x, 2.35, 0);
       cakeGroup.add(waxBase);
     });
 
@@ -1149,12 +1402,12 @@
     });
 
     // =========================================================================
-    // 6. MAGICAL WARM BACKGROUND LIGHTS (FAIRY LIGHT GARLANDS & GLOWING BOKEH)
+    // 6. MAGICAL WARM BACKGROUND LIGHTS (BOKEH, FAIRY STRINGS & STARFIELD)
     // =========================================================================
     const bgLightsGroup = new THREE.Group();
     scene.add(bgLightsGroup);
 
-    // 1) Glowing Warm Bokeh Light Orbs floating in background
+    // Glowing Bokeh Orbs
     const bokehPlaneGeo = new THREE.PlaneGeometry(1, 1);
     const bokehMat = new THREE.MeshBasicMaterial({
       map: bokehTexture,
@@ -1171,13 +1424,11 @@
       const orb = new THREE.Mesh(bokehPlaneGeo, bokehMat);
       const scale = 0.35 + Math.random() * 0.85;
       orb.scale.set(scale, scale, scale);
-
       orb.position.set(
         (Math.random() - 0.5) * 16,
         0.5 + Math.random() * 6.5,
         -2.5 - Math.random() * 7.0
       );
-
       orb.userData = {
         baseY: orb.position.y,
         speed: 0.6 + Math.random() * 0.8,
@@ -1185,12 +1436,11 @@
         baseScale: scale,
         pulseSpeed: 1.2 + Math.random() * 1.5
       };
-
       bgLightsGroup.add(orb);
       bokehOrbs.push(orb);
     }
 
-    // 2) Cascading Swags of Hanging Fairy Light Bulbs across background
+    // Cascading Hanging Fairy Light Bulbs
     const fairyBulbGeo = new THREE.SphereGeometry(0.065, 8, 8);
     const fairyBulbMat = new THREE.MeshBasicMaterial({
       color: 0xffe277,
@@ -1227,13 +1477,108 @@
       }
     });
 
+    // Twinkling Starfield Points
+    const starCount = 220;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      starPos[i * 3] = (Math.random() - 0.5) * 28;
+      starPos[i * 3 + 1] = Math.random() * 16 - 2;
+      starPos[i * 3 + 2] = -4 - Math.random() * 20;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starPoints = new THREE.Points(
+      starGeo,
+      new THREE.PointsMaterial({ color: 0xffea79, size: 0.08, transparent: true, opacity: 0.85 })
+    );
+    scene.add(starPoints);
+
     // =========================================================================
-    // 3. CURLING SMOKE WISPS & 35 RISING GOLDEN SKY LANTERNS
+    // 7. REALISTIC GLOWING SKY LANTERNS WITH WARM LIGHT CORES
     // =========================================================================
-    const smokeParticles = [];
     const skyLanterns = [];
+    const smokeParticles = [];
     let isCandleBlownOut = false;
     let windBend = 0;
+
+    const lanternBodyGeo = new THREE.CylinderGeometry(0.24, 0.17, 0.42, 16, 1, true);
+    const lanternDomeGeo = new THREE.SphereGeometry(0.24, 16, 8, 0, Math.PI * 2, 0, Math.PI * 0.5);
+    const lanternHoopGeo = new THREE.TorusGeometry(0.17, 0.012, 8, 16);
+
+    const lanternPaperMat = new THREE.MeshBasicMaterial({
+      map: lanternTex,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.96
+    });
+    const lanternHoopMat = new THREE.MeshBasicMaterial({ color: 0x5a3410 });
+    const lanternCoreGeo = new THREE.SphereGeometry(0.085, 10, 10);
+    const lanternCoreMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+    function createRealisticSkyLantern(isAmbient) {
+      const lantern = new THREE.Group();
+
+      const body = new THREE.Mesh(lanternBodyGeo, lanternPaperMat);
+      lantern.add(body);
+
+      const dome = new THREE.Mesh(lanternDomeGeo, lanternPaperMat);
+      dome.position.y = 0.21;
+      lantern.add(dome);
+
+      const hoop = new THREE.Mesh(lanternHoopGeo, lanternHoopMat);
+      hoop.rotation.x = Math.PI / 2;
+      hoop.position.y = -0.21;
+      lantern.add(hoop);
+
+      // Glowing white flame core inside bottom
+      const core = new THREE.Mesh(lanternCoreGeo, lanternCoreMat);
+      core.position.y = -0.12;
+      lantern.add(core);
+
+      // Soft glowing radial halo
+      const glowHalo = new THREE.Mesh(bokehPlaneGeo, bokehMat);
+      glowHalo.scale.set(1.4, 1.4, 1.4);
+      glowHalo.position.y = -0.06;
+      lantern.add(glowHalo);
+
+      const scale = 0.70 + Math.random() * 0.70;
+      lantern.scale.set(scale, scale, scale);
+
+      if (isAmbient) {
+        lantern.position.set(
+          (Math.random() - 0.5) * 16,
+          0.8 + Math.random() * 9.5,
+          -3.5 - Math.random() * 12
+        );
+      } else {
+        lantern.position.set(
+          (Math.random() - 0.5) * 14,
+          -2.5 - Math.random() * 6,
+          -2 - Math.random() * 14
+        );
+      }
+
+      lantern.userData = {
+        vy: 0.018 + Math.random() * 0.024,
+        swayPhase: Math.random() * Math.PI * 2,
+        swayAmp: 0.009 + Math.random() * 0.012
+      };
+
+      scene.add(lantern);
+      skyLanterns.push(lantern);
+    }
+
+    // Spawn 16 Ambient Floating Sky Lanterns right away
+    for (let i = 0; i < 16; i++) {
+      createRealisticSkyLantern(true);
+    }
+
+    function launchSkyLanternsMass() {
+      // Launch 32 more lanterns ascending from bottom to celebrate blowout
+      for (let i = 0; i < 32; i++) {
+        createRealisticSkyLantern(false);
+      }
+    }
 
     function spawnSmokeWisp(origin) {
       const geo = new THREE.SphereGeometry(0.07, 10, 10);
@@ -1253,62 +1598,223 @@
       smokeParticles.push(mesh);
     }
 
-    function launchSkyLanterns() {
-      const lanternGeo = new THREE.CylinderGeometry(0.24, 0.16, 0.44, 16, 1, true);
-      const lanternMat = new THREE.MeshBasicMaterial({
-        color: 0xffc845,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.92
+    // =========================================================================
+    // 8. CANVAS ENGINE: CELEBRATORY AERIAL FIREWORKS & SPARKLE CRACKERS
+    // =========================================================================
+    const fCanvas = document.getElementById('firecracker-canvas');
+    const fCtx = fCanvas.getContext('2d');
+    let fParticles = [];
+    let fShockwaves = [];
+    let fRockets = [];
+
+    function resizeFirecrackerCanvas() {
+      fCanvas.width = window.innerWidth;
+      fCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeFirecrackerCanvas);
+    resizeFirecrackerCanvas();
+
+    const blastColors = [
+      '#ffd700', '#ffea79', '#ff9436', '#ff4d6d', '#ff758f',
+      '#f72585', '#b5179e', '#7209b7', '#4cc9f0', '#ffffff', '#e0aaff'
+    ];
+
+    function launchAerialFirework(targetX, targetY) {
+      const w = fCanvas.width;
+      const h = fCanvas.height;
+      const startX = targetX ? targetX + (Math.random() - 0.5) * 40 : w * (0.15 + Math.random() * 0.7);
+      const endX = targetX || (w * (0.15 + Math.random() * 0.7));
+      const endY = targetY || (h * (0.12 + Math.random() * 0.35));
+
+      fRockets.push({
+        x: startX,
+        y: h + 10,
+        endX: endX,
+        endY: endY,
+        vx: (endX - startX) / 28,
+        vy: -13.5 - Math.random() * 4,
+        color: blastColors[Math.floor(Math.random() * blastColors.length)],
+        trail: []
+      });
+    }
+
+    function detonateAerialFirework(bx, by) {
+      // Double expanding golden shockwaves
+      fShockwaves.push({
+        x: bx,
+        y: by,
+        radius: 6,
+        maxRadius: 120 + Math.random() * 45,
+        speed: 7.0,
+        opacity: 0.95,
+        color: '#ffd700'
+      });
+      fShockwaves.push({
+        x: bx,
+        y: by,
+        radius: 3,
+        maxRadius: 80 + Math.random() * 30,
+        speed: 5.0,
+        opacity: 0.85,
+        color: '#ffffff'
       });
 
-      const coreGeo = new THREE.SphereGeometry(0.11, 10, 10);
-      const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      // 85-105 Grand Willow Chrysanthemum Stars & Crackers
+      const starCount = 85 + Math.floor(Math.random() * 20);
+      const coreColor = blastColors[Math.floor(Math.random() * blastColors.length)];
+      for (let i = 0; i < starCount; i++) {
+        const angle = (i / starCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.25;
+        const speed = 2.8 + Math.random() * 9.5;
+        const color = (i % 3 === 0) ? '#ffd700' : (i % 3 === 1) ? '#ffea79' : coreColor;
 
-      for (let i = 0; i < 38; i++) {
-        const lantern = new THREE.Group();
-        const shell = new THREE.Mesh(lanternGeo, lanternMat);
-        const core = new THREE.Mesh(coreGeo, coreMat);
-        core.position.y = -0.08;
-        lantern.add(shell, core);
-
-        lantern.position.set(
-          (Math.random() - 0.5) * 14,
-          -2.5 - Math.random() * 6,
-          -2 - Math.random() * 14
-        );
-
-        const scale = 0.65 + Math.random() * 0.75;
-        lantern.scale.set(scale, scale, scale);
-        lantern.userData = {
-          vy: 0.022 + Math.random() * 0.024,
-          swayPhase: Math.random() * Math.PI * 2,
-          swayAmp: 0.008 + Math.random() * 0.01
-        };
-
-        scene.add(lantern);
-        skyLanterns.push(lantern);
+        fParticles.push({
+          x: bx,
+          y: by,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          friction: 0.945 + Math.random() * 0.02,
+          gravity: 0.08 + Math.random() * 0.03,
+          size: 2.8 + Math.random() * 3.4,
+          color: color,
+          opacity: 1.0,
+          life: 0,
+          maxLife: 65 + Math.random() * 35,
+          twinkle: Math.random() > 0.4
+        });
       }
     }
 
-    // Background Twinkling Starfield Points
-    const starCount = 220;
-    const starGeo = new THREE.BufferGeometry();
-    const starPos = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      starPos[i * 3] = (Math.random() - 0.5) * 28;
-      starPos[i * 3 + 1] = Math.random() * 16 - 2;
-      starPos[i * 3 + 2] = -4 - Math.random() * 20;
+    function animateFirecrackers() {
+      fCtx.clearRect(0, 0, fCanvas.width, fCanvas.height);
+
+      // Render shockwaves
+      for (let i = fShockwaves.length - 1; i >= 0; i--) {
+        const sw = fShockwaves[i];
+        sw.radius += sw.speed;
+        sw.opacity -= 0.035;
+
+        if (sw.opacity <= 0 || sw.radius >= sw.maxRadius) {
+          fShockwaves.splice(i, 1);
+          continue;
+        }
+
+        fCtx.save();
+        fCtx.beginPath();
+        fCtx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+        fCtx.strokeStyle = sw.color;
+        fCtx.globalAlpha = Math.max(0, sw.opacity);
+        fCtx.lineWidth = 2.5;
+        fCtx.shadowColor = sw.color;
+        fCtx.shadowBlur = 12;
+        fCtx.stroke();
+        fCtx.restore();
+      }
+
+      // Render rockets
+      for (let i = fRockets.length - 1; i >= 0; i--) {
+        const r = fRockets[i];
+        r.trail.push({ x: r.x, y: r.y });
+        if (r.trail.length > 8) r.trail.shift();
+
+        r.x += r.vx;
+        r.y += r.vy;
+        r.vy += 0.22;
+
+        fCtx.save();
+        fCtx.strokeStyle = r.color;
+        fCtx.lineWidth = 3.2;
+        fCtx.shadowColor = '#ffd700';
+        fCtx.shadowBlur = 12;
+        fCtx.beginPath();
+        for (let j = 0; j < r.trail.length; j++) {
+          const pt = r.trail[j];
+          if (j === 0) fCtx.moveTo(pt.x, pt.y);
+          else fCtx.lineTo(pt.x, pt.y);
+        }
+        fCtx.stroke();
+
+        fCtx.fillStyle = '#ffffff';
+        fCtx.beginPath();
+        fCtx.arc(r.x, r.y, 3.8, 0, Math.PI * 2);
+        fCtx.fill();
+        fCtx.restore();
+
+        if (r.y <= r.endY || r.vy >= -0.6) {
+          detonateAerialFirework(r.x, r.y);
+          fRockets.splice(i, 1);
+        }
+      }
+
+      // Render sparks & crackers
+      for (let i = fParticles.length - 1; i >= 0; i--) {
+        const p = fParticles[i];
+        p.life++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= p.friction;
+        p.vy = p.vy * p.friction + p.gravity;
+        p.opacity = 1 - p.life / p.maxLife;
+
+        if (p.life >= p.maxLife || p.opacity <= 0) {
+          fParticles.splice(i, 1);
+          continue;
+        }
+
+        fCtx.save();
+        fCtx.globalAlpha = p.twinkle ? (Math.random() > 0.3 ? p.opacity : 0.2) : p.opacity;
+        fCtx.fillStyle = p.color;
+        fCtx.shadowColor = p.color;
+        fCtx.shadowBlur = 8;
+        fCtx.beginPath();
+        fCtx.arc(p.x, p.y, p.size * (1 - p.life / p.maxLife * 0.4), 0, Math.PI * 2);
+        fCtx.fill();
+        fCtx.restore();
+      }
+
+      requestAnimationFrame(animateFirecrackers);
     }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-    const starPoints = new THREE.Points(
-      starGeo,
-      new THREE.PointsMaterial({ color: 0xffea79, size: 0.08, transparent: true, opacity: 0.85 })
-    );
-    scene.add(starPoints);
+    requestAnimationFrame(animateFirecrackers);
+
+    function launchCelebrationCrackersSalvo() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const delays = [0, 220, 450, 700, 950, 1250, 1600, 1950, 2350, 2800];
+      const targets = [
+        [w * 0.20, h * 0.22],
+        [w * 0.80, h * 0.20],
+        [w * 0.50, h * 0.16],
+        [w * 0.32, h * 0.26],
+        [w * 0.68, h * 0.24],
+        [w * 0.15, h * 0.28],
+        [w * 0.85, h * 0.26],
+        [w * 0.42, h * 0.20],
+        [w * 0.58, h * 0.22],
+        [w * 0.50, h * 0.15]
+      ];
+      delays.forEach((delay, idx) => {
+        setTimeout(() => {
+          launchAerialFirework(targets[idx][0], targets[idx][1]);
+        }, delay);
+      });
+
+      function loopAmbientCrackers() {
+        if (!isCandleBlownOut) return;
+        launchAerialFirework();
+        setTimeout(loopAmbientCrackers, 2600 + Math.random() * 2200);
+      }
+      setTimeout(loopAmbientCrackers, 3200);
+    }
+
+    // Interactive Sky Tap: Touch or Click anywhere in the upper sky to launch and burst crackers!
+    window.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.letter-glass-sheet')) return;
+      if (e.clientY < window.innerHeight * 0.65) {
+        launchAerialFirework(e.clientX, e.clientY);
+      }
+    });
 
     // =========================================================================
-    // 4. WEB AUDIO BLOW DETECTION & EXTINGUISH SEQUENCE
+    // 9. WEB AUDIO BLOW DETECTION & EXTINGUISH SEQUENCE
     // =========================================================================
     const btnBlow = document.getElementById('btn-blow');
     const micPill = document.getElementById('mic-pill');
@@ -1344,13 +1850,12 @@
     function extinguishCandleSequence() {
       if (isCandleBlownOut) return;
       isCandleBlownOut = true;
-      
 
       candleHud.classList.add('hidden');
       micPill.style.opacity = '0';
       micPill.style.pointerEvents = 'none';
 
-      // Spawn curling smoke wisps from both candle wicks
+      // Spawn curling smoke wisps from candle wicks
       for (let i = 0; i < 24; i++) {
         setTimeout(() => {
           wickPositions.forEach((wp) => {
@@ -1359,13 +1864,14 @@
         }, i * 65);
       }
 
-      // Launch rising sky lanterns and chime
+      // Launch armada of rising sky lanterns & grand celebratory fireworks salvo
       setTimeout(() => {
         playChimeReveal();
-        launchSkyLanterns();
-      }, 450);
+        launchSkyLanternsMass();
+        launchCelebrationCrackersSalvo();
+      }, 400);
 
-      // Reveal handwritten keepsake letter once lanterns fill the sky
+      // Reveal handwritten keepsake letter once lanterns & crackers fill the sky
       setTimeout(() => {
         letterOverlay.classList.add('visible');
       }, 2400);
@@ -1397,7 +1903,7 @@
     });
 
     // =========================================================================
-    // 5. 360° DRAG ROTATION & REAL-TIME ANIMATION LOOP
+    // 10. 360° INTERACTIVE DRAG & REAL-TIME ANIMATION LOOP
     // =========================================================================
     let isDragging = false;
     let prevX = 0;
@@ -1421,7 +1927,8 @@
     window.addEventListener('resize', () => {
       const mobile = window.innerWidth < 768;
       camera.aspect = window.innerWidth / window.innerHeight;
-      camera.position.z = mobile ? 8.4 : 7.2; camera.position.y = mobile ? 2.85 : 2.55;
+      camera.position.z = mobile ? 8.4 : 7.2;
+      camera.position.y = mobile ? 2.85 : 2.50;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
@@ -1460,23 +1967,32 @@
       }
       cakeGroup.rotation.y += (targetRotY - cakeGroup.rotation.y) * 0.08;
 
-      // Animate magical background bokeh orbs
-      if (typeof bokehOrbs !== 'undefined') {
-        for (let i = 0; i < bokehOrbs.length; i++) {
-          const orb = bokehOrbs[i];
-          orb.position.y = orb.userData.baseY + Math.sin(t * orb.userData.speed + orb.userData.phase) * 0.22;
-          const pulse = 1.0 + Math.sin(t * orb.userData.pulseSpeed + orb.userData.phase) * 0.14;
-          orb.scale.set(orb.userData.baseScale * pulse, orb.userData.baseScale * pulse, 1);
-        }
+      // Subtle flutter on butterfly wings
+      const flutter1 = 0.50 + Math.sin(t * 3.2) * 0.05;
+      butterfly1.children[2].rotation.y = flutter1;
+      butterfly1.children[3].rotation.y = -flutter1;
+
+      const flutter2 = 0.48 + Math.sin(t * 3.5 + 1) * 0.05;
+      butterfly2.children[2].rotation.y = flutter2;
+      butterfly2.children[3].rotation.y = -flutter2;
+
+      const flutter3 = 0.52 + Math.sin(t * 2.8 + 2) * 0.05;
+      butterfly3.children[2].rotation.y = flutter3;
+      butterfly3.children[3].rotation.y = -flutter3;
+
+      // Animate background bokeh orbs
+      for (let i = 0; i < bokehOrbs.length; i++) {
+        const orb = bokehOrbs[i];
+        orb.position.y = orb.userData.baseY + Math.sin(t * orb.userData.speed + orb.userData.phase) * 0.22;
+        const pulse = 1.0 + Math.sin(t * orb.userData.pulseSpeed + orb.userData.phase) * 0.14;
+        orb.scale.set(orb.userData.baseScale * pulse, orb.userData.baseScale * pulse, 1);
       }
 
       // Animate twinkling background fairy bulbs
-      if (typeof fairyBulbs !== 'undefined') {
-        for (let i = 0; i < fairyBulbs.length; i++) {
-          const bulb = fairyBulbs[i];
-          const twinkle = 0.85 + Math.sin(t * bulb.userData.twinkleSpeed + bulb.userData.phase) * 0.18;
-          bulb.scale.set(twinkle, twinkle, twinkle);
-        }
+      for (let i = 0; i < fairyBulbs.length; i++) {
+        const bulb = fairyBulbs[i];
+        const twinkle = 0.85 + Math.sin(t * bulb.userData.twinkleSpeed + bulb.userData.phase) * 0.18;
+        bulb.scale.set(twinkle, twinkle, twinkle);
       }
 
       // Animate 3D Candle Flames
@@ -1492,8 +2008,8 @@
       });
 
       if (!isCandleBlownOut) {
-        candleLight.intensity = 2.6 + Math.sin(t * 16) * 0.35;
-        if (candleLightRight) candleLightRight.intensity = 2.6 + Math.sin(t * 14 + 1) * 0.35;
+        candleLight.intensity = 2.8 + Math.sin(t * 16) * 0.35;
+        if (candleLightRight) candleLightRight.intensity = 2.8 + Math.sin(t * 14 + 1) * 0.35;
       } else {
         candleLight.intensity += (0.4 - candleLight.intensity) * 0.05;
         if (candleLightRight) candleLightRight.intensity += (0.4 - candleLightRight.intensity) * 0.05;
@@ -1514,7 +2030,7 @@
         }
       }
 
-      // Update rising 3D sky lanterns
+      // Update floating glowing sky lanterns
       for (const l of skyLanterns) {
         l.position.y += l.userData.vy;
         l.position.x += Math.sin(t * 1.4 + l.userData.swayPhase) * l.userData.swayAmp;
