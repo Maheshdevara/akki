@@ -477,8 +477,8 @@
 
     const isMobile = window.innerWidth < 768;
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 120);
-    camera.position.set(0, isMobile ? 3.1 : 2.75, isMobile ? 9.2 : 8.1);
-    camera.lookAt(0, 1.95, 0);
+    camera.position.set(0, isMobile ? 2.85 : 2.55, isMobile ? 8.4 : 7.2);
+    camera.lookAt(0, 1.85, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -487,19 +487,19 @@
     renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
 
-    // Studio Lighting for Natural Bakery Cake
-    const ambientLight = new THREE.AmbientLight(0xfff5ea, 1.25);
+    // Studio Lighting for Decadent Chocolate Cake
+    const ambientLight = new THREE.AmbientLight(0xfff3e6, 1.35);
     scene.add(ambientLight);
 
-    const studioKeyLight = new THREE.DirectionalLight(0xfffaee, 1.4);
+    const studioKeyLight = new THREE.DirectionalLight(0xfff7ed, 1.5);
     studioKeyLight.position.set(4.0, 7.0, 4.5);
     scene.add(studioKeyLight);
 
-    const warmFillLight = new THREE.DirectionalLight(0xffeedd, 0.7);
-    warmFillLight.position.set(-4.0, 3.5, 3.0);
+    const warmFillLight = new THREE.DirectionalLight(0xffeedd, 0.85);
+    warmFillLight.position.set(-4.5, 3.5, 3.0);
     scene.add(warmFillLight);
 
-    const goldenRimLight = new THREE.DirectionalLight(0xffd700, 1.2);
+    const goldenRimLight = new THREE.DirectionalLight(0xffd000, 1.4);
     goldenRimLight.position.set(0, 5.0, -5.5);
     scene.add(goldenRimLight);
 
@@ -515,38 +515,37 @@
     const candleLight = candleLightLeft;
 
     // =========================================================================
-    // 2. BUILD HIGH-PERFORMANCE NATURAL 3D BIRTHDAY CAKE & "25" CANDLES
+    // 2. BUILD CHOCOLATE CAKE WITH NUTS, FRONT VIEW & BACKGROUND LIGHTS
     // =========================================================================
     const cakeGroup = new THREE.Group();
     cakeGroup.position.set(0, 0.72, 0);
+    cakeGroup.rotation.y = 0; // Perfectly centered front view
     scene.add(cakeGroup);
 
-    // --- ULTRA-FAST LIGHTWEIGHT PROCEDURAL TEXTURES (<2ms generation) ---
-    function generateFastButtercreamTexture() {
+    // --- ULTRA-FAST PROCEDURAL TEXTURES (CHOCOLATE & BOKEH) ---
+    function generateChocolateFrostingTexture() {
       const c = document.createElement('canvas');
       c.width = 256;
       c.height = 256;
       const ctx = c.getContext('2d');
 
-      // Warm vanilla bean buttercream
-      ctx.fillStyle = '#fff9f0';
+      // Rich dark Belgian chocolate fudge base
+      ctx.fillStyle = '#2c1810';
       ctx.fillRect(0, 0, 256, 256);
 
-      // Soft horizontal spatula sweep bands
-      for (let y = 0; y < 256; y += 12) {
-        const alpha = 0.06 + Math.sin(y * 0.08) * 0.03;
-        ctx.fillStyle = y % 24 === 0 ? `rgba(240, 224, 202, ${alpha})` : `rgba(255, 255, 255, ${alpha * 1.5})`;
-        ctx.fillRect(0, y, 256, 10);
+      // Artisanal horizontal spatula sweeps of chocolate ganache
+      for (let y = 0; y < 256; y += 10) {
+        const alpha = 0.08 + Math.sin(y * 0.09) * 0.04;
+        ctx.fillStyle = y % 20 === 0 ? `rgba(65, 36, 24, ${alpha * 1.6})` : `rgba(22, 10, 6, ${alpha * 1.4})`;
+        ctx.fillRect(0, y, 256, 8);
       }
 
-      // Delicate 24K edible gold specks
-      for (let i = 0; i < 20; i++) {
-        const x = (i * 47) % 256;
-        const y = (i * 31) % 256;
-        ctx.fillStyle = '#ffd700';
-        ctx.beginPath();
-        ctx.arc(x, y, 1.8, 0, Math.PI * 2);
-        ctx.fill();
+      // Micro hazelnut praline flecks
+      for (let i = 0; i < 30; i++) {
+        const x = (i * 37) % 256;
+        const y = (i * 49) % 256;
+        ctx.fillStyle = i % 2 === 0 ? '#b87c42' : '#8a4f21';
+        ctx.fillRect(x, y, 2, 2);
       }
 
       const tex = new THREE.CanvasTexture(c);
@@ -556,7 +555,7 @@
       return tex;
     }
 
-    function generateFastButtercreamBumpMap() {
+    function generateChocolateBumpMap() {
       const c = document.createElement('canvas');
       c.width = 256;
       c.height = 256;
@@ -564,11 +563,11 @@
       ctx.fillStyle = '#808080';
       ctx.fillRect(0, 0, 256, 256);
 
-      // Subtle horizontal spatula ridges
-      for (let y = 0; y < 256; y += 16) {
-        const val = 128 + Math.floor(Math.sin(y * 0.08) * 18);
+      // Spatula ridges
+      for (let y = 0; y < 256; y += 14) {
+        const val = 128 + Math.floor(Math.sin(y * 0.07) * 20);
         ctx.fillStyle = `rgb(${val},${val},${val})`;
-        ctx.fillRect(0, y, 256, 12);
+        ctx.fillRect(0, y, 256, 10);
       }
 
       const tex = new THREE.CanvasTexture(c);
@@ -583,15 +582,12 @@
       c.width = 128;
       c.height = 128;
       const ctx = c.getContext('2d');
-
       const grad = ctx.createLinearGradient(0, 0, 0, 128);
       grad.addColorStop(0, '#eb1c30');
       grad.addColorStop(0.6, '#cc1224');
       grad.addColorStop(1, '#940916');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 128, 128);
-
-      // Golden seed flecks
       for (let row = 0; row < 8; row++) {
         const y = 8 + row * 15;
         const offset = (row % 2) * 8;
@@ -603,32 +599,68 @@
           ctx.fillRect(x + 1, y + 1, 1.5, 2);
         }
       }
-
       return new THREE.CanvasTexture(c);
     }
 
-    const buttercreamMap = generateFastButtercreamTexture();
-    const buttercreamBump = generateFastButtercreamBumpMap();
-    const strawberryMap = generateFastStrawberryTexture();
+    // Soft glowing bokeh light texture
+    function generateBokehTexture() {
+      const c = document.createElement('canvas');
+      c.width = 128;
+      c.height = 128;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+      grad.addColorStop(0.0, 'rgba(255, 255, 235, 1.0)');
+      grad.addColorStop(0.25, 'rgba(255, 215, 90, 0.85)');
+      grad.addColorStop(0.55, 'rgba(255, 170, 45, 0.45)');
+      grad.addColorStop(0.85, 'rgba(245, 140, 25, 0.15)');
+      grad.addColorStop(1.0, 'rgba(240, 120, 20, 0.0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 128, 128);
+      return new THREE.CanvasTexture(c);
+    }
 
-    // Natural Buttercream Material
-    const buttercreamMat = new THREE.MeshStandardMaterial({
-      color: 0xfffcf5,
-      map: buttercreamMap,
-      bumpMap: buttercreamBump,
-      bumpScale: 0.02,
+    const chocolateMap = generateChocolateFrostingTexture();
+    const chocolateBump = generateChocolateBumpMap();
+    const strawberryMap = generateFastStrawberryTexture();
+    const bokehTexture = generateBokehTexture();
+
+    // Decadent Chocolate Fudge Material
+    const chocolateCakeMat = new THREE.MeshStandardMaterial({
+      color: 0x341d14,
+      map: chocolateMap,
+      bumpMap: chocolateBump,
+      bumpScale: 0.024,
+      roughness: 0.52,
+      metalness: 0.08
+    });
+
+    // Mirror Chocolate Ganache Glaze Material (Rich & Glossy)
+    const ganacheMat = new THREE.MeshStandardMaterial({
+      color: 0x1d0d07,
+      roughness: 0.14,
+      metalness: 0.18
+    });
+
+    // Roasted Golden Hazelnut & Almond Nuts Materials
+    const nutGoldMat = new THREE.MeshStandardMaterial({
+      color: 0xd49b55, // Golden toasted nut
       roughness: 0.60,
       metalness: 0.04
     });
-
-    // Gourmet Belgian Dark Chocolate Ganache Material (Glossy)
-    const ganacheMat = new THREE.MeshStandardMaterial({
-      color: 0x241209,
-      roughness: 0.16,
-      metalness: 0.15
+    const nutDeepMat = new THREE.MeshStandardMaterial({
+      color: 0x9e5b29, // Roasted hazelnut skin
+      roughness: 0.65,
+      metalness: 0.03
     });
 
-    // Piped Chantilly Whipped Cream Material
+    // Chocolate Truffle Ball Material (Ferrero style)
+    const truffleMat = new THREE.MeshStandardMaterial({
+      color: 0x22110a,
+      roughness: 0.70,
+      metalness: 0.05
+    });
+
+    // Piped Whipped Cream / Vanilla Chantilly Rosettes Material
     const pipedCreamMat = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       roughness: 0.45,
@@ -747,18 +779,18 @@
     cakeGroup.add(standGroup);
 
     // =========================================================================
-    // 2. TIER 1: NATURAL BASE CAKE LAYER & CHOCOLATE GANACHE DRIPS
+    // 2. TIER 1: CHOCOLATE CAKE WITH CRUNCHY ROASTED NUTS RIM & GANACHE DRIPS
     // =========================================================================
     const tier1 = new THREE.Mesh(
       new THREE.CylinderGeometry(1.95, 1.95, 1.12, 48),
-      buttercreamMat
+      chocolateCakeMat
     );
     tier1.position.y = 0.68;
     cakeGroup.add(tier1);
 
     const tier1Bevel = new THREE.Mesh(
       new THREE.TorusGeometry(1.92, 0.04, 10, 48),
-      buttercreamMat
+      chocolateCakeMat
     );
     tier1Bevel.rotation.x = Math.PI / 2;
     tier1Bevel.position.y = 1.23;
@@ -771,7 +803,7 @@
     tier1GanacheTop.position.y = 1.245;
     cakeGroup.add(tier1GanacheTop);
 
-    // Reusable drip geometries for zero allocation overhead
+    // Helper: Create Natural Chocolate Ganache Drips
     function createNaturalDrips(radius, topY, dripData, material) {
       const dripGroup = new THREE.Group();
 
@@ -823,19 +855,36 @@
     const tier1Drips = createNaturalDrips(1.95, 1.24, tier1DripData, ganacheMat);
     cakeGroup.add(tier1Drips);
 
+    // CRUNCHY ROASTED NUTS BORDER (Toasted Hazelnuts & Almonds around Tier 1 Base)
+    const nutChunkGeo = new THREE.DodecahedronGeometry(0.042, 0);
+    const nutPralineGroup = new THREE.Group();
+
+    for (let i = 0; i < 34; i++) {
+      const a = (i / 34) * Math.PI * 2;
+      const mat = (i % 3 === 0) ? nutDeepMat : nutGoldMat;
+      const nut = new THREE.Mesh(nutChunkGeo, mat);
+      const rad = 1.98 + (Math.sin(i * 3.7) * 0.035);
+      const s = 0.8 + (Math.cos(i * 2.1) * 0.3);
+      nut.scale.set(s * 1.2, s * 0.75, s * 0.9);
+      nut.position.set(Math.cos(a) * rad, 0.15 + (i % 2) * 0.025, Math.sin(a) * rad);
+      nut.rotation.set(i * 0.5, i * 0.9, i * 0.3);
+      nutPralineGroup.add(nut);
+    }
+    cakeGroup.add(nutPralineGroup);
+
     // =========================================================================
-    // 3. TIER 2: TOP GOURMET CAKE LAYER & CHOCOLATE GANACHE DRIPS
+    // 3. TIER 2: TOP CHOCOLATE TIER WITH ROASTED NUTS SEAM & GANACHE DRIPS
     // =========================================================================
     const tier2 = new THREE.Mesh(
       new THREE.CylinderGeometry(1.30, 1.30, 0.95, 48),
-      buttercreamMat
+      chocolateCakeMat
     );
     tier2.position.y = 1.72;
     cakeGroup.add(tier2);
 
     const tier2Bevel = new THREE.Mesh(
       new THREE.TorusGeometry(1.27, 0.035, 10, 48),
-      buttercreamMat
+      chocolateCakeMat
     );
     tier2Bevel.rotation.x = Math.PI / 2;
     tier2Bevel.position.y = 2.19;
@@ -855,46 +904,46 @@
     const tier2Drips = createNaturalDrips(1.30, 2.20, tier2DripData, ganacheMat);
     cakeGroup.add(tier2Drips);
 
-    // =========================================================================
-    // 4. EFFICIENT SCULPTED CHANTILLY CREAM ROSETTES (1 mesh per rosette)
-    // =========================================================================
-    // Single-geometry swirl cone for high performance
+    // Toasted Nut Sprinkles around Tier 2 base junction
+    const midNutsGroup = new THREE.Group();
+    for (let i = 0; i < 22; i++) {
+      const a = (i / 22) * Math.PI * 2;
+      const mat = (i % 2 === 0) ? nutGoldMat : nutDeepMat;
+      const nut = new THREE.Mesh(nutChunkGeo, mat);
+      const rad = 1.34 + (Math.sin(i * 4.3) * 0.025);
+      const s = 0.7 + (Math.cos(i * 1.9) * 0.25);
+      nut.scale.set(s, s * 0.7, s);
+      nut.position.set(Math.cos(a) * rad, 1.26, Math.sin(a) * rad);
+      nut.rotation.set(i * 0.7, i * 0.4, i * 0.8);
+      midNutsGroup.add(nut);
+    }
+    cakeGroup.add(midNutsGroup);
+
+    // Soft Whipped Cream Swirl Rosettes around Tier 2 top
     const rosetteGeo = new THREE.ConeGeometry(0.052, 0.075, 7);
     rosetteGeo.scale(1.15, 0.75, 1.15);
     const pearlGeo = new THREE.SphereGeometry(0.022, 8, 8);
 
-    function createOptimizedRosetteRing(radius, posY, count, scale, addGoldPearls) {
-      const ring = new THREE.Group();
-      for (let i = 0; i < count; i++) {
-        const a = (i / count) * Math.PI * 2;
-        const rosette = new THREE.Mesh(rosetteGeo, pipedCreamMat);
-        rosette.scale.set(scale, scale, scale);
-        rosette.position.set(Math.cos(a) * radius, posY + 0.025 * scale, Math.sin(a) * radius);
-        rosette.rotation.y = a;
-        ring.add(rosette);
+    const crownRosettes = new THREE.Group();
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2;
+      const rosette = new THREE.Mesh(rosetteGeo, pipedCreamMat);
+      rosette.scale.set(0.85, 0.85, 0.85);
+      rosette.position.set(Math.cos(a) * 1.24, 2.22, Math.sin(a) * 1.24);
+      rosette.rotation.y = a;
+      crownRosettes.add(rosette);
 
-        if (addGoldPearls && i % 2 === 0) {
-          const pearl = new THREE.Mesh(pearlGeo, goldLeafMat);
-          pearl.position.set(Math.cos(a) * (radius - 0.02), posY + 0.07 * scale, Math.sin(a) * (radius - 0.02));
-          ring.add(pearl);
-        }
+      if (i % 2 === 0) {
+        const pearl = new THREE.Mesh(pearlGeo, goldLeafMat);
+        pearl.position.set(Math.cos(a) * 1.22, 2.28, Math.sin(a) * 1.22);
+        crownRosettes.add(pearl);
       }
-      return ring;
     }
-
-    const baseRosettes = createOptimizedRosetteRing(2.00, 0.13, 28, 1.05, true);
-    cakeGroup.add(baseRosettes);
-
-    const seamRosettes = createOptimizedRosetteRing(1.36, 1.25, 22, 0.90, true);
-    cakeGroup.add(seamRosettes);
-
-    const crownRosettes = createOptimizedRosetteRing(1.24, 2.21, 16, 0.85, false);
     cakeGroup.add(crownRosettes);
 
     // =========================================================================
-    // 5. NATURAL FRUIT CROWN (HIGH-EFFICIENCY REUSED GEOMETRIES)
+    // 4. TOP CROWN: CHOCOLATE TRUFFLE NUTS, FRESH STRAWBERRIES & ROASTED HAZELNUTS
     // =========================================================================
-    // Shared Strawberry Lathe Geometry
     const strawberryPoints = [
       new THREE.Vector2(0.00, 0.00),
       new THREE.Vector2(0.04, 0.04),
@@ -915,11 +964,9 @@
       if (!isSliced) {
         const body = new THREE.Mesh(wholeStrawberryGeo, strawberryMat);
         group.add(body);
-
         const calyx = new THREE.Mesh(starCalyxGeo, calyxLeafMat);
         calyx.position.y = 0.37;
         group.add(calyx);
-
         const stem = new THREE.Mesh(stemGeo, calyxLeafMat);
         stem.position.y = 0.40;
         stem.rotation.z = 0.12;
@@ -933,40 +980,63 @@
       return group;
     }
 
-    // High-performance blackberry & blueberry geometries
-    const blackberryGeo = new THREE.DodecahedronGeometry(0.052, 1);
     const blueberryGeo = new THREE.SphereGeometry(0.045, 8, 8);
     const curlGeo = new THREE.TorusGeometry(0.045, 0.012, 6, 12, Math.PI * 1.35);
+    const wholeHazelnutGeo = new THREE.SphereGeometry(0.055, 10, 10);
+    wholeHazelnutGeo.scale(1.0, 1.15, 0.95);
 
-    const fruitPlacements = [
-      { angle: 0.05, rad: 1.04, rotY: 0.3, rotZ: 0.22, scale: 0.95, sliced: false },
-      { angle: 0.55, rad: 1.00, rotY: 0.8, rotZ: 0.15, scale: 0.88, sliced: true },
-      { angle: 1.10, rad: 1.05, rotY: 1.5, rotZ: -0.20, scale: 0.92, sliced: false },
-      { angle: 1.68, rad: 0.98, rotY: 2.2, rotZ: 0.18, scale: 0.90, sliced: false },
-      { angle: 2.25, rad: 1.04, rotY: 2.7, rotZ: -0.24, scale: 0.88, sliced: true },
-      { angle: 2.85, rad: 1.02, rotY: 3.3, rotZ: 0.20, scale: 0.94, sliced: false },
-      { angle: 3.48, rad: 0.98, rotY: 3.9, rotZ: -0.18, scale: 0.90, sliced: false },
-      { angle: 4.10, rad: 1.04, rotY: 4.5, rotZ: 0.24, scale: 0.92, sliced: true },
-      { angle: 4.75, rad: 1.00, rotY: 5.2, rotZ: -0.22, scale: 0.95, sliced: false },
-      { angle: 5.40, rad: 1.03, rotY: 5.8, rotZ: 0.16, scale: 0.90, sliced: false }
+    // Garnish top perimeter: Strawberries + Ferrero Chocolate Truffles with crushed nuts
+    const topGarnish = [
+      { angle: 0.10, rad: 1.04, rotY: 0.3, rotZ: 0.20, type: 'strawberry', sliced: false },
+      { angle: 0.65, rad: 0.98, rotY: 0.8, rotZ: 0.12, type: 'truffle' },
+      { angle: 1.20, rad: 1.05, rotY: 1.5, rotZ: -0.18, type: 'strawberry', sliced: true },
+      { angle: 1.78, rad: 0.98, rotY: 2.2, rotZ: 0.15, type: 'hazelnut' },
+      { angle: 2.35, rad: 1.04, rotY: 2.7, rotZ: -0.22, type: 'strawberry', sliced: false },
+      { angle: 2.95, rad: 1.00, rotY: 3.3, rotZ: 0.18, type: 'truffle' },
+      { angle: 3.55, rad: 0.98, rotY: 3.9, rotZ: -0.15, type: 'strawberry', sliced: true },
+      { angle: 4.15, rad: 1.04, rotY: 4.5, rotZ: 0.22, type: 'hazelnut' },
+      { angle: 4.80, rad: 1.00, rotY: 5.2, rotZ: -0.20, type: 'strawberry', sliced: false },
+      { angle: 5.45, rad: 1.02, rotY: 5.8, rotZ: 0.14, type: 'truffle' }
     ];
 
-    fruitPlacements.forEach(p => {
-      const sb = createEfficientStrawberry(p.sliced);
-      sb.scale.set(p.scale, p.scale, p.scale);
-      sb.position.set(Math.cos(p.angle) * p.rad, 2.21, Math.sin(p.angle) * p.rad);
-      sb.rotation.y = p.rotY;
-      sb.rotation.z = p.rotZ;
-      cakeGroup.add(sb);
+    topGarnish.forEach(p => {
+      if (p.type === 'strawberry') {
+        const sb = createEfficientStrawberry(p.sliced);
+        sb.position.set(Math.cos(p.angle) * p.rad, 2.21, Math.sin(p.angle) * p.rad);
+        sb.rotation.y = p.rotY;
+        sb.rotation.z = p.rotZ;
+        cakeGroup.add(sb);
+      } else if (p.type === 'truffle') {
+        // Ferrero-style chocolate truffle with nut coating
+        const truffle = new THREE.Mesh(wholeHazelnutGeo, truffleMat);
+        truffle.position.set(Math.cos(p.angle) * p.rad, 2.25, Math.sin(p.angle) * p.rad);
+        cakeGroup.add(truffle);
 
-      const bb = new THREE.Mesh(blackberryGeo, blackberryMat);
-      bb.position.set(Math.cos(p.angle + 0.26) * (p.rad + 0.03), 2.22, Math.sin(p.angle + 0.26) * (p.rad + 0.03));
-      cakeGroup.add(bb);
+        // Crushed nuts on truffle
+        for (let k = 0; k < 4; k++) {
+          const nutBit = new THREE.Mesh(nutChunkGeo, nutGoldMat);
+          nutBit.scale.set(0.35, 0.35, 0.35);
+          nutBit.position.set(
+            Math.cos(p.angle) * p.rad + (Math.sin(k * 1.5) * 0.045),
+            2.25 + (Math.cos(k * 1.8) * 0.04),
+            Math.sin(p.angle) * p.rad + (Math.sin(k * 2.2) * 0.045)
+          );
+          cakeGroup.add(nutBit);
+        }
+      } else if (p.type === 'hazelnut') {
+        // Whole golden roasted hazelnut
+        const hazelnut = new THREE.Mesh(wholeHazelnutGeo, nutGoldMat);
+        hazelnut.position.set(Math.cos(p.angle) * p.rad, 2.24, Math.sin(p.angle) * p.rad);
+        hazelnut.rotation.set(0.3, p.angle, 0.2);
+        cakeGroup.add(hazelnut);
+      }
 
+      // Blueberry nestled inward
       const bl = new THREE.Mesh(blueberryGeo, blueberryMat);
-      bl.position.set(Math.cos(p.angle - 0.18) * (p.rad - 0.16), 2.23, Math.sin(p.angle - 0.18) * (p.rad - 0.16));
+      bl.position.set(Math.cos(p.angle - 0.16) * (p.rad - 0.18), 2.23, Math.sin(p.angle - 0.16) * (p.rad - 0.18));
       cakeGroup.add(bl);
 
+      // Chocolate curl
       const curl = new THREE.Mesh(curlGeo, ganacheMat);
       curl.position.set(Math.cos(p.angle + 0.12) * (p.rad - 0.22), 2.23, Math.sin(p.angle + 0.12) * (p.rad - 0.22));
       curl.rotation.x = Math.PI / 2;
@@ -974,8 +1044,19 @@
       cakeGroup.add(curl);
     });
 
+    // Scattered chopped nut granules on top glaze
+    for (let i = 0; i < 18; i++) {
+      const na = (i / 18) * Math.PI * 2 + 0.2;
+      const nr = 0.55 + ((i * 7) % 10) * 0.055;
+      const nutNib = new THREE.Mesh(nutChunkGeo, (i % 2 === 0) ? nutGoldMat : nutDeepMat);
+      nutNib.scale.set(0.4, 0.25, 0.35);
+      nutNib.position.set(Math.cos(na) * nr, 2.22, Math.sin(na) * nr);
+      nutNib.rotation.set(i * 0.8, i * 0.5, i * 0.3);
+      cakeGroup.add(nutNib);
+    }
+
     // =========================================================================
-    // 6. SCULPTED 3D METALLIC GOLDEN "25" BIRTHDAY CANDLES
+    // 5. SCULPTED 3D METALLIC GOLDEN "25" BIRTHDAY CANDLES (FRONT-FACING)
     // =========================================================================
     function buildArtisanalCandleNumeral(points, offsetX) {
       const curve = new THREE.CatmullRomCurve3(
@@ -987,7 +1068,7 @@
       return mesh;
     }
 
-    // Numeral "2"
+    // Numeral "2" - perfectly aligned in front plane
     buildArtisanalCandleNumeral(
       [
         [-0.24, 2.80, 0],
@@ -1000,7 +1081,7 @@
       -0.34
     );
 
-    // Numeral "5"
+    // Numeral "5" - perfectly aligned in front plane
     buildArtisanalCandleNumeral(
       [
         [0.22, 3.06, 0],
@@ -1065,6 +1146,85 @@
 
       cakeGroup.add(flamePivot);
       flames.push(flamePivot);
+    });
+
+    // =========================================================================
+    // 6. MAGICAL WARM BACKGROUND LIGHTS (FAIRY LIGHT GARLANDS & GLOWING BOKEH)
+    // =========================================================================
+    const bgLightsGroup = new THREE.Group();
+    scene.add(bgLightsGroup);
+
+    // 1) Glowing Warm Bokeh Light Orbs floating in background
+    const bokehPlaneGeo = new THREE.PlaneGeometry(1, 1);
+    const bokehMat = new THREE.MeshBasicMaterial({
+      map: bokehTexture,
+      transparent: true,
+      opacity: 0.72,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      side: THREE.DoubleSide
+    });
+
+    const bokehOrbs = [];
+    const orbCount = 38;
+    for (let i = 0; i < orbCount; i++) {
+      const orb = new THREE.Mesh(bokehPlaneGeo, bokehMat);
+      const scale = 0.35 + Math.random() * 0.85;
+      orb.scale.set(scale, scale, scale);
+
+      orb.position.set(
+        (Math.random() - 0.5) * 16,
+        0.5 + Math.random() * 6.5,
+        -2.5 - Math.random() * 7.0
+      );
+
+      orb.userData = {
+        baseY: orb.position.y,
+        speed: 0.6 + Math.random() * 0.8,
+        phase: Math.random() * Math.PI * 2,
+        baseScale: scale,
+        pulseSpeed: 1.2 + Math.random() * 1.5
+      };
+
+      bgLightsGroup.add(orb);
+      bokehOrbs.push(orb);
+    }
+
+    // 2) Cascading Swags of Hanging Fairy Light Bulbs across background
+    const fairyBulbGeo = new THREE.SphereGeometry(0.065, 8, 8);
+    const fairyBulbMat = new THREE.MeshBasicMaterial({
+      color: 0xffe277,
+      transparent: true,
+      opacity: 0.95
+    });
+
+    const fairyBulbs = [];
+    const garlandConfigs = [
+      { yStart: 5.8, yDip: 4.2, z: -3.8, bulbs: 14 },
+      { yStart: 4.8, yDip: 3.4, z: -4.8, bulbs: 16 },
+      { yStart: 3.6, yDip: 2.3, z: -5.8, bulbs: 14 }
+    ];
+
+    garlandConfigs.forEach((cfg) => {
+      for (let b = 0; b < cfg.bulbs; b++) {
+        const frac = b / (cfg.bulbs - 1);
+        const x = -7.0 + frac * 14.0;
+        const y = cfg.yStart - Math.sin(frac * Math.PI) * (cfg.yStart - cfg.yDip);
+        const bulb = new THREE.Mesh(fairyBulbGeo, fairyBulbMat);
+        bulb.position.set(x, y, cfg.z);
+        bulb.userData = {
+          phase: b * 0.4 + cfg.z,
+          twinkleSpeed: 2.0 + Math.random() * 1.5
+        };
+
+        const halo = new THREE.Mesh(bokehPlaneGeo, bokehMat);
+        halo.scale.set(0.35, 0.35, 0.35);
+        halo.position.set(x, y, cfg.z + 0.02);
+        bgLightsGroup.add(halo);
+
+        bgLightsGroup.add(bulb);
+        fairyBulbs.push(bulb);
+      }
     });
 
     // =========================================================================
@@ -1261,7 +1421,7 @@
     window.addEventListener('resize', () => {
       const mobile = window.innerWidth < 768;
       camera.aspect = window.innerWidth / window.innerHeight;
-      camera.position.z = mobile ? 9.2 : 8.1; camera.position.y = mobile ? 3.1 : 2.75;
+      camera.position.z = mobile ? 8.4 : 7.2; camera.position.y = mobile ? 2.85 : 2.55;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
@@ -1294,9 +1454,30 @@
         }
       }
 
-      // Gentle cake pedestal rotation
-      if (!isDragging) targetRotY += 0.0025;
+      // Front-view stabilized rotation: stays proudly front-facing with gentle organic sway
+      if (!isDragging) {
+        targetRotY = Math.sin(t * 0.5) * 0.06;
+      }
       cakeGroup.rotation.y += (targetRotY - cakeGroup.rotation.y) * 0.08;
+
+      // Animate magical background bokeh orbs
+      if (typeof bokehOrbs !== 'undefined') {
+        for (let i = 0; i < bokehOrbs.length; i++) {
+          const orb = bokehOrbs[i];
+          orb.position.y = orb.userData.baseY + Math.sin(t * orb.userData.speed + orb.userData.phase) * 0.22;
+          const pulse = 1.0 + Math.sin(t * orb.userData.pulseSpeed + orb.userData.phase) * 0.14;
+          orb.scale.set(orb.userData.baseScale * pulse, orb.userData.baseScale * pulse, 1);
+        }
+      }
+
+      // Animate twinkling background fairy bulbs
+      if (typeof fairyBulbs !== 'undefined') {
+        for (let i = 0; i < fairyBulbs.length; i++) {
+          const bulb = fairyBulbs[i];
+          const twinkle = 0.85 + Math.sin(t * bulb.userData.twinkleSpeed + bulb.userData.phase) * 0.18;
+          bulb.scale.set(twinkle, twinkle, twinkle);
+        }
+      }
 
       // Animate 3D Candle Flames
       flames.forEach((flame, idx) => {
