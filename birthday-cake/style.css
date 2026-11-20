@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% 40%, #382515, #090707 80%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: Georgia, serif;
+}
+
+.birthday-scene {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+h1 {
+    color: #ffe5a0;
+    font-size: clamp(25px, 5vw, 44px);
+    text-align: center;
+    text-shadow: 0 0 20px #d99b24;
+    z-index: 2;
+}
+
+.subtitle {
+    color: #f4d6cf;
+    margin-top: 12px;
+    letter-spacing: 3px;
+    font-size: 13px;
+}
+
+.cake-container {
+    width: min(90vw, 650px);
+    margin-top: 15px;
+    z-index: 2;
+    animation: appear 2s ease;
+}
+
+.cake-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 15px 30px #000);
+    border-radius: 20px;
+}
+
+.wish {
+    color: #ffe4a5;
+    font-size: 17px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 5px;
+    z-index: 2;
+}
+
+.glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: #e4a32a;
+    filter: blur(160px);
+    opacity: 0.13;
+    border-radius: 50%;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
